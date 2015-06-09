@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 09, 2015 at 09:52 PM
+-- Generation Time: Jun 09, 2015 at 10:52 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -69,7 +69,8 @@ CREATE TABLE IF NOT EXISTS `conveners` (
   `mobile` varchar(15) NOT NULL,
   `image-url` text NOT NULL,
   `details` text NOT NULL,
-  PRIMARY KEY (`convener_id`)
+  PRIMARY KEY (`convener_id`),
+  KEY `member_id` (`member_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -79,9 +80,15 @@ CREATE TABLE IF NOT EXISTS `conveners` (
 --
 
 CREATE TABLE IF NOT EXISTS `event-tables` (
+  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Entry Id for table',
   `event_id` int(11) NOT NULL,
-  `table_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `table_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `event_id` (`event_id`),
+  KEY `table_id` (`table_id`),
+  KEY `table_id_2` (`table_id`),
+  KEY `table_id_3` (`table_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -99,12 +106,13 @@ CREATE TABLE IF NOT EXISTS `events` (
   `event_time` time NOT NULL,
   `event_venue` text NOT NULL,
   `created_on` date NOT NULL,
-  `member_id` int(11) NOT NULL,
+  `member_id` int(11) NOT NULL COMMENT 'created_by',
   `family` tinyint(1) NOT NULL COMMENT '0 - family-no, 1- family-yes',
   `big_url` text NOT NULL,
   `thumb_url` text NOT NULL,
   `status` tinyint(4) NOT NULL COMMENT '-1-rejected, 0-pending, 1-approved',
-  PRIMARY KEY (`event_id`)
+  PRIMARY KEY (`event_id`),
+  KEY `member_id` (`member_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='event table' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -136,7 +144,8 @@ CREATE TABLE IF NOT EXISTS `gallery` (
   `thumb_url` text NOT NULL,
   `submit_date` date NOT NULL,
   `image_desc` text NOT NULL,
-  PRIMARY KEY (`image_id`)
+  PRIMARY KEY (`image_id`),
+  KEY `member_id` (`member_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Image Gallery' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -199,7 +208,9 @@ CREATE TABLE IF NOT EXISTS `members_info` (
   `zip` varchar(15) NOT NULL,
   `blood_group` varchar(8) NOT NULL,
   `business_areas` text NOT NULL,
-  UNIQUE KEY `member_id` (`member_id`)
+  PRIMARY KEY (`member_id`),
+  UNIQUE KEY `member_id` (`member_id`),
+  KEY `member_id_2` (`member_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Members Info';
 
 -- --------------------------------------------------------
@@ -210,6 +221,7 @@ CREATE TABLE IF NOT EXISTS `members_info` (
 
 CREATE TABLE IF NOT EXISTS `news` (
   `news_id` int(10) NOT NULL AUTO_INCREMENT,
+  `member_id` int(10) NOT NULL COMMENT 'created_by',
   `headline` text NOT NULL,
   `big_url` text NOT NULL,
   `thumb_url` text NOT NULL,
@@ -220,7 +232,8 @@ CREATE TABLE IF NOT EXISTS `news` (
   `publish_date` date NOT NULL,
   `broadcast` tinyint(1) NOT NULL COMMENT '0-failed, 1-broadcasted',
   `image_date` date NOT NULL COMMENT 'image taken on',
-  PRIMARY KEY (`news_id`)
+  PRIMARY KEY (`news_id`),
+  KEY `member_id` (`member_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -230,9 +243,13 @@ CREATE TABLE IF NOT EXISTS `news` (
 --
 
 CREATE TABLE IF NOT EXISTS `news-tables` (
+  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Entry Id for table',
   `news_id` int(11) NOT NULL,
-  `table_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `table_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `news_id` (`news_id`),
+  KEY `table_id` (`table_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -253,6 +270,54 @@ CREATE TABLE IF NOT EXISTS `tables` (
   PRIMARY KEY (`table_id`),
   UNIQUE KEY `table_code` (`table_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Table Information Under Round Table Nepal' AUTO_INCREMENT=1 ;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `conveners`
+--
+ALTER TABLE `conveners`
+  ADD CONSTRAINT `conveners_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `members` (`member_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `event-tables`
+--
+ALTER TABLE `event-tables`
+  ADD CONSTRAINT `event-tables_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`event_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `event-tables_ibfk_2` FOREIGN KEY (`table_id`) REFERENCES `tables` (`table_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `events`
+--
+ALTER TABLE `events`
+  ADD CONSTRAINT `events_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `members` (`member_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `gallery`
+--
+ALTER TABLE `gallery`
+  ADD CONSTRAINT `gallery_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `members` (`member_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `members_info`
+--
+ALTER TABLE `members_info`
+  ADD CONSTRAINT `members_info_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `members` (`member_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `news`
+--
+ALTER TABLE `news`
+  ADD CONSTRAINT `news_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `members` (`member_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `news-tables`
+--
+ALTER TABLE `news-tables`
+  ADD CONSTRAINT `news-tables_ibfk_1` FOREIGN KEY (`news_id`) REFERENCES `news` (`news_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `news-tables_ibfk_2` FOREIGN KEY (`table_id`) REFERENCES `tables` (`table_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -114,7 +114,9 @@ class Doctrine {
     $generator->setUpdateEntityIfExists(true);
     $generator->setGenerateStubMethods(true);
     $generator->setGenerateAnnotations(true);
-    //$generator->generate($metadata, APPPATH."models/Entities");
+    $generator->generate($metadata, APPPATH."models");
+     
+     // php cli-config.php orm:generate-proxies           -------- run this to generate proxies for generated entity classs
      
   }
 }

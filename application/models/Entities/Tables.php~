@@ -280,4 +280,3 @@ class Tables
         return $this->membersCount;
     }
 }
-

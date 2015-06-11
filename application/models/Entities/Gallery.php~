@@ -190,4 +190,3 @@ class Gallery
         return $this->member;
     }
 }
-

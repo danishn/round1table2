@@ -100,4 +100,3 @@ class NewsTables
         return $this->table;
     }
 }
-

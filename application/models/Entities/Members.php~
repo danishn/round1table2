@@ -373,4 +373,3 @@ class Members
         return $this->designation;
     }
 }
-

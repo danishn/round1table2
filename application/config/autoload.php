@@ -64,7 +64,7 @@ $autoload['libraries'] = array(
                                 'MY_Composer',
                                 'database',
                                 'doctrine',
-                                'auth'
+                                'auth_service'
                               );
 
 

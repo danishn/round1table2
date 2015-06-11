@@ -100,4 +100,3 @@ class EventTables
         return $this->table;
     }
 }
-

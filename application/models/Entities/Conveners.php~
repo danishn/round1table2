@@ -252,4 +252,3 @@ class Conveners
         return $this->member;
     }
 }
-

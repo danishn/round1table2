@@ -376,4 +376,3 @@ class News
         return $this->member;
     }
 }
-

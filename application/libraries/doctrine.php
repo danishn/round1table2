@@ -88,7 +88,9 @@ class Doctrine {
  
     // Create EntityManager
     $this->em = EntityManager::create($connectionOptions, $config);   
- $this->generate_classes();
+    // Uncomment this whenever database schema change occure
+    // After this run on cmd ::  php cli-config.php orm:generate-proxies to generate/ update proxies.
+    $this->generate_classes();
      
   } 
     

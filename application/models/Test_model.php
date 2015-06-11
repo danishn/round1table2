@@ -31,7 +31,7 @@ class Test_model extends CI_Model {
 
         public function getAll()
         {
-            $users = $this->doctrine->em->getRepository('Entities\Users')->find(1);;    
+            $users = $this->doctrine->em->getRepository('Entities\Members')->findAll();;    
             return $users;
         }
 

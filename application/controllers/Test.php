@@ -1,15 +1,12 @@
 <?php
 //comment1
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Test extends CI_Controller {
 
-    /*public function _remap($method, $params = array())
-    {
-        echo "Inside remap method";
-        var_dump($method);
-        var_dump($params);
-    }*/
+    
+
     
     public function index()
     {
@@ -32,15 +29,16 @@ class Test extends CI_Controller {
     
     public function getAll()
     {
-        echo "Getting Data from DB";
+        //echo "Getting Data from DB";
         
         
         
         $this->load->model('Test_model');
         //$this->load->database();
         $data = $this->Test_model->getAll();
-        
-        var_dump($data);
+        //$data1 = $serializer->serialize($data, 'json');
+        //var_dump($data);
+        echo json_encode($data);
     }
         
     public function addUser()

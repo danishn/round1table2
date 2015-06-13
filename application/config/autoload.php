@@ -63,8 +63,8 @@ $autoload['packages'] = array();
 $autoload['libraries'] = array(
                                 'MY_Composer',
                                 'database',
-                                'doctrine',
-                                'auth_service'
+                                'Doctrine',
+                                'Auth_service'
                               );
 
 

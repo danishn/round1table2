@@ -158,4 +158,35 @@ class NotificationIds
     {
         return $this->member;
     }
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="os", type="string", length=20, nullable=false)
+     */
+    private $os;
+
+
+    /**
+     * Set os
+     *
+     * @param string $os
+     *
+     * @return NotificationIds
+     */
+    public function setOs($os)
+    {
+        $this->os = $os;
+
+        return $this;
+    }
+
+    /**
+     * Get os
+     *
+     * @return string
+     */
+    public function getOs()
+    {
+        return $this->os;
+    }
 }

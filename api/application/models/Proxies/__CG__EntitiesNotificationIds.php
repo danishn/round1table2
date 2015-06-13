@@ -64,10 +64,10 @@ class NotificationIds extends \Entities\NotificationIds implements \Doctrine\ORM
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'id', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'memberId', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'type', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'notificationId', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'member');
+            return array('__isInitialized__', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'id', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'memberId', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'type', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'notificationId', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'member', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'os');
         }
 
-        return array('__isInitialized__', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'id', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'memberId', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'type', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'notificationId', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'member');
+        return array('__isInitialized__', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'id', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'memberId', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'type', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'notificationId', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'member', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'os');
     }
 
     /**
@@ -274,6 +274,28 @@ class NotificationIds extends \Entities\NotificationIds implements \Doctrine\ORM
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getMember', array());
 
         return parent::getMember();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setOs($os)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setOs', array($os));
+
+        return parent::setOs($os);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getOs()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getOs', array());
+
+        return parent::getOs();
     }
 
 }

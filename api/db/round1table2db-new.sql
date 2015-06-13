@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 13, 2015 at 10:45 AM
+-- Generation Time: Jun 13, 2015 at 08:48 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -282,7 +282,7 @@ CREATE TABLE IF NOT EXISTS `news-tables` (
 CREATE TABLE IF NOT EXISTS `notification-ids` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `member_id` int(10) NOT NULL,
-  `type` varchar(20) NOT NULL,
+  `os` varchar(20) NOT NULL COMMENT 'gcm/apn',
   `notification_id` varchar(250) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `notification_id` (`notification_id`),

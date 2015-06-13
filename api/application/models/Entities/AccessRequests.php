@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * AccessRequests
  *
- * @ORM\Table(name="access-requests")
+ * @ORM\Table(name="access_requests")
  * @ORM\Entity
  */
 class AccessRequests

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * NotificationIds
  *
- * @ORM\Table(name="notification-ids", uniqueConstraints={@ORM\UniqueConstraint(name="notification_id", columns={"notification_id"})}, indexes={@ORM\Index(name="member_id", columns={"member_id"})})
+ * @ORM\Table(name="notification_ids", uniqueConstraints={@ORM\UniqueConstraint(name="notification_id", columns={"token"})}, indexes={@ORM\Index(name="member_id", columns={"member_id"}), @ORM\Index(name="member_id_2", columns={"member_id"})})
  * @ORM\Entity
  */
 class NotificationIds
@@ -31,9 +31,9 @@ class NotificationIds
     /**
      * @var string
      *
-     * @ORM\Column(name="notification_id", type="string", length=250, nullable=false)
+     * @ORM\Column(name="token", type="string", length=250, nullable=false)
      */
-    private $notificationId;
+    private $token;
 
     /**
      * @var \Entities\Members
@@ -81,27 +81,27 @@ class NotificationIds
     }
 
     /**
-     * Set notificationId
+     * Set token
      *
-     * @param string $notificationId
+     * @param string $token
      *
      * @return NotificationIds
      */
-    public function setNotificationId($notificationId)
+    public function setToken($token)
     {
-        $this->notificationId = $notificationId;
+        $this->token = $token;
 
         return $this;
     }
 
     /**
-     * Get notificationId
+     * Get token
      *
      * @return string
      */
-    public function getNotificationId()
+    public function getToken()
     {
-        return $this->notificationId;
+        return $this->token;
     }
 
     /**

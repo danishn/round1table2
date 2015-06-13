@@ -71,6 +71,25 @@ class AuthController extends CI_Controller {
             //echo $member_id;
             $client_id = $this->member->register($member_id, $os, $token);
             
+            if(strpos($client_id, 'error') !== false)
+            {
+                $response->setSuccess('false');
+                $response->setdata(null);
+                $response->setError(array(
+                        'code'=>402,
+                        'msg' =>$client_id
+                    ));
+                $response->respond();
+                exit;
+            }else
+            {
+                $response->setSuccess('true');
+                $response->setdata(array('client_id'=>$client_id));
+                $response->setError(null);
+                
+                $response->respond();
+            }
+            
         }else
         {
             $response->setSuccess('false');

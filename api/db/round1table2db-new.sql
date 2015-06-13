@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 13, 2015 at 10:30 PM
+-- Generation Time: Jun 13, 2015 at 11:59 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -23,10 +23,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `access-requests`
+-- Table structure for table `access_requests`
 --
 
-CREATE TABLE IF NOT EXISTS `access-requests` (
+CREATE TABLE IF NOT EXISTS `access_requests` (
   `request_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
@@ -57,10 +57,10 @@ CREATE TABLE IF NOT EXISTS `admin` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `api-access`
+-- Table structure for table `api_access`
 --
 
-CREATE TABLE IF NOT EXISTS `api-access` (
+CREATE TABLE IF NOT EXISTS `api_access` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `member_id` int(10) NOT NULL,
   `date` datetime NOT NULL,
@@ -90,23 +90,6 @@ CREATE TABLE IF NOT EXISTS `conveners` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `event-tables`
---
-
-CREATE TABLE IF NOT EXISTS `event-tables` (
-  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Entry Id for table',
-  `event_id` int(11) NOT NULL,
-  `table_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `event_id` (`event_id`),
-  KEY `table_id` (`table_id`),
-  KEY `table_id_2` (`table_id`),
-  KEY `table_id_3` (`table_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `events`
 --
 
@@ -128,6 +111,23 @@ CREATE TABLE IF NOT EXISTS `events` (
   PRIMARY KEY (`event_id`),
   KEY `member_id` (`member_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='event table' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `event_tables`
+--
+
+CREATE TABLE IF NOT EXISTS `event_tables` (
+  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Entry Id for table',
+  `event_id` int(11) NOT NULL,
+  `table_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `event_id` (`event_id`),
+  KEY `table_id` (`table_id`),
+  KEY `table_id_2` (`table_id`),
+  KEY `table_id_3` (`table_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -189,7 +189,7 @@ CREATE TABLE IF NOT EXISTS `members` (
 --
 
 INSERT INTO `members` (`member_id`, `table_id`, `password`, `registration_date`, `last_visit_date`, `member_type`, `status`, `email`, `client_id`, `otp`, `designation`) VALUES
-(1, 1, '123', '2015-06-11', '0000-00-00 00:00:00', 0, 1, 'demo@demo.com', '', '123', ''),
+(1, 1, '123', '2015-06-11', '0000-00-00 00:00:00', 0, 1, 'demo@demo.com', 'a1b2c3', '123', ''),
 (2, 2, '123', '2015-06-11', '0000-00-00 00:00:00', 0, 1, 'demo1@demo.com', '', '123', '');
 
 -- --------------------------------------------------------
@@ -275,18 +275,28 @@ CREATE TABLE IF NOT EXISTS `news-tables` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `notification-ids`
+-- Table structure for table `notification_ids`
 --
 
-CREATE TABLE IF NOT EXISTS `notification-ids` (
+CREATE TABLE IF NOT EXISTS `notification_ids` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `member_id` int(10) NOT NULL,
   `os` varchar(20) NOT NULL COMMENT 'gcm/apn',
-  `notification_id` varchar(250) NOT NULL,
+  `token` varchar(250) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `notification_id` (`notification_id`),
-  KEY `member_id` (`member_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  UNIQUE KEY `notification_id` (`token`),
+  KEY `member_id` (`member_id`),
+  KEY `member_id_2` (`member_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `notification_ids`
+--
+
+INSERT INTO `notification_ids` (`id`, `member_id`, `os`, `token`) VALUES
+(1, 1, 'gcm', '12323'),
+(3, 1, 'gcm', '123'),
+(5, 1, 'gcm', '1233');
 
 -- --------------------------------------------------------
 
@@ -322,10 +332,10 @@ INSERT INTO `tables` (`table_id`, `table_name`, `table_code`, `description`, `cr
 --
 
 --
--- Constraints for table `api-access`
+-- Constraints for table `api_access`
 --
-ALTER TABLE `api-access`
-  ADD CONSTRAINT `api-access_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `members` (`member_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `api_access`
+  ADD CONSTRAINT `api_access_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `members` (`member_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `conveners`
@@ -334,17 +344,17 @@ ALTER TABLE `conveners`
   ADD CONSTRAINT `conveners_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `members` (`member_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
--- Constraints for table `event-tables`
---
-ALTER TABLE `event-tables`
-  ADD CONSTRAINT `event-tables_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`event_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `event-tables_ibfk_2` FOREIGN KEY (`table_id`) REFERENCES `tables` (`table_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `events`
 --
 ALTER TABLE `events`
   ADD CONSTRAINT `events_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `members` (`member_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `event_tables`
+--
+ALTER TABLE `event_tables`
+  ADD CONSTRAINT `event_tables_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`event_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `event_tables_ibfk_2` FOREIGN KEY (`table_id`) REFERENCES `tables` (`table_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `gallery`
@@ -372,10 +382,10 @@ ALTER TABLE `news-tables`
   ADD CONSTRAINT `news-tables_ibfk_2` FOREIGN KEY (`table_id`) REFERENCES `tables` (`table_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `notification-ids`
+-- Constraints for table `notification_ids`
 --
-ALTER TABLE `notification-ids`
-  ADD CONSTRAINT `notification-ids_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `members` (`member_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `notification_ids`
+  ADD CONSTRAINT `notification_ids_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `members` (`member_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

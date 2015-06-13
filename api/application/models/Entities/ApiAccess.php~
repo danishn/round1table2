@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ApiAccess
  *
- * @ORM\Table(name="api-access", indexes={@ORM\Index(name="member_id", columns={"member_id"})})
+ * @ORM\Table(name="api_access", indexes={@ORM\Index(name="member_id", columns={"member_id"})})
  * @ORM\Entity
  */
 class ApiAccess

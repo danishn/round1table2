@@ -17,7 +17,7 @@ class Member_model extends CI_Model {
 
         public function authenticate($email = '', $otp = '')
         {
-              $user = $this->doctrine->em->getRepository('Entities\Members')->findOneBy(array('email'=>$email));  
+              $user = $this->em->getRepository('Entities\Members')->findOneBy(array('email'=>$email));  
             if($user)
             {
                 if($otp == $user->getOtp())
@@ -36,6 +36,34 @@ class Member_model extends CI_Model {
     
     public function register($member_id = '', $os = '', $token = '')
         {  
+            /*Client Id will be generated while member registration*/
+            //$client_id = mb_strimwidth(md5(time()), 0, 20);
+            //$client_id = 'a1b2c3';
+            //echo $client_id;
+        
+            $notification = new Entities\NotificationIds;
+            $member = $this->em->find('Entities\Members', $member_id);
+            if(!is_null($member))
+            {
+                $notification->setOs($os);
+                $notification->setToken($token);
+                $notification->setMember($member);
+                
+                try
+                {
+                    $this->em->persist($notification);
+                    $this->em->flush();
+                }catch(Exception $e)
+                {
+                    return 'error:Invalid token provided';
+                }
+
+                return $member->getClientId();
+            }else
+            {
+                return 'error: member does not exists';
+            }
+        
             
         }
 

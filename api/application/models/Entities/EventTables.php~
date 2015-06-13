@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * EventTables
  *
- * @ORM\Table(name="event-tables", indexes={@ORM\Index(name="event_id", columns={"event_id"}), @ORM\Index(name="table_id", columns={"table_id"}), @ORM\Index(name="table_id_2", columns={"table_id"}), @ORM\Index(name="table_id_3", columns={"table_id"})})
+ * @ORM\Table(name="event_tables", indexes={@ORM\Index(name="event_id", columns={"event_id"}), @ORM\Index(name="table_id", columns={"table_id"}), @ORM\Index(name="table_id_2", columns={"table_id"}), @ORM\Index(name="table_id_3", columns={"table_id"})})
  * @ORM\Entity
  */
 class EventTables

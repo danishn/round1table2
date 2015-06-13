@@ -64,10 +64,10 @@ class NotificationIds extends \Entities\NotificationIds implements \Doctrine\ORM
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'id', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'os', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'notificationId', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'member');
+            return array('__isInitialized__', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'id', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'os', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'token', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'member');
         }
 
-        return array('__isInitialized__', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'id', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'os', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'notificationId', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'member');
+        return array('__isInitialized__', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'id', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'os', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'token', '' . "\0" . 'Entities\\NotificationIds' . "\0" . 'member');
     }
 
     /**
@@ -213,23 +213,23 @@ class NotificationIds extends \Entities\NotificationIds implements \Doctrine\ORM
     /**
      * {@inheritDoc}
      */
-    public function setNotificationId($notificationId)
+    public function setToken($token)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNotificationId', array($notificationId));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setToken', array($token));
 
-        return parent::setNotificationId($notificationId);
+        return parent::setToken($token);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getNotificationId()
+    public function getToken()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNotificationId', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getToken', array());
 
-        return parent::getNotificationId();
+        return parent::getToken();
     }
 
     /**

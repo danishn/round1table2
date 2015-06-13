@@ -22,18 +22,11 @@ class NotificationIds
     private $id;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="member_id", type="integer", nullable=false)
-     */
-    private $memberId;
-
-    /**
      * @var string
      *
-     * @ORM\Column(name="type", type="string", length=20, nullable=false)
+     * @ORM\Column(name="os", type="string", length=20, nullable=false)
      */
-    private $type;
+    private $os;
 
     /**
      * @var string
@@ -41,6 +34,16 @@ class NotificationIds
      * @ORM\Column(name="notification_id", type="string", length=250, nullable=false)
      */
     private $notificationId;
+
+    /**
+     * @var \Entities\Members
+     *
+     * @ORM\ManyToOne(targetEntity="Entities\Members")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="member_id", referencedColumnName="member_id")
+     * })
+     */
+    private $member;
 
 
     /**
@@ -54,51 +57,27 @@ class NotificationIds
     }
 
     /**
-     * Set memberId
+     * Set os
      *
-     * @param integer $memberId
+     * @param string $os
      *
      * @return NotificationIds
      */
-    public function setMemberId($memberId)
+    public function setOs($os)
     {
-        $this->memberId = $memberId;
+        $this->os = $os;
 
         return $this;
     }
 
     /**
-     * Get memberId
-     *
-     * @return integer
-     */
-    public function getMemberId()
-    {
-        return $this->memberId;
-    }
-
-    /**
-     * Set type
-     *
-     * @param string $type
-     *
-     * @return NotificationIds
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * Get type
+     * Get os
      *
      * @return string
      */
-    public function getType()
+    public function getOs()
     {
-        return $this->type;
+        return $this->os;
     }
 
     /**
@@ -124,16 +103,6 @@ class NotificationIds
     {
         return $this->notificationId;
     }
-    /**
-     * @var \Entities\Members
-     *
-     * @ORM\ManyToOne(targetEntity="Entities\Members")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="member_id", referencedColumnName="member_id")
-     * })
-     */
-    private $member;
-
 
     /**
      * Set member
@@ -157,36 +126,5 @@ class NotificationIds
     public function getMember()
     {
         return $this->member;
-    }
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="os", type="string", length=20, nullable=false)
-     */
-    private $os;
-
-
-    /**
-     * Set os
-     *
-     * @param string $os
-     *
-     * @return NotificationIds
-     */
-    public function setOs($os)
-    {
-        $this->os = $os;
-
-        return $this;
-    }
-
-    /**
-     * Get os
-     *
-     * @return string
-     */
-    public function getOs()
-    {
-        return $this->os;
     }
 }

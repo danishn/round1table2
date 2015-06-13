@@ -97,4 +97,3 @@ class ApiAccess
         return $this->member;
     }
 }
-

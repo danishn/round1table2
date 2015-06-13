@@ -30,7 +30,7 @@ class Test extends CI_Controller {
     {
         //echo "Getting Data from DB";
         $this->load->model('Test_model');
-        $this->auth->validate_request();
+        $this->auth_service->validate_request();
         $data = $this->Test_model->getAll();
         echo json_encode($data);
     }

@@ -15,10 +15,10 @@ class Member_model extends CI_Model {
         }
 
 
-        public function login($member_email = '', $member_otp = '')
+        public function login($email = '', $otp = '', $gcm_id = '' )
         {
             $users = $this->doctrine->em->getRepository('Entities\Members')->findAll();;    
-            return array("result"=>array('email'=>$member_email, 'otp'=>$member_otp));
+            return array("result"=>array('email'=>$email, 'otp'=>$otp));
         }
     
     public function get_otp($member_email = '')

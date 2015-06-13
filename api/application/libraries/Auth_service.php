@@ -9,14 +9,15 @@ class Auth_service {
   /**
    * @var EntityManager $em 
    */
-    //public $em = null;
+    public $valid_request = null;
  
   /**
    * constructor
    */
   public function __construct()
   {
-    // $this->validateRequest();
+    $this->valid_request = $this->validate_request();
+     
   } 
 
     
@@ -31,9 +32,10 @@ class Auth_service {
      if(isset($headers['api_key']) && $headers['api_key'] == '1234')
      {
         return true;
+     }else{
+        return false;
      }
-     
-     return false;
+    
  }
 
 }

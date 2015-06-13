@@ -1,0 +1,161 @@
+<?php
+
+namespace Entities;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * NotificationIds
+ *
+ * @ORM\Table(name="notification-ids", uniqueConstraints={@ORM\UniqueConstraint(name="notification_id", columns={"notification_id"})}, indexes={@ORM\Index(name="member_id", columns={"member_id"})})
+ * @ORM\Entity
+ */
+class NotificationIds
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="member_id", type="integer", nullable=false)
+     */
+    private $memberId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=20, nullable=false)
+     */
+    private $type;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="notification_id", type="string", length=250, nullable=false)
+     */
+    private $notificationId;
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set memberId
+     *
+     * @param integer $memberId
+     *
+     * @return NotificationIds
+     */
+    public function setMemberId($memberId)
+    {
+        $this->memberId = $memberId;
+
+        return $this;
+    }
+
+    /**
+     * Get memberId
+     *
+     * @return integer
+     */
+    public function getMemberId()
+    {
+        return $this->memberId;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     *
+     * @return NotificationIds
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set notificationId
+     *
+     * @param string $notificationId
+     *
+     * @return NotificationIds
+     */
+    public function setNotificationId($notificationId)
+    {
+        $this->notificationId = $notificationId;
+
+        return $this;
+    }
+
+    /**
+     * Get notificationId
+     *
+     * @return string
+     */
+    public function getNotificationId()
+    {
+        return $this->notificationId;
+    }
+    /**
+     * @var \Entities\Members
+     *
+     * @ORM\ManyToOne(targetEntity="Entities\Members")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="member_id", referencedColumnName="member_id")
+     * })
+     */
+    private $member;
+
+
+    /**
+     * Set member
+     *
+     * @param \Entities\Members $member
+     *
+     * @return NotificationIds
+     */
+    public function setMember(\Entities\Members $member = null)
+    {
+        $this->member = $member;
+
+        return $this;
+    }
+
+    /**
+     * Get member
+     *
+     * @return \Entities\Members
+     */
+    public function getMember()
+    {
+        return $this->member;
+    }
+}

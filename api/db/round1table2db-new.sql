@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 13, 2015 at 08:48 PM
+-- Generation Time: Jun 13, 2015 at 10:30 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -177,8 +177,7 @@ CREATE TABLE IF NOT EXISTS `members` (
   `member_type` int(11) NOT NULL COMMENT '0 - member 1- admin',
   `status` tinyint(1) NOT NULL COMMENT '0-active 1- inactive',
   `email` varchar(250) NOT NULL,
-  `gcm_id` text NOT NULL,
-  `apn_id` text NOT NULL,
+  `client_id` varchar(25) NOT NULL COMMENT 'client id for mobile apps',
   `otp` varchar(10) NOT NULL,
   `designation` varchar(250) NOT NULL,
   PRIMARY KEY (`member_id`),
@@ -189,9 +188,9 @@ CREATE TABLE IF NOT EXISTS `members` (
 -- Dumping data for table `members`
 --
 
-INSERT INTO `members` (`member_id`, `table_id`, `password`, `registration_date`, `last_visit_date`, `member_type`, `status`, `email`, `gcm_id`, `apn_id`, `otp`, `designation`) VALUES
-(1, 1, '123', '2015-06-11', '0000-00-00 00:00:00', 0, 1, 'demo@demo.com', '', '', '123', ''),
-(2, 2, '123', '2015-06-11', '0000-00-00 00:00:00', 0, 1, 'demo1@demo.com', '', '', '123', '');
+INSERT INTO `members` (`member_id`, `table_id`, `password`, `registration_date`, `last_visit_date`, `member_type`, `status`, `email`, `client_id`, `otp`, `designation`) VALUES
+(1, 1, '123', '2015-06-11', '0000-00-00 00:00:00', 0, 1, 'demo@demo.com', '', '123', ''),
+(2, 2, '123', '2015-06-11', '0000-00-00 00:00:00', 0, 1, 'demo1@demo.com', '', '123', '');
 
 -- --------------------------------------------------------
 

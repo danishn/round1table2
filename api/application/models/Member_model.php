@@ -15,11 +15,31 @@ class Member_model extends CI_Model {
         }
 
 
-        public function login($email = '', $otp = '', $gcm_id = '' )
+        public function authenticate($email = '', $otp = '')
         {
-            $users = $this->doctrine->em->getRepository('Entities\Members')->findAll();;    
-            return array("result"=>array('email'=>$email, 'otp'=>$otp));
+              $user = $this->doctrine->em->getRepository('Entities\Members')->findOneBy(array('email'=>$email));  
+            if($user)
+            {
+                if($otp == $user->getOtp())
+                {
+                    return $user->getMemberId();   
+                }else
+                {
+                    return 'error: OTP invalid';
+                }
+                //var_dump($user);exit;
+            }else
+            {
+                return 'error: Email not registered';
+            }
         }
+    
+    public function register($member_id = '', $os = '', $token = '')
+        {  
+            
+        }
+
+    
     
     public function get_otp($member_email = '')
         {  

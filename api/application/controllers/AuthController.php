@@ -12,7 +12,7 @@ class AuthController extends CI_Controller {
     
     public function index()
 	{
-        echo "Welcome to Round Table Application APIs";
+        echo "<h1>Welcome to Round Table Nepal Application APIs</h1>";
 	}
     
     
@@ -52,27 +52,38 @@ class AuthController extends CI_Controller {
         $this->load->model('Member_model', 'member');
         
        
-        if($this->input->post('user_agent') == 'gcm' && $this->input->post('gcm_id'))
-        {
-            $gcm_id = $this->input->post('gcm_id');
-            $result = $this->member->login($email, $otp, $gcm_id);
-        }elseif($this->input->post('user_agent') == 'apn' && $this->input->post('apn_id'))
-        {
-            $apn_id = $this->input->post('apn_id');
-            $result = $this->member->login($email, $otp, $apn_id);
+        if(($this->input->post('os') == 'gcm' || $this->input->post('os') == 'apn') && $this->input->post('token'))
+        {   
+            $os = $this->input->post('os');
+            $token = $this->input->post('token');
+            $member_id = $this->member->authenticate($email, $otp);
+            if(strpos($member_id, "error") !== false)
+            {
+                $response->setSuccess('false');
+                $response->setdata(null);
+                $response->setError(array(
+                        'code'=>402,
+                        'msg' =>$member_id
+                    ));
+                $response->respond();
+                exit;
+            }
+            //echo $member_id;
+            $client_id = $this->member->register($member_id, $os, $token);
+            
         }else
         {
             $response->setSuccess('false');
             $response->setdata(null);
             $response->setError(array(
                     'code'=>402,
-                    'msg' =>'user_agent/id not correctly specified'
+                    'msg' =>'os/token not correctly specified'
                 ));
             $response->respond();
             exit;
         }
             
-            echo json_encode($result);
+            //echo json_encode($result);
         
 		
 	}

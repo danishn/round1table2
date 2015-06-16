@@ -36,7 +36,7 @@ class Members extends \Entities\Members implements \Doctrine\ORM\Proxy\Proxy
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = array('tableId' => NULL, 'password' => NULL, 'registrationDate' => NULL, 'lastVisitDate' => NULL, 'memberType' => NULL, 'status' => NULL, 'email' => NULL, 'clientId' => NULL, 'otp' => NULL, 'designation' => NULL);
+    public static $lazyPropertiesDefaults = array();
 
 
 
@@ -46,60 +46,16 @@ class Members extends \Entities\Members implements \Doctrine\ORM\Proxy\Proxy
      */
     public function __construct($initializer = null, $cloner = null)
     {
-        unset($this->tableId, $this->password, $this->registrationDate, $this->lastVisitDate, $this->memberType, $this->status, $this->email, $this->clientId, $this->otp, $this->designation);
 
         $this->__initializer__ = $initializer;
         $this->__cloner__      = $cloner;
     }
 
-    /**
-     * 
-     * @param string $name
-     */
-    public function __get($name)
-    {
-        if (array_key_exists($name, $this->__getLazyProperties())) {
-            $this->__initializer__ && $this->__initializer__->__invoke($this, '__get', array($name));
 
-            return $this->$name;
-        }
 
-        trigger_error(sprintf('Undefined property: %s::$%s', __CLASS__, $name), E_USER_NOTICE);
-    }
 
-    /**
-     * 
-     * @param string $name
-     * @param mixed  $value
-     */
-    public function __set($name, $value)
-    {
-        if (array_key_exists($name, $this->__getLazyProperties())) {
-            $this->__initializer__ && $this->__initializer__->__invoke($this, '__set', array($name, $value));
 
-            $this->$name = $value;
 
-            return;
-        }
-
-        $this->$name = $value;
-    }
-
-    /**
-     * 
-     * @param  string $name
-     * @return boolean
-     */
-    public function __isset($name)
-    {
-        if (array_key_exists($name, $this->__getLazyProperties())) {
-            $this->__initializer__ && $this->__initializer__->__invoke($this, '__isset', array($name));
-
-            return isset($this->$name);
-        }
-
-        return false;
-    }
 
     /**
      * 
@@ -108,10 +64,10 @@ class Members extends \Entities\Members implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'memberId', 'tableId', 'password', 'registrationDate', 'lastVisitDate', 'memberType', 'status', 'email', 'clientId', 'otp', 'designation');
+            return array('__isInitialized__', '' . "\0" . 'Entities\\Members' . "\0" . 'memberId', '' . "\0" . 'Entities\\Members' . "\0" . 'tableId', '' . "\0" . 'Entities\\Members' . "\0" . 'password', '' . "\0" . 'Entities\\Members' . "\0" . 'registrationDate', '' . "\0" . 'Entities\\Members' . "\0" . 'lastVisitDate', '' . "\0" . 'Entities\\Members' . "\0" . 'memberType', '' . "\0" . 'Entities\\Members' . "\0" . 'status', '' . "\0" . 'Entities\\Members' . "\0" . 'email', '' . "\0" . 'Entities\\Members' . "\0" . 'clientId', '' . "\0" . 'Entities\\Members' . "\0" . 'otp', '' . "\0" . 'Entities\\Members' . "\0" . 'designation');
         }
 
-        return array('__isInitialized__', 'memberId');
+        return array('__isInitialized__', '' . "\0" . 'Entities\\Members' . "\0" . 'memberId', '' . "\0" . 'Entities\\Members' . "\0" . 'tableId', '' . "\0" . 'Entities\\Members' . "\0" . 'password', '' . "\0" . 'Entities\\Members' . "\0" . 'registrationDate', '' . "\0" . 'Entities\\Members' . "\0" . 'lastVisitDate', '' . "\0" . 'Entities\\Members' . "\0" . 'memberType', '' . "\0" . 'Entities\\Members' . "\0" . 'status', '' . "\0" . 'Entities\\Members' . "\0" . 'email', '' . "\0" . 'Entities\\Members' . "\0" . 'clientId', '' . "\0" . 'Entities\\Members' . "\0" . 'otp', '' . "\0" . 'Entities\\Members' . "\0" . 'designation');
     }
 
     /**
@@ -133,7 +89,6 @@ class Members extends \Entities\Members implements \Doctrine\ORM\Proxy\Proxy
                 }
             };
 
-            unset($this->tableId, $this->password, $this->registrationDate, $this->lastVisitDate, $this->memberType, $this->status, $this->email, $this->clientId, $this->otp, $this->designation);
         }
     }
 

@@ -19,77 +19,77 @@ class Members
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    public $memberId;
+    private $memberId;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="table_id", type="integer", nullable=false)
      */
-    public $tableId;
+    private $tableId;
 
     /**
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=250, nullable=false)
      */
-    public $password;
+    private $password;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="registration_date", type="date", nullable=false)
      */
-    public $registrationDate;
+    private $registrationDate;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="last_visit_date", type="datetime", nullable=false)
      */
-    public $lastVisitDate;
+    private $lastVisitDate;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="member_type", type="integer", nullable=false)
      */
-    public $memberType;
+    private $memberType;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="status", type="boolean", nullable=false)
      */
-    public $status;
+    private $status;
 
     /**
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=250, nullable=false)
      */
-    public $email;
+    private $email;
 
     /**
      * @var string
      *
      * @ORM\Column(name="client_id", type="string", length=25, nullable=false)
      */
-    public $clientId;
+    private $clientId;
 
     /**
      * @var string
      *
      * @ORM\Column(name="otp", type="string", length=10, nullable=false)
      */
-    public $otp;
+    private $otp;
 
     /**
      * @var string
      *
      * @ORM\Column(name="designation", type="string", length=250, nullable=false)
      */
-    public $designation;
+    private $designation;
 
 
     /**

@@ -62,7 +62,7 @@ class Member_model extends CI_Model {
                     $this->em->flush();
                 }catch(Exception $e)
                 {
-                    return 'error Invalid token provided';
+                    return 'error '.$e->getMessage();
                 }
 
                 return $member->getClientId();

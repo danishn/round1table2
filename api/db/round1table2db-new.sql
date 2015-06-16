@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 16, 2015 at 11:08 PM
+-- Generation Time: Jun 17, 2015 at 12:27 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -197,7 +197,7 @@ CREATE TABLE IF NOT EXISTS `members` (
 --
 
 INSERT INTO `members` (`member_id`, `table_id`, `password`, `registration_date`, `last_visit_date`, `member_type`, `status`, `email`, `client_id`, `otp`, `designation`) VALUES
-(1, 1, '123', '2015-06-11', '0000-00-00 00:00:00', 0, 1, 'demo@demo.com', 'a1b2c3', '2309d', ''),
+(1, 1, '123', '2015-06-11', '0000-00-00 00:00:00', 0, 1, 'demo@demo.com', 'a1b2c3', '10869', ''),
 (2, 2, '123', '2015-06-11', '0000-00-00 00:00:00', 0, 1, 'demo1@demo.com', '', '7995a', '');
 
 -- --------------------------------------------------------
@@ -268,10 +268,10 @@ CREATE TABLE IF NOT EXISTS `news` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `news-tables`
+-- Table structure for table `news_tables`
 --
 
-CREATE TABLE IF NOT EXISTS `news-tables` (
+CREATE TABLE IF NOT EXISTS `news_tables` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Entry Id for table',
   `news_id` int(11) NOT NULL,
   `table_id` int(11) NOT NULL,
@@ -295,7 +295,7 @@ CREATE TABLE IF NOT EXISTS `notification_ids` (
   UNIQUE KEY `notification_id` (`token`),
   KEY `member_id` (`member_id`),
   KEY `member_id_2` (`member_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `notification_ids`
@@ -303,7 +303,9 @@ CREATE TABLE IF NOT EXISTS `notification_ids` (
 
 INSERT INTO `notification_ids` (`id`, `member_id`, `os`, `token`) VALUES
 (1, 1, 'gcm', '12345'),
-(4, 2, 'gcm', '123451');
+(4, 2, 'gcm', '123451'),
+(5, 1, 'gcm', '123110'),
+(7, 1, 'gcm', '123a110');
 
 -- --------------------------------------------------------
 
@@ -382,11 +384,11 @@ ALTER TABLE `news`
   ADD CONSTRAINT `news_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `members` (`member_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
--- Constraints for table `news-tables`
+-- Constraints for table `news_tables`
 --
-ALTER TABLE `news-tables`
-  ADD CONSTRAINT `news-tables_ibfk_1` FOREIGN KEY (`news_id`) REFERENCES `news` (`news_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `news-tables_ibfk_2` FOREIGN KEY (`table_id`) REFERENCES `tables` (`table_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `news_tables`
+  ADD CONSTRAINT `news_tables_ibfk_1` FOREIGN KEY (`news_id`) REFERENCES `news` (`news_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `news_tables_ibfk_2` FOREIGN KEY (`table_id`) REFERENCES `tables` (`table_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `notification_ids`

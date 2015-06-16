@@ -112,7 +112,7 @@ class AuthController extends CI_Controller {
         $response = new Response();
         
         $email = $this->input->post('email');
-        
+        //echo $this->auth_service->valid_request; exit;
         if(!$this->auth_service->valid_request || !$email)
         { 
             $response->setSuccess('false');

@@ -17,7 +17,7 @@ class Auth_service {
   public function __construct()
   {
     $this->valid_request = $this->validate_request();
-     
+    
   } 
 
     
@@ -28,10 +28,10 @@ class Auth_service {
  public function validate_request()
  {
     $headers = apache_request_headers();
-    
-     if(isset($headers['api_key']) && $headers['api_key'] == '1234')
+    //var_dump($headers);exit;
+     if(isset($headers['Api-Key']) && $headers['Api-Key'] == '1234')
      {
-        return true;
+         return true;
      }else{
         return false;
      }

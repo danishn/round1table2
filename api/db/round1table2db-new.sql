@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 13, 2015 at 11:59 PM
+-- Generation Time: Jun 16, 2015 at 11:08 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -31,11 +31,19 @@ CREATE TABLE IF NOT EXISTS `access_requests` (
   `name` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `table_name` varchar(100) NOT NULL,
-  `request_date` date NOT NULL,
+  `request_date` timestamp NOT NULL,
   `status` tinyint(4) NOT NULL COMMENT '-1-rejected, 0-pending, 1-approved',
   `info` text NOT NULL,
   PRIMARY KEY (`request_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `access_requests`
+--
+
+INSERT INTO `access_requests` (`request_id`, `name`, `email`, `table_name`, `request_date`, `status`, `info`) VALUES
+(1, 'danish', 'danish@demo.com', 'RTN', '2015-06-16 17:25:10', 0, ''),
+(2, 'danish', 'danish1@demo.com', 'danish', '2015-06-16 17:36:13', 0, '');
 
 -- --------------------------------------------------------
 
@@ -189,8 +197,8 @@ CREATE TABLE IF NOT EXISTS `members` (
 --
 
 INSERT INTO `members` (`member_id`, `table_id`, `password`, `registration_date`, `last_visit_date`, `member_type`, `status`, `email`, `client_id`, `otp`, `designation`) VALUES
-(1, 1, '123', '2015-06-11', '0000-00-00 00:00:00', 0, 1, 'demo@demo.com', 'a1b2c3', '123', ''),
-(2, 2, '123', '2015-06-11', '0000-00-00 00:00:00', 0, 1, 'demo1@demo.com', '', '123', '');
+(1, 1, '123', '2015-06-11', '0000-00-00 00:00:00', 0, 1, 'demo@demo.com', 'a1b2c3', '2309d', ''),
+(2, 2, '123', '2015-06-11', '0000-00-00 00:00:00', 0, 1, 'demo1@demo.com', '', '7995a', '');
 
 -- --------------------------------------------------------
 
@@ -287,16 +295,15 @@ CREATE TABLE IF NOT EXISTS `notification_ids` (
   UNIQUE KEY `notification_id` (`token`),
   KEY `member_id` (`member_id`),
   KEY `member_id_2` (`member_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `notification_ids`
 --
 
 INSERT INTO `notification_ids` (`id`, `member_id`, `os`, `token`) VALUES
-(1, 1, 'gcm', '12323'),
-(3, 1, 'gcm', '123'),
-(5, 1, 'gcm', '1233');
+(1, 1, 'gcm', '12345'),
+(4, 2, 'gcm', '123451');
 
 -- --------------------------------------------------------
 

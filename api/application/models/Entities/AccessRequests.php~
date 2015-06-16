@@ -45,7 +45,7 @@ class AccessRequests
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="request_date", type="date", nullable=false)
+     * @ORM\Column(name="request_date", type="datetime", nullable=false)
      */
     private $requestDate;
 

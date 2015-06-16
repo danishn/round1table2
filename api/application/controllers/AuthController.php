@@ -63,7 +63,7 @@ class AuthController extends CI_Controller {
                 $response->setdata(null);
                 $response->setError(array(
                         'code'=>402,
-                        'msg' =>$member_id
+                        'msg' =>str_replace('error ', '', $member_id)
                     ));
                 $response->respond();
                 exit;
@@ -77,7 +77,7 @@ class AuthController extends CI_Controller {
                 $response->setdata(null);
                 $response->setError(array(
                         'code'=>402,
-                        'msg' =>$client_id
+                        'msg' =>str_replace('error ', '', $client_id)
                     ));
                 $response->respond();
                 exit;
@@ -109,25 +109,101 @@ class AuthController extends CI_Controller {
     
     public function request_otp()
 	{
-        $member_email = $this->input->post('email');
+        $response = new Response();
         
-		$this->load->model('Member_model', 'member');
+        $email = $this->input->post('email');
         
-        $otp = $this->member->get_otp($member_email);
-        echo json_encode($otp);
+        if(!$this->auth_service->valid_request || !$email)
+        { 
+            $response->setSuccess('false');
+            $response->setdata(null);
+            $response->setError(array(
+                    'code'=>401,
+                    'msg' =>'Invalid Data (API Key/ E-mail)'
+                ));
+            $response->respond();
+            exit;
+        }
+        
+        $this->load->model('Member_model', 'member');
+        $status = $this->member->send_otp($email);
+        
+        if(strpos($status, 'error') !== false)
+        {
+            $response->setSuccess('false');
+            $response->setdata(null);
+            $response->setError(array(
+                    'code'=>401,
+                    'msg' =>str_replace('error ', '', $status)
+                ));
+            $response->respond();
+            exit;
+        }else
+        {
+            $response->setSuccess('true');
+            $response->setdata(array('msg'=>'OTP Sent Successfully'));
+            $response->setError(null);
+
+            $response->respond();
+        }
+        
 	}
     
     public function access_request()
 	{
-        $request_email = $this->input->post('email');
-        $request_table = $this->input->post('table_name');
-        $request_name = $this->input->post('name');
+        $response = new Response();
+        
+        $name = $this->input->post('name');
+        $email = $this->input->post('email');
+        $table_name = $this->input->post('table_name');
+        
+        if(!$this->auth_service->valid_request)
+        {
+            $response->setSuccess('false');
+            $response->setdata(null);
+            $response->setError(array(
+                    'code'=>401,
+                    'msg' =>'Access Denied'
+                ));
+            $response->respond();
+            exit;
+        }
+        
+        if(!$name || !$email || !$table_name)
+        {
+            $response->setSuccess('false');
+            $response->setdata(null);
+            $response->setError(array(
+                    'code'=>401,
+                    'msg' =>'Invalid Data name/email/table_name'
+                ));
+            $response->respond();
+            exit;
+        }
+        
+		$this->load->model('Member_model', 'member');
+        $status = $this->member->register_request($name, $email, $table_name);
+        
+        if(strpos($status, 'error') !== false)
+        {
+            $response->setSuccess('false');
+            $response->setdata(null);
+            $response->setError(array(
+                    'code'=>401,
+                    'msg' =>str_replace('error ', '', $status)
+                ));
+            $response->respond();
+            exit;
+        }else
+        {
+            $response->setSuccess('true');
+            $response->setdata(array('msg'=>'Request Submitted Successfully.'));
+            $response->setError(null);
+
+            $response->respond();
+        }
         
         
-		//$this->load->model('Member_model', 'member');
-        
-        //$otp = $this->member->get_otp($member_email);
-        echo 'Request Sent for approval';
 	}
     
 }

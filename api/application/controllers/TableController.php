@@ -5,18 +5,14 @@ class TableController extends CI_Controller {
     
     //public $response = array();
 
-    function __construct(){
+    function __construct()
+    {
 		parent::__construct();
 		$this->load->file('application/classes/Response.php'); 
 	}
     
-    public function index()
-	{
-        echo "<h1>Welcome to Round Table Nepal Application APIs</h1>";
-	}
-    
     /*
-     * URL GET : /api/table/getAll
+     * URL GET : /api/table/get_all
     */
     
     public function get_tables()
@@ -35,79 +31,81 @@ class TableController extends CI_Controller {
             exit;
         }
         
+        $this->load->model('Table_model', 'table');
         
-        $email = $this->input->post('email');
-        $otp = $this->input->post('otp');
-        
-        if(!$email || !$otp)
-        {
-            $response->setSuccess('false');
-            $response->setdata(null);
-            $response->setError(array(
-                    'code'=>401,
-                    'msg' =>'Email/OTP not speceified'
-                ));
-            $response->respond();
-            exit;
-        }
-        
-        
-        $this->load->model('Member_model', 'member');
-        
-       
-        if(($this->input->post('os') == 'gcm' || $this->input->post('os') == 'apn') && $this->input->post('token'))
-        {   
-            $os = $this->input->post('os');
-            $token = $this->input->post('token');
-            $member_id = $this->member->authenticate($email, $otp);
-            if(strpos($member_id, "error") !== false)
-            {
-                $response->setSuccess('false');
-                $response->setdata(null);
-                $response->setError(array(
-                        'code'=>402,
-                        'msg' =>str_replace('error ', '', $member_id)
-                    ));
-                $response->respond();
-                exit;
-            }
-            //echo $member_id;
-            $client_id = $this->member->register($member_id, $os, $token);
+        $table_list = $this->table->get_all();
             
-            if(strpos($client_id, 'error') !== false)
+            if(!is_array($table_list) && strpos($table_list, 'error') !== false)
             {
                 $response->setSuccess('false');
                 $response->setdata(null);
                 $response->setError(array(
                         'code'=>402,
-                        'msg' =>str_replace('error ', '', $client_id)
+                        'msg' =>str_replace('error ', '', $table_list)
                     ));
                 $response->respond();
                 exit;
             }else
             {
                 $response->setSuccess('true');
-                $response->setdata(array('client_id'=>$client_id));
+                $response->setdata(array('table_list'=>$table_list));
                 $response->setError(null);
                 
                 $response->respond();
             }
-            
-        }else
-        {
+
+	}
+    
+    /*
+     * URL POST : /api/table/create
+    */
+    
+    public function create_table()
+	{ 
+      $response = new Response();
+        
+        if(!$this->auth_service->valid_request)
+        { 
             $response->setSuccess('false');
             $response->setdata(null);
             $response->setError(array(
-                    'code'=>402,
-                    'msg' =>'os/token not correctly specified'
+                    'code'=>401,
+                    'msg' =>'Access Denied'
                 ));
             $response->respond();
             exit;
         }
-            
-            //echo json_encode($result);
         
-		
+        $this->load->model('Table_model', 'table');
+        
+        $name = $this->input->post('table_name');
+        $code = $this->input->post('table_code');
+        $desc = $this->input->post('table_desc');
+        $bigUrl = $this->input->post('table_big_url');
+        $thumbUrl = $this->input->post('table_thumb_url');
+        $members = $this->input->post('table_members_count');
+        
+        $table_id = $this->table->add_table($name, $code, $desc, $bigUrl, $thumbUrl, $members);
+            
+            if(!is_int($table_id) && strpos($table_list, 'error') !== false)
+            {
+                $response->setSuccess('false');
+                $response->setdata(null);
+                $response->setError(array(
+                        'code'=>402,
+                        'msg' =>str_replace('error ', '', $table_list)
+                    ));
+                $response->respond();
+                exit;
+            }else
+            {
+                $response->setSuccess('true');
+                $response->setdata(array('table_id'=>$table_id));
+                $response->setError(null);
+                
+                $response->respond();
+            }
+
 	}
     
 }

@@ -10,6 +10,10 @@ class AuthController extends CI_Controller {
 		$this->load->file('application/classes/Response.php'); 
 	}
     
+    /*
+     * URL POST : /api/login
+    */
+    
     public function index()
 	{
         echo "<h1>Welcome to Round Table Nepal Application APIs</h1>";
@@ -103,9 +107,12 @@ class AuthController extends CI_Controller {
         }
             
             //echo json_encode($result);
-        
-		
 	}
+    
+    
+    /*
+     * URL POST : /api/request_otp
+    */
     
     public function request_otp()
 	{
@@ -149,6 +156,12 @@ class AuthController extends CI_Controller {
         
 	}
     
+    
+    
+    /*
+     * URL POST : /api/access_request
+    */
+    
     public function access_request()
 	{
         $response = new Response();
@@ -181,8 +194,8 @@ class AuthController extends CI_Controller {
             exit;
         }
         
-		$this->load->model('Member_model', 'member');
-        $status = $this->member->register_request($name, $email, $table_name);
+		$this->load->model('Access_Requests_model', 'access_request');
+        $status = $this->access_request->register_request($name, $email, $table_name);
         
         if(strpos($status, 'error') !== false)
         {

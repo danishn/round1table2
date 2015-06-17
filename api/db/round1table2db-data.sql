@@ -39,11 +39,11 @@ INSERT INTO `members` (`member_id`, `table_id`, `password`, `registration_date`,
 --
 -- Dumping data for table `members_info`
 --
-/*
+
 INSERT INTO `members_info` (`member_id`, `fname`, `mname`, `lname`, `big_url`, `thumb_url`, `gender`, `dob`, `mobile`, `email`, `reg_date`, `anniversary_date`, `spouse_name`, `spouse_dob`, `spouse_mobile`, `res_addr`, `res_phone`, `res_city`, `office_addr`, `office_phone`, `office_city`, `designation`, `fax`, `website_url`, `other_details`, `state`, `country`, `zip`, `blood_group`, `business_areas`) VALUES
 (1, 'demo', 'd', 'name', '/api/public/images/big/members/rtn.jpg', '/api/public/images/thumb/members/rtn.jpg', 'male', '1989-08-15', '8793700938', 'danishnadaf@gmail.com', '2015-06-18', '2010-08-15', 'demo', '1991-08-15', '123456789', 'pune', '123456', 'pune', 'pune', '-', 'pune', 'SE', '123', NULL, NULL, 'maharashtra', 'india', '411061', 'B+ve', 'Software'),
 (2, 'demo1', NULL, 'name2', '/api/public/images/big/members/rtn.jpg', '/api/public/images/thumb/members/rtn.jpg', 'male', '1988-06-18', '123456789', 'danishn@technokratz.in', '2015-06-18', NULL, 'abc', NULL, NULL, 'abc', NULL, 'zz', 'zzzz', '456', 'asda', NULL, NULL, NULL, NULL, 'saaa', 'asd', 'sadas', 'O+ve', 'asd asd asd');
-*/
+
 --
 -- Dumping data for table `notification_ids`
 --

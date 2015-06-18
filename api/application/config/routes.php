@@ -50,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = "AuthController";
-$route['404_override'] = '';
+$route['404_override'] = 'AuthController/error404';
 
 $route['test/(:any)'] = "TestController/$1";
 $route['test/(:any)/(:any)'] = "TestController/$1/$2";
@@ -62,11 +62,13 @@ $route['access_request'] = 'AuthController/access_request';
 
 /* Table APIs */
 $route['table/get_all'] = 'TableController/get_tables';
+$route['table/(:num)/get_members'] = 'TableController/get_members/$1';
 $route['table/create'] = 'TableController/create_table';
 
 /* member APIs */
 $route['member/get_all'] = 'MemberController/get_members';
 $route['member/create'] = 'MemberController/create_member';
+$route['member/search'] = 'MemberController/search_members';
 
 
 $route['translate_uri_dashes'] = FALSE;

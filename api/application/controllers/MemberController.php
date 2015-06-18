@@ -53,6 +53,68 @@ class MemberController extends CI_Controller {
             }
 
 	}
+   
+    /*
+     * URL POST : /api/member/search
+    */
+    
+    public function search_members()
+	{ 
+      $response = new Response();
+        
+        $search_by = $this->input->post('searchBy');
+        $search_key = $this->input->post('searchKey');
+        
+        //echo $search_by."=>".$search_key;exit;
+        
+        if(!$this->auth_service->valid_request)
+        { 
+            $response->setSuccess('false');
+            $response->setdata(null);
+            $response->setError(array(
+                    'code'=>401,
+                    'msg' =>'Access Denied'
+                ));
+            $response->respond();
+            exit;
+        }
+        
+        if(!$search_by || !$search_key)
+        { 
+            $response->setSuccess('false');
+            $response->setdata(null);
+            $response->setError(array(
+                    'code'=>402,
+                    'msg' =>'Invalid Get Parameters'
+                ));
+            $response->respond();
+            exit;
+        }
+        
+        $this->load->model('Member_model', 'member');
+        
+        $members_list = $this->member->find_members($search_by, $search_key);
+            
+            if(!is_array($members_list) && strpos($members_list, 'error') !== false)
+            {
+                $response->setSuccess('false');
+                $response->setdata(null);
+                $response->setError(array(
+                        'code'=>402,
+                        'msg' =>str_replace('error ', '', $members_list)
+                    ));
+                $response->respond();
+                exit;
+            }else
+            {
+                $response->setSuccess('true');
+                $response->setdata(array('members_list'=>$members_list));
+                $response->setError(null);
+                
+                $response->respond();
+            }
+
+	}
     
     /*
      * URL POST : /api/member/create

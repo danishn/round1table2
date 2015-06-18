@@ -56,6 +56,54 @@ class TableController extends CI_Controller {
 
 	}
     
+    
+     /*
+     * URL GET : /api/table/($table_id)/get_members
+    */
+    
+    public function get_members($table_id)
+	{ 
+        $response = new Response();
+        //echo "welcome $table_id";exit;
+        
+        if(!$this->auth_service->valid_request)
+        { 
+            $response->setSuccess('false');
+            $response->setdata(null);
+            $response->setError(array(
+                    'code'=>401,
+                    'msg' =>'Access Denied'
+                ));
+            $response->respond();
+            exit;
+        }
+        
+        $this->load->model('Member_model', 'member');
+        
+        $members_list = $this->member->get_members($table_id);
+            
+            if(!is_array($members_list) && strpos($members_list, 'error') !== false)
+            {
+                $response->setSuccess('false');
+                $response->setdata(null);
+                $response->setError(array(
+                        'code'=>402,
+                        'msg' =>str_replace('error ', '', $members_list)
+                    ));
+                $response->respond();
+                exit;
+            }else
+            {
+                $response->setSuccess('true');
+                $response->setdata(array('members_list'=>$members_list));
+                $response->setError(null);
+                
+                $response->respond();
+            }
+
+	}
+    
+    
     /*
      * URL POST : /api/table/create
     */

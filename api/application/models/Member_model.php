@@ -104,54 +104,58 @@ class Member_model extends CI_Model {
         */
         public function get_all()
         {  
-            $members = $this->em->getRepository('Entities\MembersInfo')->findAll();
-            
+            $members = $this->doctrine->em->getRepository('Entities\Members')->findBy(array('status'=>true));
+        
             //var_dump($members);exit;
-            
-            if(!$members)
-            {
-                return 'error No data available';
-            }
-
+        
             $temp = null;
 
-            foreach($members as $key => $member){
-                if($member->getMember()->getStatus())
-                {
-                    $temp[$key]['member_id'] = $member->getMember()->getMemberId();
-                    $temp[$key]['table_id'] = $member->getMember()->getTableId();
-                    $temp[$key]['fname'] = $member->getFname();
-                    $temp[$key]['lname'] = $member->getLname();
-                    $temp[$key]['gender'] = $member->getGender();
-                    $temp[$key]['mobile'] = $member->getMobile();
-                    $temp[$key]['email'] = $member->getEmail();
-                    $temp[$key]['blood_group'] = $member->getBloodGroup();
-                    $temp[$key]['spouse_name'] = $member->getSpouseName();
-                    
-                    $temp[$key]['dob'] = $member->getDob() instanceof \DateTime ? $member->getDob()->format('M d,Y') : $member->getDob();    
-                    
-                    $temp[$key]['spouse_dob'] = $member->getSpouseDob() instanceof \DateTime ? $member->getSpouseDob()->format('M d,Y') : $member->getSpouseDob();    
-                    
-                    $temp[$key]['anniversary_date'] = $member->getAnniversaryDate() instanceof \DateTime ? $member->getAnniversaryDate()->format('M d,Y') : $member->getAnniversaryDate();    
-                    
-                    
-                    $temp[$key]['image_thumb_url'] = $member->getThumbUrl();
-                    $temp[$key]['image_big_url'] = $member->getBigUrl();
-                    
-                    $temp[$key]['res_phone'] = $member->getResPhone();
-                    $temp[$key]['office_phone'] = $member->getOfficePhone();
-                    $temp[$key]['designation'] = $member->getDesignation();
-                    $temp[$key]['state'] = $member->getState();
-                }
+            foreach($members as $key => $member)
+            {  
                 
+                $memberInfo = $this->em->find('Entities\MembersInfo', $member->getMemberId());
+                //var_dump($memberInfo);exit;
+                
+                if(isset($memberInfo))
+                {
+
+                    $temp[$key]['member_id'] = $member->getMemberId();
+                    $temp[$key]['table_id'] = $member->getTableId();
+
+                    $temp[$key]['fname'] = $memberInfo->getFname();
+                    $temp[$key]['lname'] = $memberInfo->getLname();
+                    $temp[$key]['gender'] = $memberInfo->getGender();
+                    $temp[$key]['mobile'] = $memberInfo->getMobile();
+                    $temp[$key]['email'] = $memberInfo->getEmail();
+                    $temp[$key]['blood_group'] = $memberInfo->getBloodGroup();
+                    $temp[$key]['spouse_name'] = $memberInfo->getSpouseName();
+
+                    $temp[$key]['dob'] = $memberInfo->getDob() instanceof \DateTime ? $memberInfo->getDob()->format('M d,Y') : $memberInfo->getDob();    
+
+                    $temp[$key]['spouse_dob'] = $memberInfo->getSpouseDob() instanceof \DateTime ? $memberInfo->getSpouseDob()->format('M d,Y') : $memberInfo->getSpouseDob();    
+
+                    $temp[$key]['anniversary_date'] = $memberInfo->getAnniversaryDate() instanceof \DateTime ? $memberInfo->getAnniversaryDate()->format('M d,Y') : $memberInfo->getAnniversaryDate();    
+
+
+                    $temp[$key]['image_thumb_url'] = $memberInfo->getThumbUrl();
+                    $temp[$key]['image_big_url'] = $memberInfo->getBigUrl();
+
+                    $temp[$key]['res_phone'] = $memberInfo->getResPhone();
+                    $temp[$key]['office_phone'] = $memberInfo->getOfficePhone();
+                    $temp[$key]['designation'] = $memberInfo->getDesignation();
+                    $temp[$key]['state'] = $memberInfo->getState();
+
+                }
+
             }
 
+            //var_dump($temp);exit;
             if(!is_array($temp))
             {
                 return 'error No data found';
             }
-            
-            return $temp;
+
+            return $temp;  
         }
 
 }

@@ -64,10 +64,10 @@ class Gallery extends \Entities\Gallery implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'Entities\\Gallery' . "\0" . 'imageId', '' . "\0" . 'Entities\\Gallery' . "\0" . 'bigUrl', '' . "\0" . 'Entities\\Gallery' . "\0" . 'thumbUrl', '' . "\0" . 'Entities\\Gallery' . "\0" . 'submitDate', '' . "\0" . 'Entities\\Gallery' . "\0" . 'imageDesc', '' . "\0" . 'Entities\\Gallery' . "\0" . 'member');
+            return array('__isInitialized__', '' . "\0" . 'Entities\\Gallery' . "\0" . 'imageId', '' . "\0" . 'Entities\\Gallery' . "\0" . 'bigUrl', '' . "\0" . 'Entities\\Gallery' . "\0" . 'thumbUrl', '' . "\0" . 'Entities\\Gallery' . "\0" . 'submitDate', '' . "\0" . 'Entities\\Gallery' . "\0" . 'imageDesc', '' . "\0" . 'Entities\\Gallery' . "\0" . 'member', '' . "\0" . 'Entities\\Gallery' . "\0" . 'memberId');
         }
 
-        return array('__isInitialized__', '' . "\0" . 'Entities\\Gallery' . "\0" . 'imageId', '' . "\0" . 'Entities\\Gallery' . "\0" . 'bigUrl', '' . "\0" . 'Entities\\Gallery' . "\0" . 'thumbUrl', '' . "\0" . 'Entities\\Gallery' . "\0" . 'submitDate', '' . "\0" . 'Entities\\Gallery' . "\0" . 'imageDesc', '' . "\0" . 'Entities\\Gallery' . "\0" . 'member');
+        return array('__isInitialized__', '' . "\0" . 'Entities\\Gallery' . "\0" . 'imageId', '' . "\0" . 'Entities\\Gallery' . "\0" . 'bigUrl', '' . "\0" . 'Entities\\Gallery' . "\0" . 'thumbUrl', '' . "\0" . 'Entities\\Gallery' . "\0" . 'submitDate', '' . "\0" . 'Entities\\Gallery' . "\0" . 'imageDesc', '' . "\0" . 'Entities\\Gallery' . "\0" . 'member', '' . "\0" . 'Entities\\Gallery' . "\0" . 'memberId');
     }
 
     /**
@@ -296,6 +296,28 @@ class Gallery extends \Entities\Gallery implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getMember', array());
 
         return parent::getMember();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setMemberId($memberId)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setMemberId', array($memberId));
+
+        return parent::setMemberId($memberId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getMemberId()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getMemberId', array());
+
+        return parent::getMemberId();
     }
 
 }

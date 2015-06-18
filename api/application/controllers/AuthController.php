@@ -19,6 +19,36 @@ class AuthController extends CI_Controller {
         echo "<h1>Welcome to Round Table Nepal Application APIs</h1>";
 	}
     
+     /*
+     * Page Not Found Error
+    */
+    
+    public function error404()
+	{
+        $response = new Response();
+        
+        if(!$this->auth_service->valid_request)
+        { 
+            $response->setSuccess('false');
+            $response->setdata(null);
+            $response->setError(array(
+                    'Status_code'=>401,
+                    'Error_Message' =>'Access Denied'
+                ));
+            $response->respond();
+            exit;
+        }else{
+            $response->setSuccess('false');
+            $response->setdata(null);
+            $response->setError(array(
+                    'code'=>404,
+                    'msg' =>'Page Not Found- Check Request URL'
+                ));
+            $response->respond();
+        }
+        exit;
+	}
+    
     
     public function login()
 	{ 

@@ -55,9 +55,18 @@ $route['404_override'] = '';
 $route['test/(:any)'] = "TestController/$1";
 $route['test/(:any)/(:any)'] = "TestController/$1/$2";
 
+/* Auth APIs */
 $route['login'] = 'AuthController/login';
 $route['request_otp'] = 'AuthController/request_otp';
 $route['access_request'] = 'AuthController/access_request';
+
+/* Table APIs */
+$route['table/get_all'] = 'TableController/get_tables';
+$route['table/create'] = 'TableController/create_table';
+
+/* member APIs */
+$route['member/get_all'] = 'MemberController/get_members';
+$route['member/create'] = 'MemberController/create_member';
 
 
 $route['translate_uri_dashes'] = FALSE;

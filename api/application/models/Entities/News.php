@@ -375,4 +375,35 @@ class News
     {
         return $this->member;
     }
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="member_id", type="integer", nullable=false)
+     */
+    private $memberId;
+
+
+    /**
+     * Set memberId
+     *
+     * @param integer $memberId
+     *
+     * @return News
+     */
+    public function setMemberId($memberId)
+    {
+        $this->memberId = $memberId;
+    
+        return $this;
+    }
+
+    /**
+     * Get memberId
+     *
+     * @return integer
+     */
+    public function getMemberId()
+    {
+        return $this->memberId;
+    }
 }

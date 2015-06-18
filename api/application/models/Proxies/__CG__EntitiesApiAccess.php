@@ -64,10 +64,10 @@ class ApiAccess extends \Entities\ApiAccess implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'Entities\\ApiAccess' . "\0" . 'id', '' . "\0" . 'Entities\\ApiAccess' . "\0" . 'date', '' . "\0" . 'Entities\\ApiAccess' . "\0" . 'member');
+            return array('__isInitialized__', '' . "\0" . 'Entities\\ApiAccess' . "\0" . 'id', '' . "\0" . 'Entities\\ApiAccess' . "\0" . 'date', '' . "\0" . 'Entities\\ApiAccess' . "\0" . 'member', '' . "\0" . 'Entities\\ApiAccess' . "\0" . 'memberId');
         }
 
-        return array('__isInitialized__', '' . "\0" . 'Entities\\ApiAccess' . "\0" . 'id', '' . "\0" . 'Entities\\ApiAccess' . "\0" . 'date', '' . "\0" . 'Entities\\ApiAccess' . "\0" . 'member');
+        return array('__isInitialized__', '' . "\0" . 'Entities\\ApiAccess' . "\0" . 'id', '' . "\0" . 'Entities\\ApiAccess' . "\0" . 'date', '' . "\0" . 'Entities\\ApiAccess' . "\0" . 'member', '' . "\0" . 'Entities\\ApiAccess' . "\0" . 'memberId');
     }
 
     /**
@@ -230,6 +230,28 @@ class ApiAccess extends \Entities\ApiAccess implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getMember', array());
 
         return parent::getMember();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setMemberId($memberId)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setMemberId', array($memberId));
+
+        return parent::setMemberId($memberId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getMemberId()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getMemberId', array());
+
+        return parent::getMemberId();
     }
 
 }

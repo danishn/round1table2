@@ -1,8 +1,5 @@
 <?php
 
-/*require_once(APPPATH."models/Entities/Users.php");
-use \Users;
-*/
 class Access_Requests_model extends CI_Model {
 
         public $em;

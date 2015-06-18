@@ -64,10 +64,10 @@ class EventTables extends \Entities\EventTables implements \Doctrine\ORM\Proxy\P
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'Entities\\EventTables' . "\0" . 'id', '' . "\0" . 'Entities\\EventTables' . "\0" . 'event', '' . "\0" . 'Entities\\EventTables' . "\0" . 'table');
+            return array('__isInitialized__', '' . "\0" . 'Entities\\EventTables' . "\0" . 'id', '' . "\0" . 'Entities\\EventTables' . "\0" . 'event', '' . "\0" . 'Entities\\EventTables' . "\0" . 'table', '' . "\0" . 'Entities\\EventTables' . "\0" . 'eventId', '' . "\0" . 'Entities\\EventTables' . "\0" . 'tableId');
         }
 
-        return array('__isInitialized__', '' . "\0" . 'Entities\\EventTables' . "\0" . 'id', '' . "\0" . 'Entities\\EventTables' . "\0" . 'event', '' . "\0" . 'Entities\\EventTables' . "\0" . 'table');
+        return array('__isInitialized__', '' . "\0" . 'Entities\\EventTables' . "\0" . 'id', '' . "\0" . 'Entities\\EventTables' . "\0" . 'event', '' . "\0" . 'Entities\\EventTables' . "\0" . 'table', '' . "\0" . 'Entities\\EventTables' . "\0" . 'eventId', '' . "\0" . 'Entities\\EventTables' . "\0" . 'tableId');
     }
 
     /**
@@ -230,6 +230,50 @@ class EventTables extends \Entities\EventTables implements \Doctrine\ORM\Proxy\P
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getTable', array());
 
         return parent::getTable();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setEventId($eventId)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setEventId', array($eventId));
+
+        return parent::setEventId($eventId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getEventId()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getEventId', array());
+
+        return parent::getEventId();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setTableId($tableId)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTableId', array($tableId));
+
+        return parent::setTableId($tableId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getTableId()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getTableId', array());
+
+        return parent::getTableId();
     }
 
 }

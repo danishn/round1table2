@@ -99,4 +99,66 @@ class EventTables
     {
         return $this->table;
     }
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="event_id", type="integer", nullable=false)
+     */
+    private $eventId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="table_id", type="integer", nullable=false)
+     */
+    private $tableId;
+
+
+    /**
+     * Set eventId
+     *
+     * @param integer $eventId
+     *
+     * @return EventTables
+     */
+    public function setEventId($eventId)
+    {
+        $this->eventId = $eventId;
+    
+        return $this;
+    }
+
+    /**
+     * Get eventId
+     *
+     * @return integer
+     */
+    public function getEventId()
+    {
+        return $this->eventId;
+    }
+
+    /**
+     * Set tableId
+     *
+     * @param integer $tableId
+     *
+     * @return EventTables
+     */
+    public function setTableId($tableId)
+    {
+        $this->tableId = $tableId;
+    
+        return $this;
+    }
+
+    /**
+     * Get tableId
+     *
+     * @return integer
+     */
+    public function getTableId()
+    {
+        return $this->tableId;
+    }
 }

@@ -64,10 +64,10 @@ class Events extends \Entities\Events implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'Entities\\Events' . "\0" . 'eventId', '' . "\0" . 'Entities\\Events' . "\0" . 'eventName', '' . "\0" . 'Entities\\Events' . "\0" . 'type', '' . "\0" . 'Entities\\Events' . "\0" . 'shortDesc', '' . "\0" . 'Entities\\Events' . "\0" . 'longDesc', '' . "\0" . 'Entities\\Events' . "\0" . 'eventDate', '' . "\0" . 'Entities\\Events' . "\0" . 'eventTime', '' . "\0" . 'Entities\\Events' . "\0" . 'eventVenue', '' . "\0" . 'Entities\\Events' . "\0" . 'createdOn', '' . "\0" . 'Entities\\Events' . "\0" . 'family', '' . "\0" . 'Entities\\Events' . "\0" . 'bigUrl', '' . "\0" . 'Entities\\Events' . "\0" . 'thumbUrl', '' . "\0" . 'Entities\\Events' . "\0" . 'status', '' . "\0" . 'Entities\\Events' . "\0" . 'member');
+            return array('__isInitialized__', '' . "\0" . 'Entities\\Events' . "\0" . 'eventId', '' . "\0" . 'Entities\\Events' . "\0" . 'eventName', '' . "\0" . 'Entities\\Events' . "\0" . 'type', '' . "\0" . 'Entities\\Events' . "\0" . 'shortDesc', '' . "\0" . 'Entities\\Events' . "\0" . 'longDesc', '' . "\0" . 'Entities\\Events' . "\0" . 'eventDate', '' . "\0" . 'Entities\\Events' . "\0" . 'eventTime', '' . "\0" . 'Entities\\Events' . "\0" . 'eventVenue', '' . "\0" . 'Entities\\Events' . "\0" . 'createdOn', '' . "\0" . 'Entities\\Events' . "\0" . 'family', '' . "\0" . 'Entities\\Events' . "\0" . 'bigUrl', '' . "\0" . 'Entities\\Events' . "\0" . 'thumbUrl', '' . "\0" . 'Entities\\Events' . "\0" . 'status', '' . "\0" . 'Entities\\Events' . "\0" . 'member', '' . "\0" . 'Entities\\Events' . "\0" . 'memberId');
         }
 
-        return array('__isInitialized__', '' . "\0" . 'Entities\\Events' . "\0" . 'eventId', '' . "\0" . 'Entities\\Events' . "\0" . 'eventName', '' . "\0" . 'Entities\\Events' . "\0" . 'type', '' . "\0" . 'Entities\\Events' . "\0" . 'shortDesc', '' . "\0" . 'Entities\\Events' . "\0" . 'longDesc', '' . "\0" . 'Entities\\Events' . "\0" . 'eventDate', '' . "\0" . 'Entities\\Events' . "\0" . 'eventTime', '' . "\0" . 'Entities\\Events' . "\0" . 'eventVenue', '' . "\0" . 'Entities\\Events' . "\0" . 'createdOn', '' . "\0" . 'Entities\\Events' . "\0" . 'family', '' . "\0" . 'Entities\\Events' . "\0" . 'bigUrl', '' . "\0" . 'Entities\\Events' . "\0" . 'thumbUrl', '' . "\0" . 'Entities\\Events' . "\0" . 'status', '' . "\0" . 'Entities\\Events' . "\0" . 'member');
+        return array('__isInitialized__', '' . "\0" . 'Entities\\Events' . "\0" . 'eventId', '' . "\0" . 'Entities\\Events' . "\0" . 'eventName', '' . "\0" . 'Entities\\Events' . "\0" . 'type', '' . "\0" . 'Entities\\Events' . "\0" . 'shortDesc', '' . "\0" . 'Entities\\Events' . "\0" . 'longDesc', '' . "\0" . 'Entities\\Events' . "\0" . 'eventDate', '' . "\0" . 'Entities\\Events' . "\0" . 'eventTime', '' . "\0" . 'Entities\\Events' . "\0" . 'eventVenue', '' . "\0" . 'Entities\\Events' . "\0" . 'createdOn', '' . "\0" . 'Entities\\Events' . "\0" . 'family', '' . "\0" . 'Entities\\Events' . "\0" . 'bigUrl', '' . "\0" . 'Entities\\Events' . "\0" . 'thumbUrl', '' . "\0" . 'Entities\\Events' . "\0" . 'status', '' . "\0" . 'Entities\\Events' . "\0" . 'member', '' . "\0" . 'Entities\\Events' . "\0" . 'memberId');
     }
 
     /**
@@ -472,6 +472,28 @@ class Events extends \Entities\Events implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getMember', array());
 
         return parent::getMember();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setMemberId($memberId)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setMemberId', array($memberId));
+
+        return parent::setMemberId($memberId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getMemberId()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getMemberId', array());
+
+        return parent::getMemberId();
     }
 
 }

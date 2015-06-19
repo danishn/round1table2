@@ -266,16 +266,14 @@ class Member_model extends CI_Model {
                                     ->getQuery()
                                     ->getResult();
                     break;
-                case "dob":
-                    // Yet to implement
-                    //echo mktime(0,0,0,06,18,2015); exit;
-                    $dob = date('Y-m-d H:i:s', $searchKey);
-                    //echo $dob;exit;
+                case "date":
+                    //SELECT * FROM `members_info` WHERE DATE(dob) = '2015-06-18'
                     $memberInfo = $this->em
                                     ->getRepository('Entities\MembersInfo')
                                     ->createQueryBuilder('m')
-                                    ->where('m.dob LIKE :dob')
-                                    ->setParameter(':dob', "%".$dob.'%')
+                                    ->where('m.dob LIKE :date')
+                                    ->orWhere('m.anniversaryDate LIKE :date')
+                                    ->setParameter(':date', "%".$searchKey.'%')
                                     ->getQuery()
                                     ->getResult();
                     break;

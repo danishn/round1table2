@@ -9,15 +9,8 @@ class TableController extends CI_Controller {
     {
 		parent::__construct();
 		$this->load->file('application/classes/Response.php'); 
-	}
-    
-    /*
-     * URL GET : /api/table/get_all
-    */
-    
-    public function get_tables()
-	{ 
-      $response = new Response();
+        
+        $response = new Response();
         
         if(!$this->auth_service->valid_request)
         { 
@@ -30,6 +23,15 @@ class TableController extends CI_Controller {
             $response->respond();
             exit;
         }
+	}
+    
+    /*
+     * URL GET : /api/table/get_all
+    */
+    
+    public function get_tables()
+	{ 
+      
         
         $this->load->model('Table_model', 'table');
         
@@ -66,18 +68,6 @@ class TableController extends CI_Controller {
         $response = new Response();
         //echo "welcome $table_id";exit;
         
-        if(!$this->auth_service->valid_request)
-        { 
-            $response->setSuccess('false');
-            $response->setdata(null);
-            $response->setError(array(
-                    'code'=>401,
-                    'msg' =>'Access Denied'
-                ));
-            $response->respond();
-            exit;
-        }
-        
         $this->load->model('Member_model', 'member');
         
         $members_list = $this->member->get_members($table_id);
@@ -111,18 +101,6 @@ class TableController extends CI_Controller {
     public function create_table()
 	{ 
       $response = new Response();
-        
-        if(!$this->auth_service->valid_request)
-        { 
-            $response->setSuccess('false');
-            $response->setdata(null);
-            $response->setError(array(
-                    'code'=>401,
-                    'msg' =>'Access Denied'
-                ));
-            $response->respond();
-            exit;
-        }
         
         $this->load->model('Table_model', 'table');
         

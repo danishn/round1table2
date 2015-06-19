@@ -7,24 +7,8 @@ class AuthController extends CI_Controller {
 
     function __construct(){
 		parent::__construct();
-		$this->load->file('application/classes/Response.php'); 
-	}
-    
-    /*
-     * URL POST : /api/login
-    */
-    
-    public function index()
-	{
-        echo "<h1>Welcome to Round Table Nepal Application APIs</h1>";
-	}
-    
-     /*
-     * Page Not Found Error
-    */
-    
-    public function error404()
-	{
+		$this->load->file('application/classes/Response.php');
+        
         $response = new Response();
         
         if(!$this->auth_service->valid_request)
@@ -37,35 +21,46 @@ class AuthController extends CI_Controller {
                 ));
             $response->respond();
             exit;
-        }else{
-            $response->setSuccess('false');
-            $response->setdata(null);
-            $response->setError(array(
-                    'code'=>404,
-                    'msg' =>'Page Not Found- Check Request URL'
-                ));
-            $response->respond();
         }
+	}
+    
+    /*
+     * URL : /api
+    */
+    
+    public function index()
+	{
+        echo "<h1>Welcome to Round Table Nepal Application APIs</h1>";
+	}
+    
+    
+     /*
+     * Page Not Found Error
+    */
+    
+    public function error404()
+	{
+        $response = new Response();
+
+        $response->setSuccess('false');
+        $response->setdata(null);
+        $response->setError(array(
+                'code'=>404,
+                'msg' =>'Page Not Found- Check Request URL'
+            ));
+        $response->respond();
         exit;
 	}
     
     
+    
+    /*
+     * URL POST : /api/login
+    */
+    
     public function login()
 	{ 
       $response = new Response();
-        
-        if(!$this->auth_service->valid_request)
-        { 
-            $response->setSuccess('false');
-            $response->setdata(null);
-            $response->setError(array(
-                    'code'=>401,
-                    'msg' =>'Access Denied'
-                ));
-            $response->respond();
-            exit;
-        }
-        
         
         $email = $this->input->post('email');
         $otp = $this->input->post('otp');
@@ -150,13 +145,13 @@ class AuthController extends CI_Controller {
         
         $email = $this->input->post('email');
         //echo $this->auth_service->valid_request; exit;
-        if(!$this->auth_service->valid_request || !$email)
+        if(!$email)
         { 
             $response->setSuccess('false');
             $response->setdata(null);
             $response->setError(array(
                     'code'=>401,
-                    'msg' =>'Invalid Data (API Key/ E-mail)'
+                    'msg' =>'E-mail Not specified'
                 ));
             $response->respond();
             exit;
@@ -199,18 +194,6 @@ class AuthController extends CI_Controller {
         $name = $this->input->post('name');
         $email = $this->input->post('email');
         $table_name = $this->input->post('table_name');
-        
-        if(!$this->auth_service->valid_request)
-        {
-            $response->setSuccess('false');
-            $response->setdata(null);
-            $response->setError(array(
-                    'code'=>401,
-                    'msg' =>'Access Denied'
-                ));
-            $response->respond();
-            exit;
-        }
         
         if(!$name || !$email || !$table_name)
         {

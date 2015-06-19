@@ -7,6 +7,20 @@ class MemberController extends CI_Controller {
     {
 		parent::__construct();
 		$this->load->file('application/classes/Response.php'); 
+        
+        $response = new Response();
+        
+        if(!$this->auth_service->valid_request)
+        { 
+            $response->setSuccess('false');
+            $response->setdata(null);
+            $response->setError(array(
+                    'Status_code'=>401,
+                    'Error_Message' =>'Access Denied'
+                ));
+            $response->respond();
+            exit;
+        }
 	}
 
     /*
@@ -16,18 +30,6 @@ class MemberController extends CI_Controller {
     public function get_members()
 	{ 
       $response = new Response();
-        
-        if(!$this->auth_service->valid_request)
-        { 
-            $response->setSuccess('false');
-            $response->setdata(null);
-            $response->setError(array(
-                    'code'=>401,
-                    'msg' =>'Access Denied'
-                ));
-            $response->respond();
-            exit;
-        }
         
         $this->load->model('Member_model', 'member');
         
@@ -66,18 +68,6 @@ class MemberController extends CI_Controller {
         $search_key = $this->input->post('searchKey');
         
         //echo $search_by."=>".$search_key;exit;
-        
-        if(!$this->auth_service->valid_request)
-        { 
-            $response->setSuccess('false');
-            $response->setdata(null);
-            $response->setError(array(
-                    'code'=>401,
-                    'msg' =>'Access Denied'
-                ));
-            $response->respond();
-            exit;
-        }
         
         if(!$search_by || !$search_key)
         { 
@@ -123,18 +113,6 @@ class MemberController extends CI_Controller {
     public function create_member()
 	{ 
       $response = new Response();
-        
-        if(!$this->auth_service->valid_request)
-        { 
-            $response->setSuccess('false');
-            $response->setdata(null);
-            $response->setError(array(
-                    'code'=>401,
-                    'msg' =>'Access Denied'
-                ));
-            $response->respond();
-            exit;
-        }
         
         $this->load->model('Table_model', 'table');
         

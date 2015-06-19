@@ -39,17 +39,19 @@ class Member_model extends CI_Model {
         public function register($member_id = '', $os = '', $token = '')
             {  
                 /*Client Id will be generated while member registration*/
-                //$client_id = mb_strimwidth(md5(time()), 0, 20);
+                //echo $client_id = mb_strimwidth(md5(time()), 0, 30); exit;
                 //$client_id = 'a1b2c3';
                 //echo $client_id;
 
                 $notification = new Entities\NotificationIds;
                 $member = $this->em->find('Entities\Members', $member_id);
+            
+            //var_dump($notification);exit;
                 if(!is_null($member))
                 {
                     $notification->setOs($os);
                     $notification->setToken($token);
-                    $notification->setMember($member);
+                    $notification->setMemberId($member_id);
 
                     try
                     {
@@ -118,33 +120,7 @@ class Member_model extends CI_Model {
                 
                 if(isset($memberInfo))
                 {
-
-                    $temp[$key]['member_id'] = $member->getMemberId();
-                    $temp[$key]['table_id'] = $member->getTableId();
-
-                    $temp[$key]['fname'] = $memberInfo->getFname();
-                    $temp[$key]['lname'] = $memberInfo->getLname();
-                    $temp[$key]['gender'] = $memberInfo->getGender();
-                    $temp[$key]['mobile'] = $memberInfo->getMobile();
-                    $temp[$key]['email'] = $memberInfo->getEmail();
-                    $temp[$key]['blood_group'] = $memberInfo->getBloodGroup();
-                    $temp[$key]['spouse_name'] = $memberInfo->getSpouseName();
-
-                    $temp[$key]['dob'] = $memberInfo->getDob() instanceof \DateTime ? $memberInfo->getDob()->format('M d,Y') : $memberInfo->getDob();    
-
-                    $temp[$key]['spouse_dob'] = $memberInfo->getSpouseDob() instanceof \DateTime ? $memberInfo->getSpouseDob()->format('M d,Y') : $memberInfo->getSpouseDob();    
-
-                    $temp[$key]['anniversary_date'] = $memberInfo->getAnniversaryDate() instanceof \DateTime ? $memberInfo->getAnniversaryDate()->format('M d,Y') : $memberInfo->getAnniversaryDate();    
-
-
-                    $temp[$key]['image_thumb_url'] = $memberInfo->getThumbUrl();
-                    $temp[$key]['image_big_url'] = $memberInfo->getBigUrl();
-
-                    $temp[$key]['res_phone'] = $memberInfo->getResPhone();
-                    $temp[$key]['office_phone'] = $memberInfo->getOfficePhone();
-                    $temp[$key]['designation'] = $memberInfo->getDesignation();
-                    $temp[$key]['state'] = $memberInfo->getState();
-
+                    $temp[$key] = $this->get_members_details($member, $memberInfo);
                 }
 
             }
@@ -171,42 +147,14 @@ class Member_model extends CI_Model {
             $temp = null;
 
             foreach($members as $key => $member)
-            {  
-                
+            {     
                 $memberInfo = $this->em->find('Entities\MembersInfo', $member->getMemberId());
                 //var_dump($memberInfo);exit;
                 
                 if(isset($memberInfo))
                 {
-
-                    $temp[$key]['member_id'] = $member->getMemberId();
-                    $temp[$key]['table_id'] = $member->getTableId();
-
-                    $temp[$key]['fname'] = $memberInfo->getFname();
-                    $temp[$key]['lname'] = $memberInfo->getLname();
-                    $temp[$key]['gender'] = $memberInfo->getGender();
-                    $temp[$key]['mobile'] = $memberInfo->getMobile();
-                    $temp[$key]['email'] = $memberInfo->getEmail();
-                    $temp[$key]['blood_group'] = $memberInfo->getBloodGroup();
-                    $temp[$key]['spouse_name'] = $memberInfo->getSpouseName();
-
-                    $temp[$key]['dob'] = $memberInfo->getDob() instanceof \DateTime ? $memberInfo->getDob()->format('M d,Y') : $memberInfo->getDob();    
-
-                    $temp[$key]['spouse_dob'] = $memberInfo->getSpouseDob() instanceof \DateTime ? $memberInfo->getSpouseDob()->format('M d,Y') : $memberInfo->getSpouseDob();    
-
-                    $temp[$key]['anniversary_date'] = $memberInfo->getAnniversaryDate() instanceof \DateTime ? $memberInfo->getAnniversaryDate()->format('M d,Y') : $memberInfo->getAnniversaryDate();    
-
-
-                    $temp[$key]['image_thumb_url'] = $memberInfo->getThumbUrl();
-                    $temp[$key]['image_big_url'] = $memberInfo->getBigUrl();
-
-                    $temp[$key]['res_phone'] = $memberInfo->getResPhone();
-                    $temp[$key]['office_phone'] = $memberInfo->getOfficePhone();
-                    $temp[$key]['designation'] = $memberInfo->getDesignation();
-                    $temp[$key]['state'] = $memberInfo->getState();
-
+                    $temp[$key] = $this->get_members_details($member, $memberInfo);
                 }
-
             }
 
             //var_dump($temp);exit;
@@ -266,16 +214,14 @@ class Member_model extends CI_Model {
                                     ->getQuery()
                                     ->getResult();
                     break;
-                case "dob":
-                    // Yet to implement
-                    //echo mktime(0,0,0,06,18,2015); exit;
-                    $dob = date('Y-m-d H:i:s', $searchKey);
-                    //echo $dob;exit;
+                case "date":
+                    //SELECT * FROM `members_info` WHERE DATE(dob) = '2015-06-18'
                     $memberInfo = $this->em
                                     ->getRepository('Entities\MembersInfo')
                                     ->createQueryBuilder('m')
-                                    ->where('m.dob LIKE :dob')
-                                    ->setParameter(':dob', "%".$dob.'%')
+                                    ->where('m.dob LIKE :date')
+                                    ->orWhere('m.anniversaryDate LIKE :date')
+                                    ->setParameter(':date', "%".$searchKey.'%')
                                     ->getQuery()
                                     ->getResult();
                     break;
@@ -291,61 +237,68 @@ class Member_model extends CI_Model {
                 default:
                     return 'error Search Not Supported for this field type';
             }
-            
             //var_dump($memberInfo);exit;
-        
             $temp = null;
             
-// Need tocheck $memberInfo is array or not.. otherwise foreach will logic break
+
             foreach($memberInfo as $key => $memberInfo)
-            {  
-                
+            {      
                 $member = $this->em->find('Entities\Members', $memberInfo->getMemberId());
-                //var_dump($member);exit;
-                
+                //var_dump($member);exit; 
                 if(isset($member))
                 {
-
-                    $temp[$key]['member_id'] = $member->getMemberId();
-                    $temp[$key]['table_id'] = $member->getTableId();
+                    $temp[$key] = $this->get_members_details($member, $memberInfo);
                 }
-                
-                $temp[$key]['fname'] = $memberInfo->getFname();
-                $temp[$key]['lname'] = $memberInfo->getLname();
-                $temp[$key]['gender'] = $memberInfo->getGender();
-                $temp[$key]['mobile'] = $memberInfo->getMobile();
-                $temp[$key]['email'] = $memberInfo->getEmail();
-                $temp[$key]['blood_group'] = $memberInfo->getBloodGroup();
-                $temp[$key]['spouse_name'] = $memberInfo->getSpouseName();
-
-                $temp[$key]['dob'] = $memberInfo->getDob() instanceof \DateTime ? $memberInfo->getDob()->format('M d,Y') : $memberInfo->getDob();    
-
-                $temp[$key]['spouse_dob'] = $memberInfo->getSpouseDob() instanceof \DateTime ? $memberInfo->getSpouseDob()->format('M d,Y') : $memberInfo->getSpouseDob();    
-
-                $temp[$key]['anniversary_date'] = $memberInfo->getAnniversaryDate() instanceof \DateTime ? $memberInfo->getAnniversaryDate()->format('M d,Y') : $memberInfo->getAnniversaryDate();    
-
-
-                $temp[$key]['image_thumb_url'] = $memberInfo->getThumbUrl();
-                $temp[$key]['image_big_url'] = $memberInfo->getBigUrl();
-
-                $temp[$key]['res_phone'] = $memberInfo->getResPhone();
-                $temp[$key]['office_phone'] = $memberInfo->getOfficePhone();
-                $temp[$key]['designation'] = $memberInfo->getDesignation();
-                $temp[$key]['res_city'] = $memberInfo->getResCity();
-                $temp[$key]['office_city'] = $memberInfo->getOfficeCity();
-                $temp[$key]['state'] = $memberInfo->getState();
-
             }
-
             //var_dump($temp);exit;
-            
             if(!is_array($temp))
             {
                 return 'error No Members found';
             }
-
             return $temp;  
 
+        }
+    
+    
+        
+        /*
+         * get members details build
+        */
+        public function get_members_details($member, $memberInfo)
+        {  
+            //var_dump($member);exit;
+        
+            $temp = null;
+
+                    $temp['member_id'] = $member->getMemberId();
+                    $temp['table_id'] = $member->getTableId();
+
+                    $temp['fname'] = $memberInfo->getFname();
+                    $temp['lname'] = $memberInfo->getLname();
+                    $temp['gender'] = $memberInfo->getGender();
+                    $temp['mobile'] = $memberInfo->getMobile();
+                    $temp['email'] = $memberInfo->getEmail();
+                    $temp['blood_group'] = $memberInfo->getBloodGroup();
+                    $temp['spouse_name'] = $memberInfo->getSpouseName();
+
+                    $temp['dob'] = $memberInfo->getDob() instanceof \DateTime ? $memberInfo->getDob()->format('M d,Y') : $memberInfo->getDob();    
+
+                    $temp['spouse_dob'] = $memberInfo->getSpouseDob() instanceof \DateTime ? $memberInfo->getSpouseDob()->format('M d,Y') : $memberInfo->getSpouseDob();    
+
+                    $temp['anniversary_date'] = $memberInfo->getAnniversaryDate() instanceof \DateTime ? $memberInfo->getAnniversaryDate()->format('M d,Y') : $memberInfo->getAnniversaryDate();    
+
+
+                    $temp['image_thumb_url'] = $memberInfo->getThumbUrl();
+                    $temp['image_big_url'] = $memberInfo->getBigUrl();
+
+                    $temp['res_phone'] = $memberInfo->getResPhone();
+                    $temp['office_phone'] = $memberInfo->getOfficePhone();
+                    $temp['designation'] = $memberInfo->getDesignation();
+                    $temp['res_city'] = $memberInfo->getResCity();
+                    $temp['office_city'] = $memberInfo->getOfficeCity();
+                    $temp['state'] = $memberInfo->getState();
+
+            return $temp;  
         }
 
 }

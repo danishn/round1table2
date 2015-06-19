@@ -1,8 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class MemberController extends CI_Controller {
+class EventController extends CI_Controller {
     
+    //public $response = array();
+
     function __construct()
     {
 		parent::__construct();
@@ -15,90 +17,40 @@ class MemberController extends CI_Controller {
             $response->setSuccess('false');
             $response->setdata(null);
             $response->setError(array(
-                    'Status_code'=>401,
-                    'Error_Message' =>'Access Denied'
+                    'code'=>401,
+                    'msg' =>'Access Denied'
                 ));
             $response->respond();
             exit;
         }
 	}
-
+    
     /*
-     * URL GET : /api/member/get_all
+     * URL GET : /api/event/get_all
     */
     
-    public function get_members()
+    public function get_events()
 	{ 
-      $response = new Response();
+      
         
-        $this->load->model('Member_model', 'member');
+        $this->load->model('Table_model', 'table');
         
-        $members_list = $this->member->get_all();
+        $table_list = $this->table->get_all();
             
-            if(!is_array($members_list) && strpos($members_list, 'error') !== false)
+            if(!is_array($table_list) && strpos($table_list, 'error') !== false)
             {
                 $response->setSuccess('false');
                 $response->setdata(null);
                 $response->setError(array(
                         'code'=>402,
-                        'msg' =>str_replace('error ', '', $members_list)
+                        'msg' =>str_replace('error ', '', $table_list)
                     ));
                 $response->respond();
                 exit;
             }else
             {
                 $response->setSuccess('true');
-                $response->setdata(array('members_list'=>$members_list));
-                $response->setError(null);
-                
-                $response->respond();
-            }
-
-	}
-   
-    /*
-     * URL POST : /api/member/search
-    */
-    
-    public function search_members()
-	{ 
-      $response = new Response();
-        
-        $search_by = $this->input->post('searchBy');
-        $search_key = $this->input->post('searchKey');
-        
-        //echo $search_by."=>".$search_key;exit;
-        
-        if(!$search_by || !$search_key)
-        { 
-            $response->setSuccess('false');
-            $response->setdata(null);
-            $response->setError(array(
-                    'code'=>402,
-                    'msg' =>'Invalid Get Parameters'
-                ));
-            $response->respond();
-            exit;
-        }
-        
-        $this->load->model('Member_model', 'member');
-        
-        $members_list = $this->member->find_members($search_by, $search_key);
-            
-            if(!is_array($members_list) && strpos($members_list, 'error') !== false)
-            {
-                $response->setSuccess('false');
-                $response->setdata(null);
-                $response->setError(array(
-                        'code'=>402,
-                        'msg' =>str_replace('error ', '', $members_list)
-                    ));
-                $response->respond();
-                exit;
-            }else
-            {
-                $response->setSuccess('true');
-                $response->setdata(array('members_list'=>$members_list));
+                $response->setdata(array('table_list'=>$table_list));
                 $response->setError(null);
                 
                 $response->respond();
@@ -106,11 +58,12 @@ class MemberController extends CI_Controller {
 
 	}
     
+    
     /*
-     * URL POST : /api/member/create
+     * URL POST : /api/event/create
     */
     
-    public function create_member()
+    public function create_table()
 	{ 
       $response = new Response();
         

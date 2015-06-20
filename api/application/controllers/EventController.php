@@ -31,26 +31,26 @@ class EventController extends CI_Controller {
     
     public function get_events()
 	{ 
-      
+        $response = new Response();
         
-        $this->load->model('Table_model', 'table');
+        $this->load->model('Event_model', 'event');
         
-        $table_list = $this->table->get_all();
+        $event_list = $this->event->get_all();
             
-            if(!is_array($table_list) && strpos($table_list, 'error') !== false)
+            if(!is_array($event_list) && strpos($event_list, 'error') !== false)
             {
                 $response->setSuccess('false');
                 $response->setdata(null);
                 $response->setError(array(
                         'code'=>402,
-                        'msg' =>str_replace('error ', '', $table_list)
+                        'msg' =>str_replace('error ', '', $event_list)
                     ));
                 $response->respond();
                 exit;
             }else
             {
                 $response->setSuccess('true');
-                $response->setdata(array('table_list'=>$table_list));
+                $response->setdata(array('event_list'=>$event_list));
                 $response->setError(null);
                 
                 $response->respond();
@@ -63,35 +63,56 @@ class EventController extends CI_Controller {
      * URL POST : /api/event/create
     */
     
-    public function create_table()
+    public function create_event()
 	{ 
       $response = new Response();
         
-        $this->load->model('Table_model', 'table');
+        $type = $this->input->post('event_type');
+        $name = $this->input->post('event_name');
+        $venue = $this->input->post('event_venue');
+        $date = $this->input->post('event_date');
+        $time = $this->input->post('event_time');
+        $invites = $this->input->post('invites');
+        $is_spause = $this->input->post('is_spause');
+        $is_children = $this->input->post('is_children');
+        $member_id = $this->input->post('member_id');
         
-        $name = $this->input->post('table_name');
-        $code = $this->input->post('table_code');
-        $desc = $this->input->post('table_desc');
-        $bigUrl = $this->input->post('table_big_url');
-        $thumbUrl = $this->input->post('table_thumb_url');
-        $members = $this->input->post('table_members_count');
+        if($type == 'event')
+        {
+            // check for event photo 
+        }
         
-        $table_id = $this->table->add_table($name, $code, $desc, $bigUrl, $thumbUrl, $members);
+        // check for Invetes saperately -- || !$invites
+        if(!$type || !$name || !$venue || !$date || !$time || !$member_id)
+        {
+                $response->setSuccess('false');
+                $response->setdata(null);
+                $response->setError(array(
+                        'code'=>402,
+                        'msg' => 'Failed due to incomplete Data.'
+                    ));
+                $response->respond();
+                exit;
+        }
+        
+        $this->load->model('Event_model', 'event');
+        
+        $event_id = $this->event->add_event($type, $name, $venue, $date, $time, $invites, $is_spause,$is_children, $member_id);
             
-            if(!is_int($table_id) && strpos($table_list, 'error') !== false)
+            if(!is_int($event_id) && strpos($event_id, 'error') !== false)
             {
                 $response->setSuccess('false');
                 $response->setdata(null);
                 $response->setError(array(
                         'code'=>402,
-                        'msg' =>str_replace('error ', '', $table_list)
+                        'msg' =>str_replace('error ', '', $event_id)
                     ));
                 $response->respond();
                 exit;
             }else
             {
                 $response->setSuccess('true');
-                $response->setdata(array('table_id'=>$table_id));
+                $response->setdata(array('msg'=>'Event Created Successfully'));
                 $response->setError(null);
                 
                 $response->respond();

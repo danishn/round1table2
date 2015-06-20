@@ -98,22 +98,22 @@ class AuthController extends CI_Controller {
                 exit;
             }
             //echo $member_id;
-            $client_id = $this->member->register($member_id, $os, $token);
-            
-            if(strpos($client_id, 'error') !== false)
+            $member_info = $this->member->register($member_id, $os, $token);
+            //var_dump($member_info);exit;    
+            if(!is_array($member_info) && strpos($member_info, 'error') !== false)
             {
                 $response->setSuccess('false');
                 $response->setdata(null);
                 $response->setError(array(
                         'code'=>402,
-                        'msg' =>str_replace('error ', '', $client_id)
+                        'msg' =>str_replace('error ', '', $member_info)
                     ));
                 $response->respond();
                 exit;
             }else
             {
                 $response->setSuccess('true');
-                $response->setdata(array('client_id'=>$client_id));
+                $response->setdata(array('member_info'=>$member_info));
                 $response->setError(null);
                 
                 $response->respond();
@@ -207,7 +207,7 @@ class AuthController extends CI_Controller {
             exit;
         }
         
-		$this->load->model('Access_Requests_model', 'access_request');
+		$this->load->model('Access_requests_model', 'access_request');
         $status = $this->access_request->register_request($name, $email, $table_name);
         
         if(strpos($status, 'error') !== false)

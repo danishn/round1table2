@@ -1,6 +1,6 @@
 <?php
 
-class Access_Requests_model extends CI_Model {
+class Access_requests_model extends CI_Model {
 
         public $em;
 

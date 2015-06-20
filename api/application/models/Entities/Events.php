@@ -78,11 +78,32 @@ class Events
     private $createdOn;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="member_id", type="integer", nullable=false)
+     */
+    private $memberId;
+
+    /**
      * @var boolean
      *
-     * @ORM\Column(name="family", type="boolean", nullable=false)
+     * @ORM\Column(name="is_spause", type="boolean", nullable=false)
      */
-    private $family;
+    private $isSpause;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_children", type="boolean", nullable=false)
+     */
+    private $isChildren;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="table_count", type="integer", nullable=false)
+     */
+    private $tableCount;
 
     /**
      * @var string
@@ -99,21 +120,11 @@ class Events
     private $thumbUrl;
 
     /**
-     * @var boolean
+     * @var string
      *
-     * @ORM\Column(name="status", type="boolean", nullable=false)
+     * @ORM\Column(name="status", type="string", length=20, nullable=false)
      */
     private $status;
-
-    /**
-     * @var \Entities\Members
-     *
-     * @ORM\ManyToOne(targetEntity="Entities\Members")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="member_id", referencedColumnName="member_id")
-     * })
-     */
-    private $member;
 
 
     /**
@@ -319,27 +330,99 @@ class Events
     }
 
     /**
-     * Set family
+     * Set memberId
      *
-     * @param boolean $family
+     * @param integer $memberId
      *
      * @return Events
      */
-    public function setFamily($family)
+    public function setMemberId($memberId)
     {
-        $this->family = $family;
+        $this->memberId = $memberId;
 
         return $this;
     }
 
     /**
-     * Get family
+     * Get memberId
+     *
+     * @return integer
+     */
+    public function getMemberId()
+    {
+        return $this->memberId;
+    }
+
+    /**
+     * Set isSpause
+     *
+     * @param boolean $isSpause
+     *
+     * @return Events
+     */
+    public function setIsSpause($isSpause)
+    {
+        $this->isSpause = $isSpause;
+
+        return $this;
+    }
+
+    /**
+     * Get isSpause
      *
      * @return boolean
      */
-    public function getFamily()
+    public function getIsSpause()
     {
-        return $this->family;
+        return $this->isSpause;
+    }
+
+    /**
+     * Set isChildren
+     *
+     * @param boolean $isChildren
+     *
+     * @return Events
+     */
+    public function setIsChildren($isChildren)
+    {
+        $this->isChildren = $isChildren;
+
+        return $this;
+    }
+
+    /**
+     * Get isChildren
+     *
+     * @return boolean
+     */
+    public function getIsChildren()
+    {
+        return $this->isChildren;
+    }
+
+    /**
+     * Set tableCount
+     *
+     * @param integer $tableCount
+     *
+     * @return Events
+     */
+    public function setTableCount($tableCount)
+    {
+        $this->tableCount = $tableCount;
+
+        return $this;
+    }
+
+    /**
+     * Get tableCount
+     *
+     * @return integer
+     */
+    public function getTableCount()
+    {
+        return $this->tableCount;
     }
 
     /**
@@ -393,7 +476,7 @@ class Events
     /**
      * Set status
      *
-     * @param boolean $status
+     * @param string $status
      *
      * @return Events
      */
@@ -407,65 +490,10 @@ class Events
     /**
      * Get status
      *
-     * @return boolean
+     * @return string
      */
     public function getStatus()
     {
         return $this->status;
-    }
-
-    /**
-     * Set member
-     *
-     * @param \Entities\Members $member
-     *
-     * @return Events
-     */
-    public function setMember(\Entities\Members $member = null)
-    {
-        $this->member = $member;
-
-        return $this;
-    }
-
-    /**
-     * Get member
-     *
-     * @return \Entities\Members
-     */
-    public function getMember()
-    {
-        return $this->member;
-    }
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="member_id", type="integer", nullable=false)
-     */
-    private $memberId;
-
-
-    /**
-     * Set memberId
-     *
-     * @param integer $memberId
-     *
-     * @return Events
-     */
-    public function setMemberId($memberId)
-    {
-        $this->memberId = $memberId;
-    
-        return $this;
-    }
-
-    /**
-     * Get memberId
-     *
-     * @return integer
-     */
-    public function getMemberId()
-    {
-        return $this->memberId;
     }
 }

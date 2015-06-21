@@ -22,6 +22,13 @@ class News
     private $newsId;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="member_id", type="integer", nullable=false)
+     */
+    private $memberId;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="headline", type="text", length=65535, nullable=false)
@@ -57,9 +64,9 @@ class News
     private $tagline;
 
     /**
-     * @var boolean
+     * @var string
      *
-     * @ORM\Column(name="status", type="boolean", nullable=false)
+     * @ORM\Column(name="status", type="string", length=20, nullable=false)
      */
     private $status;
 
@@ -73,14 +80,21 @@ class News
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="publish_date", type="date", nullable=false)
+     * @ORM\Column(name="news_date", type="date", nullable=false)
+     */
+    private $newsDate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="publish_date", type="date", nullable=true)
      */
     private $publishDate;
 
     /**
-     * @var boolean
+     * @var string
      *
-     * @ORM\Column(name="broadcast", type="boolean", nullable=false)
+     * @ORM\Column(name="broadcast", type="string", length=20, nullable=false)
      */
     private $broadcast;
 
@@ -91,16 +105,6 @@ class News
      */
     private $imageDate;
 
-    /**
-     * @var \Entities\Members
-     *
-     * @ORM\ManyToOne(targetEntity="Entities\Members")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="member_id", referencedColumnName="member_id")
-     * })
-     */
-    private $member;
-
 
     /**
      * Get newsId
@@ -110,6 +114,30 @@ class News
     public function getNewsId()
     {
         return $this->newsId;
+    }
+
+    /**
+     * Set memberId
+     *
+     * @param integer $memberId
+     *
+     * @return News
+     */
+    public function setMemberId($memberId)
+    {
+        $this->memberId = $memberId;
+
+        return $this;
+    }
+
+    /**
+     * Get memberId
+     *
+     * @return integer
+     */
+    public function getMemberId()
+    {
+        return $this->memberId;
     }
 
     /**
@@ -235,7 +263,7 @@ class News
     /**
      * Set status
      *
-     * @param boolean $status
+     * @param string $status
      *
      * @return News
      */
@@ -249,7 +277,7 @@ class News
     /**
      * Get status
      *
-     * @return boolean
+     * @return string
      */
     public function getStatus()
     {
@@ -281,6 +309,30 @@ class News
     }
 
     /**
+     * Set newsDate
+     *
+     * @param \DateTime $newsDate
+     *
+     * @return News
+     */
+    public function setNewsDate($newsDate)
+    {
+        $this->newsDate = $newsDate;
+
+        return $this;
+    }
+
+    /**
+     * Get newsDate
+     *
+     * @return \DateTime
+     */
+    public function getNewsDate()
+    {
+        return $this->newsDate;
+    }
+
+    /**
      * Set publishDate
      *
      * @param \DateTime $publishDate
@@ -307,7 +359,7 @@ class News
     /**
      * Set broadcast
      *
-     * @param boolean $broadcast
+     * @param string $broadcast
      *
      * @return News
      */
@@ -321,7 +373,7 @@ class News
     /**
      * Get broadcast
      *
-     * @return boolean
+     * @return string
      */
     public function getBroadcast()
     {
@@ -350,60 +402,5 @@ class News
     public function getImageDate()
     {
         return $this->imageDate;
-    }
-
-    /**
-     * Set member
-     *
-     * @param \Entities\Members $member
-     *
-     * @return News
-     */
-    public function setMember(\Entities\Members $member = null)
-    {
-        $this->member = $member;
-
-        return $this;
-    }
-
-    /**
-     * Get member
-     *
-     * @return \Entities\Members
-     */
-    public function getMember()
-    {
-        return $this->member;
-    }
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="member_id", type="integer", nullable=false)
-     */
-    private $memberId;
-
-
-    /**
-     * Set memberId
-     *
-     * @param integer $memberId
-     *
-     * @return News
-     */
-    public function setMemberId($memberId)
-    {
-        $this->memberId = $memberId;
-    
-        return $this;
-    }
-
-    /**
-     * Get memberId
-     *
-     * @return integer
-     */
-    public function getMemberId()
-    {
-        return $this->memberId;
     }
 }

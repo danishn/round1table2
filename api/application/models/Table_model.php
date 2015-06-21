@@ -8,6 +8,7 @@ class Table_model extends CI_Model {
         {
                 // Call the CI_Model constructor
                 parent::__construct();
+                $this->load->library('upload');
                 $this->em = $this->doctrine->em;
         }
     

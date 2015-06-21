@@ -8,6 +8,7 @@ class Member_model extends CI_Model {
         {
                 // Call the CI_Model constructor
                 parent::__construct();
+                $this->load->library('upload');
                 $this->em = $this->doctrine->em;
         }
     
@@ -16,7 +17,11 @@ class Member_model extends CI_Model {
         */
         public function authenticate($email = '', $otp = '')
         {
-              $user = $this->em->getRepository('Entities\Members')->findOneBy(array('email'=>$email));  
+    
+            $user = $this->em->getRepository('Entities\Members')->findOneBy(array('email' => $email));  
+            //$user = $this->em->getRepository('Entities\Members')->findAll();  
+            //var_dump($email);exit;
+            
             if($user)
             {
                 if($otp == $user->getOtp())
@@ -86,10 +91,10 @@ class Member_model extends CI_Model {
         /*
          * Send OTP if valid Email ID provided
         */
-        public function send_otp($email = '')
+        public function send_otp($email)
         {  
-             $user = $this->em->getRepository('Entities\Members')->findOneBy(array('email'=>$email));
-
+            $user = $this->em->getRepository('Entities\Members')->findOneBy(array('email'=>$email));
+            //var_dump($email);exit;
             if($user)
             {
                  /*Generate random OTP*/
@@ -103,7 +108,24 @@ class Member_model extends CI_Model {
                     /*
                      * Send mail here...
                     */
-                    return true;
+                /*
+                    $this->load->library('email'); // Note: no $config param needed
+                    $this->email->from('danishnadaf@gmail.com');
+                    $this->email->to('danishnadaf@gmail.com');
+                    $this->email->subject('Test email from CI and Gmail');
+                    $this->email->message('This is a test.');
+              
+                    if($this->email->send())
+                    {
+                        return true;
+                    }else
+                    {
+                        return false;
+                    }
+                */
+                    
+                 return true;   
+                    
                 }catch(Exception $e)
                 {
                     return 'error : '. $e->getMessage();

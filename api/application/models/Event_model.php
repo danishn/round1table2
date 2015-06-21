@@ -1,4 +1,7 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+use \Library\ImageResize;       // Use Namespace for Image resize
 
 class Event_model extends CI_Model {
 
@@ -9,15 +12,17 @@ class Event_model extends CI_Model {
                 // Call the CI_Model constructor
                 parent::__construct();
                 $this->em = $this->doctrine->em;
+                $this->load->file('application/classes/ImageResize.php');     // Load file for Image resize
+            
         }
     
     /*
-     * Retrive all events
+     * Retrive all events/meetings
     */
     
-    public function get_all()
+    public function get_all($type)
     {  
-        $events = $this->em->getRepository('Entities\events')->findBy(array('status' => 'pending'));
+        $events = $this->em->getRepository('Entities\events')->findBy(array('status' => 'pending', 'type'=>$type));
         if(!$events)
         {
             return 'error No data available';
@@ -27,6 +32,7 @@ class Event_model extends CI_Model {
         
         foreach($events as $key => $event){
             $temp[$key]['event_id'] = $event->getEventId();
+            $temp[$key]['event_type'] = $event->getType();
             $temp[$key]['event_name'] = $event->getEventName();
 
             $temp[$key]['event_date'] = $event->getEventDate() instanceof \DateTime ? $event->getEventDate()->format('M d,Y') : $event->getEventDate();    
@@ -52,7 +58,7 @@ class Event_model extends CI_Model {
 
     
     /*
-     * Add new event
+     * Add new event/meeting
     */
 
         public function add_event($type, $name, $venue, $date, $time, $invites, $is_spause, $is_children, $member_id)
@@ -68,10 +74,29 @@ class Event_model extends CI_Model {
             
             if($type == 'event')
             {
-                // upload event photo to server & set image URLs
-                
                 $big_url = $big_url == '' ? '/api/public/images/big/rtn.jpg' : $big_url; 
                 $thumb_url = $thumb_url == '' ? '/api/public/images/thumb/rtn.jpg' : $thumb_url; 
+                
+                // upload event photo to server & set image URLs
+                $config['upload_path'] = 'public/images/big/events';
+				$config['allowed_types'] = 'gif|jpg|png';
+				$config['max_size']	= '10000';
+
+				$this->load->library('upload', $config);
+
+				if ( ! $this->upload->do_upload('event_image')) {
+					return 'error '.$this->upload->display_errors();
+                    exit;
+				} else {
+					$data = $this->upload->data();
+					$thumb_url  = $big_url = '/api/public/images/big/events/' . $data['file_name'];
+                    
+                    $image = new ImageResize('public/images/big/events/'.$data['file_name']);
+                    $image->scale(20);
+                    $image->save('public/images/thumb/events/'.$data['file_name']);
+                    $thumb_url = '/api/public/images/thumb/events/' . $data['file_name'];
+				}
+                
             }
             //var_dump($event );exit;
             

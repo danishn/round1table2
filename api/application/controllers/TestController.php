@@ -1,13 +1,17 @@
 <?php
 //comment1
 
+
 defined('BASEPATH') OR exit('No direct script access allowed');
+
+use \Library\ImageResize;       // Use Namespace for Image resize
 
 class TestController extends CI_Controller {
  
     function __construct(){
 		parent::__construct();
 		$this->load->file('application/classes/Response.php');
+		$this->load->file('application/classes/ImageResize.php');     // Load file for Image resize
         
 	}
     
@@ -52,6 +56,19 @@ class TestController extends CI_Controller {
         $this->load->model('Test_model');
         $data = $this->Test_model->add();
         var_dump($data);
+    }
+    
+    
+    // API /api/test/imageProcessing
+    
+    public function imageProcessing()
+    {   
+        $image = new ImageResize('public/images/big/kmrt4.png');
+        $image->scale(20);
+        $image->save('public/images/thumb/kmrt001.png');
+
+        var_dump($image);
+
     }
     
     

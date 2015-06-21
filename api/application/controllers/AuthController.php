@@ -64,7 +64,7 @@ class AuthController extends CI_Controller {
         
         $email = $this->input->post('email');
         $otp = $this->input->post('otp');
-        
+        //var_dump($otp);exit;
         if(!$email || !$otp)
         {
             $response->setSuccess('false');

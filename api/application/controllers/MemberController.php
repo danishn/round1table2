@@ -6,7 +6,8 @@ class MemberController extends CI_Controller {
     function __construct()
     {
 		parent::__construct();
-		$this->load->file('application/classes/Response.php'); 
+        
+        $this->load->file('application/classes/Response.php'); 
         
         $response = new Response();
         

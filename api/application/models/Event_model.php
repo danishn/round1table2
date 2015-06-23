@@ -65,12 +65,18 @@ class Event_model extends CI_Model {
         {  
             $short_desc = '';
             $long_desc = '';
-            $table_count = is_array($table_list = explode(',', $invites)) ? count($table_list): 0;
+            $table_count = is_array($table_list = explode(',', trim($invites, ','))) ? count($table_list): 0;
             $big_url = '';
             $thumb_url = '';
             $status = 'pending';
             
             $event = new Entities\Events;
+            
+            if(!$table_count)
+            {
+                return 'error Invites Table list not mentioned correctly.';
+                exit;
+            }
             
             if($type == 'event')
             {
@@ -98,7 +104,6 @@ class Event_model extends CI_Model {
 				}
                 
             }
-            //var_dump($event );exit;
             
             $event->setEventName($name);
             $event->setType($type);
@@ -127,7 +132,32 @@ class Event_model extends CI_Model {
             {
                $this->em->persist($event);
                 $this->em->flush();
-                return $event->geteventId();
+                
+                $event_id = $event->geteventId();
+                
+                // update invites i.e event_table table data
+
+                foreach($table_list as $invited_table)
+                {
+                    $invite = new Entities\EventTables;
+                    
+                    $invite->setEventId($event_id);
+                    $invite->setTableId($invited_table);
+                    
+                    try
+                    {
+                        $this->em->persist($invite);
+                        $this->em->flush();
+                    }catch(Exception $e)
+                    {
+                        return 'error '. $e->getMessage();
+                    }
+                }
+                
+                //var_dump($invites_arr);exit;
+                
+                return $event_id;
+                
             }catch(Exception $e)
             {
                 return 'error '. $e->getMessage();

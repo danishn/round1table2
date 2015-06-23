@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 21, 2015 at 09:46 PM
+-- Generation Time: Jun 23, 2015 at 01:26 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -32,7 +32,8 @@ INSERT INTO `access_requests` (`request_id`, `name`, `email`, `table_name`, `req
 (5, 'danish', 'demoasd@demo.com12', 'RTN', '2015-06-20 13:33:51', 0, ''),
 (6, 'danish nadaf', 'demo@demo.com12', 'RTN1', '2015-06-20 14:14:17', 0, ''),
 (7, 'danish nadaf', 'demo@demo.com123', 'RTN1', '2015-06-20 14:22:06', 0, ''),
-(8, 'danish nadaf', 'demoasd@demo.com123', 'RTN', '2015-06-20 15:19:01', 0, '');
+(8, 'danish nadaf', 'demoasd@demo.com123', 'RTN', '2015-06-20 15:19:01', 0, ''),
+(9, 'danish nadf', 'demo11@demo.com', 'RTN-1', '2015-06-23 04:11:25', 0, '');
 
 --
 -- Dumping data for table `events`
@@ -95,14 +96,25 @@ INSERT INTO `events` (`event_id`, `event_name`, `type`, `short_desc`, `long_desc
 (54, 'annual get-together1', 'meeting', '', '', '2015-08-11', '01:30:00', 'Kathmandu', '2015-06-21', 1, 1, 0, 2, '', '', 'pending'),
 (55, 'annual get-together1', 'meeting', '', '', '2015-08-11', '01:30:00', 'Kathmandu', '2015-06-21', 1, 1, 0, 1, '', '', 'pending'),
 (56, 'annual get-together1', 'event', '', '', '2015-08-11', '01:30:00', 'Kathmandu', '2015-06-21', 1, 1, 0, 1, '/api/public/images/big/events/demo_(1).png', '/api/public/images/thumb/events/demo_(1).png', 'pending'),
-(57, 'annual get-together1', 'event', '', '', '2015-08-11', '01:30:00', 'Kathmandu', '2015-06-21', 1, 1, 0, 1, '/api/public/images/big/events/demo_(1)1.png', '/api/public/images/thumb/events/demo_(1)1.png', 'pending');
+(57, 'annual get-together1', 'event', '', '', '2015-08-11', '01:30:00', 'Kathmandu', '2015-06-21', 1, 1, 0, 1, '/api/public/images/big/events/demo_(1)1.png', '/api/public/images/thumb/events/demo_(1)1.png', 'pending'),
+(58, 'KART In', 'meeting', '', '', '2015-07-23', '15:30:00', 'Kath', '2015-06-23', 1, 1, 0, 4, '', '', 'pending');
+
+--
+-- Dumping data for table `event_tables`
+--
+
+INSERT INTO `event_tables` (`id`, `event_id`, `table_id`) VALUES
+(1, 58, 1),
+(2, 58, 12),
+(3, 58, 45),
+(4, 58, 3);
 
 --
 -- Dumping data for table `members`
 --
 
 INSERT INTO `members` (`member_id`, `table_id`, `password`, `registration_date`, `last_visit_date`, `member_type`, `status`, `email`, `client_id`, `otp`, `designation`) VALUES
-(1, 2, '123', '2015-06-11', '0000-00-00 00:00:00', 0, 1, 'demo@demo.com', 'a1b2c3', '13206', ''),
+(1, 2, '123', '2015-06-11', '0000-00-00 00:00:00', 0, 1, 'demo@demo.com', 'a1b2c3', 'c1dc5', ''),
 (2, 2, '123', '2015-06-11', '0000-00-00 00:00:00', 0, 1, 'demo1@demo.com', '', 'd1b9d', '');
 
 --
@@ -116,13 +128,32 @@ INSERT INTO `members_info` (`member_id`, `fname`, `mname`, `lname`, `big_url`, `
 -- Dumping data for table `news`
 --
 
-INSERT INTO `news` (`news_id`, `member_id`, `headline`, `big_url`, `thumb_url`, `description`, `tagline`, `status`, `creation_date`, `news_date`, `publish_date`, `broadcast`, `image_date`) VALUES
-(1, 10, 'RTN Website launched', '/api/public/images/big/news/demo_(1)7.png', '/api/public/images/thumb/news/demo_(1)7.png', 'On 15 July%2C 2015. RTN Nepal is Launching Mobile application to connect our members', '', 'pending', '2015-06-21', '2015-06-21', NULL, 'pending', '2015-06-21'),
-(2, 10, 'RTN Website launched', '/api/public/images/big/news/demo_(1).png', '/api/public/images/thumb/news/demo_(1).png', 'On 15 July%2C 2015. RTN Nepal is Launching Mobile application to connect our members', '', 'pending', '2015-06-21', '2015-06-21', NULL, 'pending', '2015-06-21'),
-(3, 12, 'RTN News -1 sdgfhs', '/api/public/images/big/news/demo_(1)1.png', '/api/public/images/thumb/news/demo_(1)1.png', 'sdkjla sdd sdjkhfkja jgsdjh gydsgjh sdghdsh ghdsghfgdsj  ds  sdjds gsdjhf', '', 'pending', '2015-06-21', '2015-06-21', NULL, 'pending', '2015-06-21'),
-(4, 12, 'demo e-news', '/api/public/images/big/news/demo_(1)2.png', '/api/public/images/thumb/news/demo_(1)2.png', 'demo news description%2C demo news description%2C demo news description', '', 'pending', '2015-06-21', '2015-06-21', NULL, 'pending', '2015-06-21'),
-(5, 12, 'demo e-news', '/api/public/images/big/news/demo_(1)3.png', '/api/public/images/thumb/news/demo_(1)3.png', 'demo news description%2C demo news description%2C demo news description', '', 'pending', '2015-06-21', '2015-06-21', NULL, 'pending', '2015-06-21'),
-(6, 45, 'demo e-news 112345', '/api/public/images/big/news/demo_(1)4.png', '/api/public/images/thumb/news/demo_(1)4.png', '456 546demo news description%2C demo news description%2C demo news description', '', 'pending', '2015-06-21', '2015-06-21', NULL, 'pending', '2015-06-21');
+INSERT INTO `news` (`news_id`, `member_id`, `headline`, `big_url`, `thumb_url`, `description`, `tagline`, `table_count`, `status`, `creation_date`, `news_date`, `publish_date`, `broadcast`, `image_date`) VALUES
+(1, 10, 'RTN Website launched', '/api/public/images/big/news/demo_(1)7.png', '/api/public/images/thumb/news/demo_(1)7.png', 'On 15 July%2C 2015. RTN Nepal is Launching Mobile application to connect our members', '', 0, 'pending', '2015-06-21', '2015-06-21', NULL, 'pending', '2015-06-21'),
+(2, 10, 'RTN Website launched', '/api/public/images/big/news/demo_(1).png', '/api/public/images/thumb/news/demo_(1).png', 'On 15 July%2C 2015. RTN Nepal is Launching Mobile application to connect our members', '', 0, 'pending', '2015-06-21', '2015-06-21', NULL, 'pending', '2015-06-21'),
+(3, 12, 'RTN News -1 sdgfhs', '/api/public/images/big/news/demo_(1)1.png', '/api/public/images/thumb/news/demo_(1)1.png', 'sdkjla sdd sdjkhfkja jgsdjh gydsgjh sdghdsh ghdsghfgdsj  ds  sdjds gsdjhf', '', 0, 'pending', '2015-06-21', '2015-06-21', NULL, 'pending', '2015-06-21'),
+(4, 12, 'demo e-news', '/api/public/images/big/news/demo_(1)2.png', '/api/public/images/thumb/news/demo_(1)2.png', 'demo news description%2C demo news description%2C demo news description', '', 0, 'pending', '2015-06-21', '2015-06-21', NULL, 'pending', '2015-06-21'),
+(5, 12, 'demo e-news', '/api/public/images/big/news/demo_(1)3.png', '/api/public/images/thumb/news/demo_(1)3.png', 'demo news description%2C demo news description%2C demo news description', '', 0, 'pending', '2015-06-21', '2015-06-21', NULL, 'pending', '2015-06-21'),
+(6, 45, 'demo e-news 112345', '/api/public/images/big/news/demo_(1)4.png', '/api/public/images/thumb/news/demo_(1)4.png', '456 546demo news description%2C demo news description%2C demo news description', '', 0, 'pending', '2015-06-21', '2015-06-21', NULL, 'pending', '2015-06-21'),
+(7, 1, 'RTN- News 1', '/api/public/images/big/news/demo_images1.jpg', '/api/public/images/thumb/news/demo_images1.jpg', 'RTN demo news 2015', '', 1, 'pending', '2015-06-23', '2015-06-23', NULL, 'pending', '2015-06-23'),
+(8, 1, 'RTN- News 1', '/api/public/images/big/news/demo_images2.jpg', '/api/public/images/thumb/news/demo_images2.jpg', 'RTN demo news 2015', '', 1, 'pending', '2015-06-23', '2015-06-23', NULL, 'pending', '2015-06-23'),
+(9, 1, 'RTN- News 1', '/api/public/images/big/news/demo_images3.jpg', '/api/public/images/thumb/news/demo_images3.jpg', 'RTN demo news 2015', '', 4, 'pending', '2015-06-23', '2015-06-23', NULL, 'pending', '2015-06-23'),
+(10, 1, 'RTN- News 1', '/api/public/images/big/news/demo_images6.jpg', '/api/public/images/thumb/news/demo_images6.jpg', 'RTN demo news 2015', '', 4, 'pending', '2015-06-23', '2015-06-23', NULL, 'pending', '2015-06-23'),
+(11, 1, 'RTN- News 1', '/api/public/images/big/news/demo_images7.jpg', '/api/public/images/thumb/news/demo_images7.jpg', 'RTN demo news 2015', '', 4, 'pending', '2015-06-23', '2015-06-23', NULL, 'pending', '2015-06-23');
+
+--
+-- Dumping data for table `news_tables`
+--
+
+INSERT INTO `news_tables` (`id`, `news_id`, `table_id`) VALUES
+(1, 10, 1),
+(2, 10, 12),
+(3, 10, 21),
+(4, 10, 10),
+(5, 11, 1),
+(6, 11, 12),
+(7, 11, 21),
+(8, 11, 10);
 
 --
 -- Dumping data for table `notification_ids`
@@ -133,7 +164,9 @@ INSERT INTO `notification_ids` (`id`, `member_id`, `os`, `token`) VALUES
 (2, 1, 'gcm', 'bndf700'),
 (3, 1, 'gcm', 'bndf70045'),
 (4, 1, 'gcm', '123456'),
-(5, 1, 'gcm', 'bndf79212q12');
+(5, 1, 'gcm', 'bndf79212q12'),
+(6, 1, 'apn', '6123542'),
+(7, 1, 'gcm', '612354200');
 
 --
 -- Dumping data for table `tables`
@@ -158,7 +191,8 @@ INSERT INTO `tables` (`table_id`, `table_name`, `table_code`, `description`, `cr
 (16, 'KATHMANDU UNITED ROUND TABLE 17 - KATHMANDU', 'KURT-17', 'KURT-17', '2015-06-17', 1, '/api/public/images/big/kurt17.png', '/api/public/images/thumb/kurt17.png', 0),
 (17, 'BIRATNAGAR SAPPHIRE ROUND TABLE 18 - BIRATNAGAR', 'BSRT-18', 'BSRT-18', '2015-06-17', 1, '/api/public/images/big/bsrt18.png', '/api/public/images/thumb/bsrt18.png', 0),
 (18, 'KATHMANDU BLUES ROUND TABLE 19 - KATHMANDU', 'KBRT-19', 'KBRT-19', '2015-06-17', 1, '/api/public/images/big/kbrt19.png', '/api/public/images/thumb/kbrt19.png', 0),
-(19, 'BIRGUNJ RISING ROUND TABLE 20 - BIRGUNJ', 'BRRT-20', 'BRRT-20', '2015-06-17', 1, '/api/public/images/big/brrt20.png', '/api/public/images/thumb/brrt20.png', 0);
+(19, 'BIRGUNJ RISING ROUND TABLE 20 - BIRGUNJ', 'BRRT-20', 'BRRT-20', '2015-06-17', 1, '/api/public/images/big/brrt20.png', '/api/public/images/thumb/brrt20.png', 0),
+(22, 'Kathmandu Ace Round Table 21 - Kathmandu', 'KART - 21', 'KART - 21', '2015-06-23', 1, '/api/public/images/big/kart21.png', '/api/public/images/thumb/kart21.png', 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

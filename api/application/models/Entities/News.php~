@@ -403,4 +403,35 @@ class News
     {
         return $this->imageDate;
     }
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="table_count", type="integer", nullable=false)
+     */
+    private $tableCount;
+
+
+    /**
+     * Set tableCount
+     *
+     * @param integer $tableCount
+     *
+     * @return News
+     */
+    public function setTableCount($tableCount)
+    {
+        $this->tableCount = $tableCount;
+    
+        return $this;
+    }
+
+    /**
+     * Get tableCount
+     *
+     * @return integer
+     */
+    public function getTableCount()
+    {
+        return $this->tableCount;
+    }
 }

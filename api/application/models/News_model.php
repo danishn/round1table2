@@ -53,7 +53,7 @@ class News_model extends CI_Model {
      * Add new news
     */
 
-        public function add_news($news_headline, $news_description, $member_id)
+        public function add_news($news_headline, $news_description, $member_id, $concern_tables)
         {  
             $big_url = '/api/public/images/big/rtn.jpg';
             $thumb_url = '/api/public/images/thumb/rtn.jpg';
@@ -64,6 +64,15 @@ class News_model extends CI_Model {
             $image_date = new \DateTime("now");
             $publish_date = null;
             $broadcast = 'pending';
+            $table_count = is_array($table_list = explode(',', $concern_tables)) ? count($table_list): 0;
+            
+            //var_dump($table_list);exit;
+            
+            if(!$table_list)
+            {
+                return 'error Concern Tables list not mentioned correctly.';
+                exit;
+            }
             
             $news = new Entities\News;
             
@@ -98,6 +107,7 @@ class News_model extends CI_Model {
             $news->setThumbUrl($thumb_url);
             $news->setDescription($news_description);
             $news->setTagline($tagline);
+            $news->setTableCount($table_count);
             $news->setStatus($status);
             $news->setCreationDate($creation_date);
             $news->setNewsDate($news_date);
@@ -111,7 +121,33 @@ class News_model extends CI_Model {
             {
                 $this->em->persist($news);
                 $this->em->flush();
-                return $news->getNewsId();
+                
+                $news_id = $news->getNewsId();
+                
+                // update invites i.e event_table table data
+
+                foreach($table_list as $concern_table)
+                {
+                    $news_table = new Entities\NewsTables;
+                    
+                    $news_table->setNewsId($news_id);
+                    $news_table->setTableId($concern_table);
+                    
+                    try
+                    {
+                        $this->em->persist($news_table);
+                        $this->em->flush();
+                    }catch(Exception $e)
+                    {
+                        return 'error '. $e->getMessage();
+                    }
+                }
+                
+                //var_dump($invites_arr);exit;
+                
+                return $news_id;
+                
+                
             }catch(Exception $e)
             {
                 return 'error '. $e->getMessage();

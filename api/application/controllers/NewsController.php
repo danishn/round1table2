@@ -71,6 +71,7 @@ class NewsController extends CI_Controller {
         $news_headline = str_replace('+', ' ',($this->input->post('news_headline')));
         $news_description = str_replace('+', ' ',($this->input->post('news_description')));
         $member_id = $this->input->post('member_id');
+        $concern_tables = $this->input->post('concern_tables');
         
         
         //$news_date = $this->input->post('news_date');
@@ -80,7 +81,7 @@ class NewsController extends CI_Controller {
 
         //var_dump($_FILES);exit;   
         
-        if(!$news_headline || !$news_description || !$member_id || !isset($_FILES['news_image']))
+        if(!$news_headline || !$news_description || !$member_id || !$concern_tables ||!isset($_FILES['news_image']))
         {
                 $response->setSuccess('false');
                 $response->setdata(null);
@@ -94,7 +95,7 @@ class NewsController extends CI_Controller {
         
         $this->load->model('News_model', 'news');
         
-        $news_id = $this->news->add_news($news_headline, $news_description, $member_id);
+        $news_id = $this->news->add_news($news_headline, $news_description, $member_id, $concern_tables);
             
             if(!is_int($news_id) && strpos($news_id, 'error') !== false)
             {

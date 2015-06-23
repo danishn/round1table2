@@ -8,6 +8,7 @@ class Table_model extends CI_Model {
         {
                 // Call the CI_Model constructor
                 parent::__construct();
+                $this->load->library('upload');
                 $this->em = $this->doctrine->em;
         }
     
@@ -52,8 +53,13 @@ class Table_model extends CI_Model {
             $table->setDescription($desc);
             $table->setCreatedOn( new \DateTime("now"));
             $table->setStatus(true);
-            $table->setBigUrl($bigUrl);
+            
+            $bigUrl = !$bigUrl ? '/api/public/images/big/rtn.jpg' : $bigUrl; 
+            $thumbUrl = !$thumbUrl ? '/api/public/images/thumb/rtn.jpg' : $thumbUrl; 
+            
+            $table->setBigUrl($bigUrl);     //  /api/public/images/thumb/members/rtn.jpg
             $table->setThumbUrl($thumbUrl);
+            
             $table->setMembersCount($members);
             
             try

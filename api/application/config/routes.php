@@ -72,7 +72,13 @@ $route['member/search'] = 'MemberController/search_members';
 
 /* event APIs */
 $route['event/get_all'] = 'EventController/get_events';
+$route['meeting/get_all'] = 'EventController/get_meetings';
 $route['event/create'] = 'EventController/create_event';
+$route['meeting/create'] = 'EventController/create_event';
 
+/* News APIs */
+$route['news/get_all'] = 'NewsController/get_news';
+$route['news/create'] = 'NewsController/create_news';
 
+ 
 $route['translate_uri_dashes'] = FALSE;

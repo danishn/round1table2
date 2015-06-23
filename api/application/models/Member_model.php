@@ -8,6 +8,7 @@ class Member_model extends CI_Model {
         {
                 // Call the CI_Model constructor
                 parent::__construct();
+                $this->load->library('upload');
                 $this->em = $this->doctrine->em;
         }
     
@@ -16,7 +17,11 @@ class Member_model extends CI_Model {
         */
         public function authenticate($email = '', $otp = '')
         {
-              $user = $this->em->getRepository('Entities\Members')->findOneBy(array('email'=>$email));  
+    
+            $user = $this->em->getRepository('Entities\Members')->findOneBy(array('email' => $email));  
+            //$user = $this->em->getRepository('Entities\Members')->findAll();  
+            //var_dump($email);exit;
+            
             if($user)
             {
                 if($otp == $user->getOtp())
@@ -46,23 +51,35 @@ class Member_model extends CI_Model {
                 $notification = new Entities\NotificationIds;
                 $member = $this->em->find('Entities\Members', $member_id);
             
-            //var_dump($notification);exit;
+                //var_dump($member);exit;
                 if(!is_null($member))
                 {
                     $notification->setOs($os);
                     $notification->setToken($token);
                     $notification->setMemberId($member_id);
-
+                    
                     try
                     {
                         $this->em->persist($notification);
                         $this->em->flush();
                     }catch(Exception $e)
                     {
-                        return 'error '.$e->getMessage();
+                        return 'error token already exists';//.$e->getMessage();
                     }
-
-                    return $member->getClientId();
+                    //var_dump($notification);exit;    
+                    $memberInfo = $this->em->find('Entities\MembersInfo', $member_id);
+                    $temp = null;
+                    
+                    $temp['client_id'] = $member->getClientId();
+                    $temp['details'] = $this->get_members_details($member, $memberInfo);
+                    //var_dump($temp);exit;  
+                    
+                    if(!is_array($temp))
+                    {
+                        return 'error member profile not found';
+                    }
+                    
+                    return $temp;
                 }else
                 {
                     return 'error member does not exists';
@@ -74,10 +91,10 @@ class Member_model extends CI_Model {
         /*
          * Send OTP if valid Email ID provided
         */
-        public function send_otp($email = '')
+        public function send_otp($email)
         {  
-             $user = $this->em->getRepository('Entities\Members')->findOneBy(array('email'=>$email));
-
+            $user = $this->em->getRepository('Entities\Members')->findOneBy(array('email'=>$email));
+            //var_dump($email);exit;
             if($user)
             {
                  /*Generate random OTP*/
@@ -91,7 +108,24 @@ class Member_model extends CI_Model {
                     /*
                      * Send mail here...
                     */
-                    return true;
+                /*
+                    $this->load->library('email'); // Note: no $config param needed
+                    $this->email->from('danishnadaf@gmail.com');
+                    $this->email->to('danishnadaf@gmail.com');
+                    $this->email->subject('Test email from CI and Gmail');
+                    $this->email->message('This is a test.');
+              
+                    if($this->email->send())
+                    {
+                        return true;
+                    }else
+                    {
+                        return false;
+                    }
+                */
+                    
+                 return true;   
+                    
                 }catch(Exception $e)
                 {
                     return 'error : '. $e->getMessage();

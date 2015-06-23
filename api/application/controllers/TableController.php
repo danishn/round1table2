@@ -31,7 +31,7 @@ class TableController extends CI_Controller {
     
     public function get_tables()
 	{ 
-      
+        $response = new Response();
         
         $this->load->model('Table_model', 'table');
         
@@ -113,13 +113,13 @@ class TableController extends CI_Controller {
         
         $table_id = $this->table->add_table($name, $code, $desc, $bigUrl, $thumbUrl, $members);
             
-            if(!is_int($table_id) && strpos($table_list, 'error') !== false)
+            if(!is_int($table_id) && strpos($table_id, 'error') !== false)
             {
                 $response->setSuccess('false');
                 $response->setdata(null);
                 $response->setError(array(
                         'code'=>402,
-                        'msg' =>str_replace('error ', '', $table_list)
+                        'msg' =>str_replace('error ', '', $table_id)
                     ));
                 $response->respond();
                 exit;

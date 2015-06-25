@@ -113,6 +113,7 @@ class EventController extends CI_Controller {
         $is_children = isset($_POST['is_children']) ? $_POST['is_children'] : null;
         $member_id = $this->input->post('member_id');
         //var_dump($_POST);exit;
+        
         if($type == 'event')
         {
             // check for event photo 

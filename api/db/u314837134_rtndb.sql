@@ -4,7 +4,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 18, 2015 at 12:31 PM
+-- Generation Time: Jun 25, 2015 at 04:20 PM
 -- Server version: 10.0.12-MariaDB
 -- PHP Version: 5.2.17
 
@@ -36,17 +36,22 @@ CREATE TABLE IF NOT EXISTS `access_requests` (
   `status` tinyint(4) NOT NULL COMMENT '-1-rejected, 0-pending, 1-approved',
   `info` text NOT NULL,
   PRIMARY KEY (`request_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `access_requests`
 --
 
 INSERT INTO `access_requests` (`request_id`, `name`, `email`, `table_name`, `request_date`, `status`, `info`) VALUES
-(1, 'danish', 'danish@demo.com', 'RTN', '2015-06-16 17:25:10', 0, ''),
-(2, 'danish', 'danish1@demo.com', 'danish', '2015-06-16 17:36:13', 0, ''),
-(3, 'danish', '1demo@demo.com', 'RTN', '2015-06-16 21:46:06', 0, ''),
-(4, 'danish', 'demoasd@demo.com', 'RTN', '2015-06-16 22:02:56', 0, '');
+(1, 'danish', 'danish@demo.com', 'RTN', '2015-06-16 11:40:10', 0, ''),
+(2, 'danish', 'danish1@demo.com', 'danish', '2015-06-16 11:51:13', 0, ''),
+(3, 'danish', '1demo@demo.com', 'RTN', '2015-06-16 16:01:06', 0, ''),
+(4, 'danish', 'demoasd@demo.com', 'RTN', '2015-06-16 16:17:56', 0, ''),
+(5, 'danish', 'demoasd@demo.com12', 'RTN', '2015-06-20 07:48:51', 0, ''),
+(6, 'danish nadaf', 'demo@demo.com12', 'RTN1', '2015-06-20 08:29:17', 0, ''),
+(7, 'danish nadaf', 'demo@demo.com123', 'RTN1', '2015-06-20 08:37:06', 0, ''),
+(8, 'danish nadaf', 'demoasd@demo.com123', 'RTN', '2015-06-20 09:34:01', 0, ''),
+(9, 'danish nadf', 'demo11@demo.com', 'RTN-1', '2015-06-22 22:26:25', 0, '');
 
 -- --------------------------------------------------------
 
@@ -115,13 +120,47 @@ CREATE TABLE IF NOT EXISTS `events` (
   `event_venue` text NOT NULL,
   `created_on` date NOT NULL,
   `member_id` int(11) NOT NULL COMMENT 'created_by',
-  `family` tinyint(1) NOT NULL COMMENT '0 - family-no, 1- family-yes',
+  `is_spause` tinyint(1) NOT NULL COMMENT '0 - no, 1-yes',
+  `is_children` tinyint(1) NOT NULL COMMENT '0-No, 1-Yes',
+  `table_count` int(11) NOT NULL COMMENT 'no of invites',
   `big_url` text NOT NULL,
   `thumb_url` text NOT NULL,
-  `status` tinyint(4) NOT NULL COMMENT '-1-rejected, 0-pending, 1-approved',
+  `status` varchar(20) NOT NULL COMMENT 'pending, approved, rejected',
   PRIMARY KEY (`event_id`),
   KEY `member_id` (`member_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='event table' AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='event table' AUTO_INCREMENT=59 ;
+
+--
+-- Dumping data for table `events`
+--
+
+INSERT INTO `events` (`event_id`, `event_name`, `type`, `short_desc`, `long_desc`, `event_date`, `event_time`, `event_venue`, `created_on`, `member_id`, `is_spause`, `is_children`, `table_count`, `big_url`, `thumb_url`, `status`) VALUES
+(1, 'annual get-together1', 'event', '', '', '2015-08-11', '01:30:00', 'Kathmandu', '2015-06-20', 1, 0, 0, 1, '/api/public/images/big/rtn.jpg', '/api/public/images/thumb/rtn.jpg', 'pending'),
+(2, 'RTN Event -1', 'event', '', '', '2015-11-12', '05:00:00', 'Kathmandu - BI', '2015-06-20', 1, 0, 0, 4, '/api/public/images/big/rtn.jpg', '/api/public/images/thumb/rtn.jpg', 'pending'),
+(3, 'RTN Event -2', 'event', '', '', '2015-08-13', '01:00:00', 'Kathmandu - B', '2015-06-20', 1, 0, 0, 4, '/api/public/images/big/rtn.jpg', '/api/public/images/thumb/rtn.jpg', 'pending'),
+(4, 'RTN Event -77', 'event', '', '', '2016-01-12', '01:00:00', 'ABC Venue', '2015-06-20', 1, 0, 0, 1, '/api/public/images/big/rtn.jpg', '/api/public/images/thumb/rtn.jpg', 'pending'),
+(5, 'RTN', 'event', '', '', '2016-01-12', '01:00:00', 'test Venue', '2015-06-20', 1, 0, 0, 1, '/api/public/images/big/rtn.jpg', '/api/public/images/thumb/rtn.jpg', 'pending'),
+(6, 'RTN', 'event', '', '', '2016-01-12', '01:00:00', 'test Venue', '2015-06-20', 1, 0, 0, 1, '/api/public/images/big/rtn.jpg', '/api/public/images/thumb/rtn.jpg', 'pending'),
+(7, 'RTN 123', 'event', '', '', '2016-01-12', '01:00:00', 'test Venue', '2015-06-20', 1, 0, 0, 1, '/api/public/images/big/rtn.jpg', '/api/public/images/thumb/rtn.jpg', 'pending'),
+(8, '123 RTN', 'event', '', '', '2016-01-12', '01:00:00', 'test Venue', '2015-06-20', 1, 0, 0, 1, '/api/public/images/big/rtn.jpg', '/api/public/images/thumb/rtn.jpg', 'pending'),
+(9, '123 RTN 123', 'event', '', '', '2016-01-12', '01:00:00', 'test Venue', '2015-06-20', 1, 0, 0, 1, '/api/public/images/big/rtn.jpg', '/api/public/images/thumb/rtn.jpg', 'pending'),
+(10, 'annual get-together1', 'event', '', '', '2015-08-11', '01:30:00', 'Kathmandu', '2015-06-20', 1, 1, 1, 1, '/api/public/images/big/rtn.jpg', '/api/public/images/thumb/rtn.jpg', 'pending'),
+(11, 'annual get-together1', 'event', '', '', '2015-08-11', '01:30:00', 'Kathmandu', '2015-06-20', 1, 0, 1, 1, '/api/public/images/big/rtn.jpg', '/api/public/images/thumb/rtn.jpg', 'pending'),
+(12, 'annual get-together1', 'event', '', '', '2015-08-11', '01:30:00', 'Kathmandu', '2015-06-20', 1, 0, 0, 1, '/api/public/images/big/rtn.jpg', '/api/public/images/thumb/rtn.jpg', 'pending'),
+(13, 'annual get-together1', 'meeting', '', '', '2015-08-11', '01:30:00', 'Kathmandu', '2015-06-20', 1, 1, 0, 1, '', '', 'pending'),
+(14, 'Imp meeting-1', 'meeting', '', '', '2016-01-15', '01:00:00', 'Kathmandu', '2015-06-21', 1, 1, 0, 3, '', '', 'pending'),
+(15, 'Imp meeting-1', 'meeting', '', '', '2016-01-15', '01:00:00', 'Kathmandu', '2015-06-21', 1, 1, 0, 3, '', '', 'pending'),
+(16, 'Imp meeting-1', 'meeting', '', '', '2016-01-15', '01:00:00', 'Kathmandu', '2015-06-21', 1, 1, 0, 3, '', '', 'pending'),
+(17, 'Imp meeting-1', 'meeting', '', '', '2016-01-15', '01:00:00', 'Kathmandu', '2015-06-21', 1, 1, 0, 3, '', '', 'pending'),
+(32, 'Meeting+for+RTN+-1', 'event', '', '', '2016-01-15', '12:30:00', 'Kathmandu', '2015-06-21', 1, 0, 1, 1, '/api/public/images/big/rtn.jpg', '/api/public/images/thumb/rtn.jpg', 'pending'),
+(33, 'Meeting+for+RTN+-1', 'event', '', '', '2016-01-15', '12:30:00', 'Kathmandu+nepal', '2015-06-21', 1, 0, 1, 1, '/api/public/images/big/rtn.jpg', '/api/public/images/thumb/rtn.jpg', 'pending'),
+(34, 'Meeting for RTN -1', 'event', '', '', '2016-01-15', '12:30:00', 'Kathmandu nepal', '2015-06-21', 1, 0, 1, 3, '/api/public/images/big/rtn.jpg', '/api/public/images/thumb/rtn.jpg', 'pending'),
+(50, 'RTN demo event', 'event', '', '', '2015-12-13', '12:30:00', 'Nepal kat', '2015-06-21', 2, 1, 0, 1, '/api/public/images/big/events/demo2.png', '/api/public/images/big/events/demo2.png', 'pending'),
+(51, 'RTN demo event', 'event', '', '', '2015-12-13', '12:30:00', 'Nepal kat', '2015-06-21', 2, 1, 0, 1, '/api/public/images/big/events/demo3.png', '/api/public/images/thumb/events/demo3.png', 'pending'),
+(52, 'RTN demo event', 'event', '', '', '2015-12-13', '12:30:00', 'Nepal kat', '2015-06-21', 2, 1, 0, 1, '/api/public/images/big/events/demo4.png', '/api/public/images/thumb/events/demo4.png', 'pending'),
+(54, 'annual get-together1', 'meeting', '', '', '2015-08-11', '01:30:00', 'Kathmandu', '2015-06-21', 1, 1, 0, 2, '', '', 'pending'),
+(56, 'annual get-together1', 'event', '', '', '2015-08-11', '01:30:00', 'Kathmandu', '2015-06-21', 1, 1, 0, 1, '/api/public/images/big/events/demo_(1).png', '/api/public/images/thumb/events/demo_(1).png', 'pending'),
+(58, 'KART In', 'meeting', '', '', '2015-07-23', '15:30:00', 'Kath', '2015-06-23', 1, 1, 0, 4, '', '', 'pending');
 
 -- --------------------------------------------------------
 
@@ -138,7 +177,17 @@ CREATE TABLE IF NOT EXISTS `event_tables` (
   KEY `table_id` (`table_id`),
   KEY `table_id_2` (`table_id`),
   KEY `table_id_3` (`table_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `event_tables`
+--
+
+INSERT INTO `event_tables` (`id`, `event_id`, `table_id`) VALUES
+(1, 58, 1),
+(2, 58, 12),
+(3, 58, 45),
+(4, 58, 3);
 
 -- --------------------------------------------------------
 
@@ -200,8 +249,8 @@ CREATE TABLE IF NOT EXISTS `members` (
 --
 
 INSERT INTO `members` (`member_id`, `table_id`, `password`, `registration_date`, `last_visit_date`, `member_type`, `status`, `email`, `client_id`, `otp`, `designation`) VALUES
-(1, 12, '123', '2015-06-11', '0000-00-00 00:00:00', 0, 1, 'demo@demo.com', 'a1b2c3', 'cd4a3', ''),
-(2, 2, '123', '2015-06-11', '0000-00-00 00:00:00', 0, 1, 'demo1@demo.com', '', 'dcdc1', '');
+(1, 2, '123', '2015-06-11', '0000-00-00 00:00:00', 0, 1, 'demo@demo.com', 'a1b2c3', '68132', ''),
+(2, 2, '123', '2015-06-11', '0000-00-00 00:00:00', 0, 1, 'demo1@demo.com', '', 'd1b9d', '');
 
 -- --------------------------------------------------------
 
@@ -238,21 +287,21 @@ CREATE TABLE IF NOT EXISTS `members_info` (
   `state` varchar(20) NOT NULL,
   `country` varchar(20) NOT NULL,
   `zip` varchar(15) NOT NULL,
-  `blood_group` varchar(8) NOT NULL,
+  `blood_group` varchar(15) NOT NULL,
   `business_areas` text NOT NULL,
   PRIMARY KEY (`member_id`),
   UNIQUE KEY `member_id` (`member_id`),
   KEY `member_id_2` (`member_id`),
   KEY `member_id_3` (`member_id`),
   KEY `member_id_4` (`member_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='Members Info';
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Members Info';
 
 --
 -- Dumping data for table `members_info`
 --
 
 INSERT INTO `members_info` (`member_id`, `fname`, `mname`, `lname`, `big_url`, `thumb_url`, `gender`, `dob`, `mobile`, `email`, `reg_date`, `anniversary_date`, `spouse_name`, `spouse_dob`, `spouse_mobile`, `res_addr`, `res_phone`, `res_city`, `office_addr`, `office_phone`, `office_city`, `designation`, `fax`, `website_url`, `other_details`, `state`, `country`, `zip`, `blood_group`, `business_areas`) VALUES
-(1, 'asd', 'nasbnd', 'gasfhgj', '/api/public/images/big/members/rtn.jpg', '/api/public/images/thumb/members/rtn.jpg', 'male', '2015-06-18', 'asd', 'danishnadaf@gmail.com', '2015-06-18', '2015-06-18', 'sdad', NULL, NULL, 'sada', NULL, 'asd', 'asd', 'asd', 'sad', NULL, NULL, NULL, NULL, 'asd', 'sad', 'sad', 'asd', 'sad');
+(1, 'asd', 'nasbnd', 'gasfhgj', '/api/public/images/big/members/rtn.jpg', '/api/public/images/thumb/members/rtn.jpg', 'male', '2015-06-18', 'asd', 'danishnadaf@gmail.com', '2015-06-18', '2015-06-06', 'sdad', NULL, NULL, 'sada', NULL, 'asd', 'asd', 'asd', 'sad', NULL, NULL, NULL, NULL, 'asd', 'sad', 'sad', 'ab+ve', 'sad');
 
 -- --------------------------------------------------------
 
@@ -268,14 +317,35 @@ CREATE TABLE IF NOT EXISTS `news` (
   `thumb_url` text NOT NULL,
   `description` text NOT NULL,
   `tagline` text,
-  `status` tinyint(1) NOT NULL COMMENT '-1-rejected, 0-pending, 1 - approved ',
+  `table_count` int(10) NOT NULL,
+  `status` varchar(20) NOT NULL COMMENT 'rejected, pending, approved ',
   `creation_date` date NOT NULL,
-  `publish_date` date NOT NULL,
-  `broadcast` tinyint(1) NOT NULL COMMENT '0-failed, 1-broadcasted',
+  `news_date` date NOT NULL,
+  `publish_date` date DEFAULT NULL,
+  `broadcast` varchar(20) NOT NULL COMMENT 'failed, broadcasted',
   `image_date` date NOT NULL COMMENT 'image taken on',
   PRIMARY KEY (`news_id`),
   KEY `member_id` (`member_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+
+--
+-- Dumping data for table `news`
+--
+
+INSERT INTO `news` (`news_id`, `member_id`, `headline`, `big_url`, `thumb_url`, `description`, `tagline`, `table_count`, `status`, `creation_date`, `news_date`, `publish_date`, `broadcast`, `image_date`) VALUES
+(1, 10, 'RTN Website launched', '/api/public/images/big/news/demo_(1)7.png', '/api/public/images/thumb/news/demo_(1)7.png', 'On 15 July%2C 2015. RTN Nepal is Launching Mobile application to connect our members', '', 0, 'pending', '2015-06-21', '2015-06-21', NULL, 'pending', '2015-06-21'),
+(2, 10, 'RTN Website launched', '/api/public/images/big/news/demo_(1).png', '/api/public/images/thumb/news/demo_(1).png', 'On 15 July%2C 2015. RTN Nepal is Launching Mobile application to connect our members', '', 0, 'pending', '2015-06-21', '2015-06-21', NULL, 'pending', '2015-06-21'),
+(3, 12, 'RTN News -1 sdgfhs', '/api/public/images/big/news/demo_(1)1.png', '/api/public/images/thumb/news/demo_(1)1.png', 'sdkjla sdd sdjkhfkja jgsdjh gydsgjh sdghdsh ghdsghfgdsj  ds  sdjds gsdjhf', '', 0, 'pending', '2015-06-21', '2015-06-21', NULL, 'pending', '2015-06-21'),
+(4, 12, 'demo e-news', '/api/public/images/big/news/demo_(1)2.png', '/api/public/images/thumb/news/demo_(1)2.png', 'demo news description%2C demo news description%2C demo news description', '', 0, 'pending', '2015-06-21', '2015-06-21', NULL, 'pending', '2015-06-21'),
+(5, 12, 'demo e-news', '/api/public/images/big/news/demo_(1)3.png', '/api/public/images/thumb/news/demo_(1)3.png', 'demo news description%2C demo news description%2C demo news description', '', 0, 'pending', '2015-06-21', '2015-06-21', NULL, 'pending', '2015-06-21'),
+(6, 45, 'demo e-news 112345', '/api/public/images/big/news/demo_(1)4.png', '/api/public/images/thumb/news/demo_(1)4.png', '456 546demo news description%2C demo news description%2C demo news description', '', 0, 'pending', '2015-06-21', '2015-06-21', NULL, 'pending', '2015-06-21'),
+(7, 1, 'RTN- News 1', '/api/public/images/big/news/demo_images1.jpg', '/api/public/images/thumb/news/demo_images1.jpg', 'RTN demo news 2015', '', 1, 'pending', '2015-06-23', '2015-06-23', NULL, 'pending', '2015-06-23'),
+(8, 1, 'RTN- News 1', '/api/public/images/big/news/demo_images2.jpg', '/api/public/images/thumb/news/demo_images2.jpg', 'RTN demo news 2015', '', 1, 'pending', '2015-06-23', '2015-06-23', NULL, 'pending', '2015-06-23'),
+(9, 1, 'RTN- News 1', '/api/public/images/big/news/demo_images3.jpg', '/api/public/images/thumb/news/demo_images3.jpg', 'RTN demo news 2015', '', 4, 'pending', '2015-06-23', '2015-06-23', NULL, 'pending', '2015-06-23'),
+(10, 1, 'RTN- News 1', '/api/public/images/big/news/demo_images6.jpg', '/api/public/images/thumb/news/demo_images6.jpg', 'RTN demo news 2015', '', 4, 'pending', '2015-06-23', '2015-06-23', NULL, 'pending', '2015-06-23'),
+(11, 1, 'RTN- News 1', '/api/public/images/big/news/demo_images7.jpg', '/api/public/images/thumb/news/demo_images7.jpg', 'RTN demo news 2015', '', 4, 'pending', '2015-06-23', '2015-06-23', NULL, 'pending', '2015-06-23'),
+(12, 1, 'RTN- News 1', '/api/public/images/big/news/demo_images8.jpg', '/api/public/images/thumb/news/demo_images8.jpg', 'RTN demo news 2015', '', 4, 'pending', '2015-06-23', '2015-06-23', NULL, 'pending', '2015-06-23'),
+(13, 1, 'RTN- News 1', '/api/public/images/big/news/demo_images9.jpg', '/api/public/images/thumb/news/demo_images9.jpg', 'RTN demo news 2015', '', 4, 'pending', '2015-06-23', '2015-06-23', NULL, 'pending', '2015-06-23');
 
 -- --------------------------------------------------------
 
@@ -290,7 +360,29 @@ CREATE TABLE IF NOT EXISTS `news_tables` (
   PRIMARY KEY (`id`),
   KEY `news_id` (`news_id`),
   KEY `table_id` (`table_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+
+--
+-- Dumping data for table `news_tables`
+--
+
+INSERT INTO `news_tables` (`id`, `news_id`, `table_id`) VALUES
+(1, 10, 1),
+(2, 10, 12),
+(3, 10, 21),
+(4, 10, 10),
+(5, 11, 1),
+(6, 11, 12),
+(7, 11, 21),
+(8, 11, 10),
+(9, 12, 1),
+(10, 12, 12),
+(11, 12, 21),
+(12, 12, 10),
+(13, 13, 1),
+(14, 13, 12),
+(15, 13, 21),
+(16, 13, 10);
 
 -- --------------------------------------------------------
 
@@ -307,20 +399,20 @@ CREATE TABLE IF NOT EXISTS `notification_ids` (
   UNIQUE KEY `notification_id` (`token`),
   KEY `member_id` (`member_id`),
   KEY `member_id_2` (`member_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `notification_ids`
 --
 
 INSERT INTO `notification_ids` (`id`, `member_id`, `os`, `token`) VALUES
-(1, 1, 'gcm', '12345'),
-(4, 2, 'gcm', '123451'),
-(5, 1, 'gcm', '123110'),
-(7, 1, 'gcm', '123a110'),
-(8, 1, 'gcm', '12311011'),
-(9, 1, 'gcm', '12zx1'),
-(10, 1, 'apn', '123abcd');
+(1, 1, 'gcm', 'bndf7000'),
+(2, 1, 'gcm', 'bndf700'),
+(3, 1, 'gcm', 'bndf70045'),
+(4, 1, 'gcm', '123456'),
+(5, 1, 'gcm', 'bndf79212q12'),
+(6, 1, 'apn', '6123542'),
+(7, 1, 'gcm', '612354200');
 
 -- --------------------------------------------------------
 
@@ -340,7 +432,7 @@ CREATE TABLE IF NOT EXISTS `tables` (
   `members_count` int(10) NOT NULL,
   PRIMARY KEY (`table_id`),
   UNIQUE KEY `table_code` (`table_code`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='Table Information Under Round Table Nepal' AUTO_INCREMENT=20 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='Table Information Under Round Table Nepal' AUTO_INCREMENT=23 ;
 
 --
 -- Dumping data for table `tables`
@@ -365,7 +457,8 @@ INSERT INTO `tables` (`table_id`, `table_name`, `table_code`, `description`, `cr
 (16, 'KATHMANDU UNITED ROUND TABLE 17 - KATHMANDU', 'KURT-17', 'KURT-17', '2015-06-17', 1, '/api/public/images/big/kurt17.png', '/api/public/images/thumb/kurt17.png', 0),
 (17, 'BIRATNAGAR SAPPHIRE ROUND TABLE 18 - BIRATNAGAR', 'BSRT-18', 'BSRT-18', '2015-06-17', 1, '/api/public/images/big/bsrt18.png', '/api/public/images/thumb/bsrt18.png', 0),
 (18, 'KATHMANDU BLUES ROUND TABLE 19 - KATHMANDU', 'KBRT-19', 'KBRT-19', '2015-06-17', 1, '/api/public/images/big/kbrt19.png', '/api/public/images/thumb/kbrt19.png', 0),
-(19, 'BIRGUNJ RISING ROUND TABLE 20 - BIRGUNJ', 'BRRT-20', 'BRRT-20', '2015-06-17', 1, '/api/public/images/big/brrt20.png', '/api/public/images/thumb/brrt20.png', 0);
+(19, 'BIRGUNJ RISING ROUND TABLE 20 - BIRGUNJ', 'BRRT-20', 'BRRT-20', '2015-06-17', 1, '/api/public/images/big/brrt20.png', '/api/public/images/thumb/brrt20.png', 0),
+(22, 'Kathmandu Ace Round Table 21 - Kathmandu', 'KART - 21', 'KART - 21', '2015-06-23', 1, '/api/public/images/big/kart21.png', '/api/public/images/thumb/kart21.png', 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

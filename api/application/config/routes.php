@@ -80,5 +80,15 @@ $route['meeting/create'] = 'EventController/create_event';
 $route['news/get_all'] = 'NewsController/get_news';
 $route['news/create'] = 'NewsController/create_news';
 
+/* Favorites APIs */
+$route['favorites/get_all'] = 'FavoritesController/get_favorites';
+$route['favorites/create'] = 'FavoritesController/create_favorites';
+$route['favorites/search'] = 'FavoritesController/search_favorites';
+
+/* Conveners APIs */
+$route['conveners/get_all'] = 'ConvenersController/get_conveners';
+$route['conveners/create'] = 'ConvenersController/create_conveners';
+$route['conveners/search'] = 'ConvenersController/search_conveners';
+
  
 $route['translate_uri_dashes'] = FALSE;

@@ -98,7 +98,7 @@ class Tables
     public function setTableName($tableName)
     {
         $this->tableName = $tableName;
-
+    
         return $this;
     }
 
@@ -122,7 +122,7 @@ class Tables
     public function setTableCode($tableCode)
     {
         $this->tableCode = $tableCode;
-
+    
         return $this;
     }
 
@@ -146,7 +146,7 @@ class Tables
     public function setDescription($description)
     {
         $this->description = $description;
-
+    
         return $this;
     }
 
@@ -170,7 +170,7 @@ class Tables
     public function setCreatedOn($createdOn)
     {
         $this->createdOn = $createdOn;
-
+    
         return $this;
     }
 
@@ -194,7 +194,7 @@ class Tables
     public function setStatus($status)
     {
         $this->status = $status;
-
+    
         return $this;
     }
 
@@ -218,7 +218,7 @@ class Tables
     public function setBigUrl($bigUrl)
     {
         $this->bigUrl = $bigUrl;
-
+    
         return $this;
     }
 
@@ -242,7 +242,7 @@ class Tables
     public function setThumbUrl($thumbUrl)
     {
         $this->thumbUrl = $thumbUrl;
-
+    
         return $this;
     }
 
@@ -266,7 +266,7 @@ class Tables
     public function setMembersCount($membersCount)
     {
         $this->membersCount = $membersCount;
-
+    
         return $this;
     }
 

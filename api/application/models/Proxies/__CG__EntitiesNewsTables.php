@@ -64,10 +64,10 @@ class NewsTables extends \Entities\NewsTables implements \Doctrine\ORM\Proxy\Pro
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'Entities\\NewsTables' . "\0" . 'id', '' . "\0" . 'Entities\\NewsTables' . "\0" . 'news', '' . "\0" . 'Entities\\NewsTables' . "\0" . 'table', '' . "\0" . 'Entities\\NewsTables' . "\0" . 'newsId', '' . "\0" . 'Entities\\NewsTables' . "\0" . 'tableId');
+            return array('__isInitialized__', '' . "\0" . 'Entities\\NewsTables' . "\0" . 'id', '' . "\0" . 'Entities\\NewsTables' . "\0" . 'newsId', '' . "\0" . 'Entities\\NewsTables' . "\0" . 'tableId');
         }
 
-        return array('__isInitialized__', '' . "\0" . 'Entities\\NewsTables' . "\0" . 'id', '' . "\0" . 'Entities\\NewsTables' . "\0" . 'news', '' . "\0" . 'Entities\\NewsTables' . "\0" . 'table', '' . "\0" . 'Entities\\NewsTables' . "\0" . 'newsId', '' . "\0" . 'Entities\\NewsTables' . "\0" . 'tableId');
+        return array('__isInitialized__', '' . "\0" . 'Entities\\NewsTables' . "\0" . 'id', '' . "\0" . 'Entities\\NewsTables' . "\0" . 'newsId', '' . "\0" . 'Entities\\NewsTables' . "\0" . 'tableId');
     }
 
     /**
@@ -186,50 +186,6 @@ class NewsTables extends \Entities\NewsTables implements \Doctrine\ORM\Proxy\Pro
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', array());
 
         return parent::getId();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setNews(\Entities\News $news = NULL)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNews', array($news));
-
-        return parent::setNews($news);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getNews()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNews', array());
-
-        return parent::getNews();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setTable(\Entities\Tables $table = NULL)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTable', array($table));
-
-        return parent::setTable($table);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getTable()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getTable', array());
-
-        return parent::getTable();
     }
 
     /**

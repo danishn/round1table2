@@ -7,11 +7,20 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * MembersInfo
  *
- * @ORM\Table(name="members_info", uniqueConstraints={@ORM\UniqueConstraint(name="member_id", columns={"member_id"})}, indexes={@ORM\Index(name="member_id_2", columns={"member_id"})})
+ * @ORM\Table(name="members_info", uniqueConstraints={@ORM\UniqueConstraint(name="member_id", columns={"member_id"})}, indexes={@ORM\Index(name="member_id_2", columns={"member_id"}), @ORM\Index(name="member_id_3", columns={"member_id"}), @ORM\Index(name="member_id_4", columns={"member_id"})})
  * @ORM\Entity
  */
 class MembersInfo
 {
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="member_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $memberId;
+
     /**
      * @var string
      *
@@ -204,7 +213,7 @@ class MembersInfo
     /**
      * @var string
      *
-     * @ORM\Column(name="blood_group", type="string", length=8, nullable=false)
+     * @ORM\Column(name="blood_group", type="string", length=15, nullable=false)
      */
     private $bloodGroup;
 
@@ -215,18 +224,16 @@ class MembersInfo
      */
     private $businessAreas;
 
-    /**
-     * @var \Entities\Members
-     *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="Entities\Members")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="member_id", referencedColumnName="member_id")
-     * })
-     */
-    private $member;
 
+    /**
+     * Get memberId
+     *
+     * @return integer
+     */
+    public function getMemberId()
+    {
+        return $this->memberId;
+    }
 
     /**
      * Set fname
@@ -238,7 +245,7 @@ class MembersInfo
     public function setFname($fname)
     {
         $this->fname = $fname;
-
+    
         return $this;
     }
 
@@ -262,7 +269,7 @@ class MembersInfo
     public function setMname($mname)
     {
         $this->mname = $mname;
-
+    
         return $this;
     }
 
@@ -286,7 +293,7 @@ class MembersInfo
     public function setLname($lname)
     {
         $this->lname = $lname;
-
+    
         return $this;
     }
 
@@ -310,7 +317,7 @@ class MembersInfo
     public function setBigUrl($bigUrl)
     {
         $this->bigUrl = $bigUrl;
-
+    
         return $this;
     }
 
@@ -334,7 +341,7 @@ class MembersInfo
     public function setThumbUrl($thumbUrl)
     {
         $this->thumbUrl = $thumbUrl;
-
+    
         return $this;
     }
 
@@ -358,7 +365,7 @@ class MembersInfo
     public function setGender($gender)
     {
         $this->gender = $gender;
-
+    
         return $this;
     }
 
@@ -382,7 +389,7 @@ class MembersInfo
     public function setDob($dob)
     {
         $this->dob = $dob;
-
+    
         return $this;
     }
 
@@ -406,7 +413,7 @@ class MembersInfo
     public function setMobile($mobile)
     {
         $this->mobile = $mobile;
-
+    
         return $this;
     }
 
@@ -430,7 +437,7 @@ class MembersInfo
     public function setEmail($email)
     {
         $this->email = $email;
-
+    
         return $this;
     }
 
@@ -454,7 +461,7 @@ class MembersInfo
     public function setRegDate($regDate)
     {
         $this->regDate = $regDate;
-
+    
         return $this;
     }
 
@@ -478,7 +485,7 @@ class MembersInfo
     public function setAnniversaryDate($anniversaryDate)
     {
         $this->anniversaryDate = $anniversaryDate;
-
+    
         return $this;
     }
 
@@ -502,7 +509,7 @@ class MembersInfo
     public function setSpouseName($spouseName)
     {
         $this->spouseName = $spouseName;
-
+    
         return $this;
     }
 
@@ -526,7 +533,7 @@ class MembersInfo
     public function setSpouseDob($spouseDob)
     {
         $this->spouseDob = $spouseDob;
-
+    
         return $this;
     }
 
@@ -550,7 +557,7 @@ class MembersInfo
     public function setSpouseMobile($spouseMobile)
     {
         $this->spouseMobile = $spouseMobile;
-
+    
         return $this;
     }
 
@@ -574,7 +581,7 @@ class MembersInfo
     public function setResAddr($resAddr)
     {
         $this->resAddr = $resAddr;
-
+    
         return $this;
     }
 
@@ -598,7 +605,7 @@ class MembersInfo
     public function setResPhone($resPhone)
     {
         $this->resPhone = $resPhone;
-
+    
         return $this;
     }
 
@@ -622,7 +629,7 @@ class MembersInfo
     public function setResCity($resCity)
     {
         $this->resCity = $resCity;
-
+    
         return $this;
     }
 
@@ -646,7 +653,7 @@ class MembersInfo
     public function setOfficeAddr($officeAddr)
     {
         $this->officeAddr = $officeAddr;
-
+    
         return $this;
     }
 
@@ -670,7 +677,7 @@ class MembersInfo
     public function setOfficePhone($officePhone)
     {
         $this->officePhone = $officePhone;
-
+    
         return $this;
     }
 
@@ -694,7 +701,7 @@ class MembersInfo
     public function setOfficeCity($officeCity)
     {
         $this->officeCity = $officeCity;
-
+    
         return $this;
     }
 
@@ -718,7 +725,7 @@ class MembersInfo
     public function setDesignation($designation)
     {
         $this->designation = $designation;
-
+    
         return $this;
     }
 
@@ -742,7 +749,7 @@ class MembersInfo
     public function setFax($fax)
     {
         $this->fax = $fax;
-
+    
         return $this;
     }
 
@@ -766,7 +773,7 @@ class MembersInfo
     public function setWebsiteUrl($websiteUrl)
     {
         $this->websiteUrl = $websiteUrl;
-
+    
         return $this;
     }
 
@@ -790,7 +797,7 @@ class MembersInfo
     public function setOtherDetails($otherDetails)
     {
         $this->otherDetails = $otherDetails;
-
+    
         return $this;
     }
 
@@ -814,7 +821,7 @@ class MembersInfo
     public function setState($state)
     {
         $this->state = $state;
-
+    
         return $this;
     }
 
@@ -838,7 +845,7 @@ class MembersInfo
     public function setCountry($country)
     {
         $this->country = $country;
-
+    
         return $this;
     }
 
@@ -862,7 +869,7 @@ class MembersInfo
     public function setZip($zip)
     {
         $this->zip = $zip;
-
+    
         return $this;
     }
 
@@ -886,7 +893,7 @@ class MembersInfo
     public function setBloodGroup($bloodGroup)
     {
         $this->bloodGroup = $bloodGroup;
-
+    
         return $this;
     }
 
@@ -910,7 +917,7 @@ class MembersInfo
     public function setBusinessAreas($businessAreas)
     {
         $this->businessAreas = $businessAreas;
-
+    
         return $this;
     }
 
@@ -922,48 +929,5 @@ class MembersInfo
     public function getBusinessAreas()
     {
         return $this->businessAreas;
-    }
-
-    /**
-     * Set member
-     *
-     * @param \Entities\Members $member
-     *
-     * @return MembersInfo
-     */
-    public function setMember(\Entities\Members $member)
-    {
-        $this->member = $member;
-
-        return $this;
-    }
-
-    /**
-     * Get member
-     *
-     * @return \Entities\Members
-     */
-    public function getMember()
-    {
-        return $this->member;
-    }
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="member_id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $memberId;
-
-
-    /**
-     * Get memberId
-     *
-     * @return integer
-     */
-    public function getMemberId()
-    {
-        return $this->memberId;
     }
 }

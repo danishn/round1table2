@@ -64,10 +64,10 @@ class Events extends \Entities\Events implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'Entities\\Events' . "\0" . 'eventId', '' . "\0" . 'Entities\\Events' . "\0" . 'eventName', '' . "\0" . 'Entities\\Events' . "\0" . 'type', '' . "\0" . 'Entities\\Events' . "\0" . 'shortDesc', '' . "\0" . 'Entities\\Events' . "\0" . 'longDesc', '' . "\0" . 'Entities\\Events' . "\0" . 'eventDate', '' . "\0" . 'Entities\\Events' . "\0" . 'eventTime', '' . "\0" . 'Entities\\Events' . "\0" . 'eventVenue', '' . "\0" . 'Entities\\Events' . "\0" . 'createdOn', '' . "\0" . 'Entities\\Events' . "\0" . 'family', '' . "\0" . 'Entities\\Events' . "\0" . 'bigUrl', '' . "\0" . 'Entities\\Events' . "\0" . 'thumbUrl', '' . "\0" . 'Entities\\Events' . "\0" . 'status', '' . "\0" . 'Entities\\Events' . "\0" . 'member', '' . "\0" . 'Entities\\Events' . "\0" . 'memberId');
+            return array('__isInitialized__', '' . "\0" . 'Entities\\Events' . "\0" . 'eventId', '' . "\0" . 'Entities\\Events' . "\0" . 'eventName', '' . "\0" . 'Entities\\Events' . "\0" . 'type', '' . "\0" . 'Entities\\Events' . "\0" . 'shortDesc', '' . "\0" . 'Entities\\Events' . "\0" . 'longDesc', '' . "\0" . 'Entities\\Events' . "\0" . 'eventDate', '' . "\0" . 'Entities\\Events' . "\0" . 'eventTime', '' . "\0" . 'Entities\\Events' . "\0" . 'eventVenue', '' . "\0" . 'Entities\\Events' . "\0" . 'createdOn', '' . "\0" . 'Entities\\Events' . "\0" . 'memberId', '' . "\0" . 'Entities\\Events' . "\0" . 'isSpause', '' . "\0" . 'Entities\\Events' . "\0" . 'isChildren', '' . "\0" . 'Entities\\Events' . "\0" . 'tableCount', '' . "\0" . 'Entities\\Events' . "\0" . 'bigUrl', '' . "\0" . 'Entities\\Events' . "\0" . 'thumbUrl', '' . "\0" . 'Entities\\Events' . "\0" . 'status');
         }
 
-        return array('__isInitialized__', '' . "\0" . 'Entities\\Events' . "\0" . 'eventId', '' . "\0" . 'Entities\\Events' . "\0" . 'eventName', '' . "\0" . 'Entities\\Events' . "\0" . 'type', '' . "\0" . 'Entities\\Events' . "\0" . 'shortDesc', '' . "\0" . 'Entities\\Events' . "\0" . 'longDesc', '' . "\0" . 'Entities\\Events' . "\0" . 'eventDate', '' . "\0" . 'Entities\\Events' . "\0" . 'eventTime', '' . "\0" . 'Entities\\Events' . "\0" . 'eventVenue', '' . "\0" . 'Entities\\Events' . "\0" . 'createdOn', '' . "\0" . 'Entities\\Events' . "\0" . 'family', '' . "\0" . 'Entities\\Events' . "\0" . 'bigUrl', '' . "\0" . 'Entities\\Events' . "\0" . 'thumbUrl', '' . "\0" . 'Entities\\Events' . "\0" . 'status', '' . "\0" . 'Entities\\Events' . "\0" . 'member', '' . "\0" . 'Entities\\Events' . "\0" . 'memberId');
+        return array('__isInitialized__', '' . "\0" . 'Entities\\Events' . "\0" . 'eventId', '' . "\0" . 'Entities\\Events' . "\0" . 'eventName', '' . "\0" . 'Entities\\Events' . "\0" . 'type', '' . "\0" . 'Entities\\Events' . "\0" . 'shortDesc', '' . "\0" . 'Entities\\Events' . "\0" . 'longDesc', '' . "\0" . 'Entities\\Events' . "\0" . 'eventDate', '' . "\0" . 'Entities\\Events' . "\0" . 'eventTime', '' . "\0" . 'Entities\\Events' . "\0" . 'eventVenue', '' . "\0" . 'Entities\\Events' . "\0" . 'createdOn', '' . "\0" . 'Entities\\Events' . "\0" . 'memberId', '' . "\0" . 'Entities\\Events' . "\0" . 'isSpause', '' . "\0" . 'Entities\\Events' . "\0" . 'isChildren', '' . "\0" . 'Entities\\Events' . "\0" . 'tableCount', '' . "\0" . 'Entities\\Events' . "\0" . 'bigUrl', '' . "\0" . 'Entities\\Events' . "\0" . 'thumbUrl', '' . "\0" . 'Entities\\Events' . "\0" . 'status');
     }
 
     /**
@@ -367,23 +367,89 @@ class Events extends \Entities\Events implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setFamily($family)
+    public function setMemberId($memberId)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setFamily', array($family));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setMemberId', array($memberId));
 
-        return parent::setFamily($family);
+        return parent::setMemberId($memberId);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getFamily()
+    public function getMemberId()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFamily', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getMemberId', array());
 
-        return parent::getFamily();
+        return parent::getMemberId();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setIsSpause($isSpause)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setIsSpause', array($isSpause));
+
+        return parent::setIsSpause($isSpause);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getIsSpause()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getIsSpause', array());
+
+        return parent::getIsSpause();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setIsChildren($isChildren)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setIsChildren', array($isChildren));
+
+        return parent::setIsChildren($isChildren);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getIsChildren()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getIsChildren', array());
+
+        return parent::getIsChildren();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setTableCount($tableCount)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTableCount', array($tableCount));
+
+        return parent::setTableCount($tableCount);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getTableCount()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getTableCount', array());
+
+        return parent::getTableCount();
     }
 
     /**
@@ -450,50 +516,6 @@ class Events extends \Entities\Events implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStatus', array());
 
         return parent::getStatus();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setMember(\Entities\Members $member = NULL)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setMember', array($member));
-
-        return parent::setMember($member);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getMember()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getMember', array());
-
-        return parent::getMember();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setMemberId($memberId)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setMemberId', array($memberId));
-
-        return parent::setMemberId($memberId);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getMemberId()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getMemberId', array());
-
-        return parent::getMemberId();
     }
 
 }

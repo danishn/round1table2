@@ -64,10 +64,10 @@ class Gallery extends \Entities\Gallery implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'Entities\\Gallery' . "\0" . 'imageId', '' . "\0" . 'Entities\\Gallery' . "\0" . 'bigUrl', '' . "\0" . 'Entities\\Gallery' . "\0" . 'thumbUrl', '' . "\0" . 'Entities\\Gallery' . "\0" . 'submitDate', '' . "\0" . 'Entities\\Gallery' . "\0" . 'imageDesc', '' . "\0" . 'Entities\\Gallery' . "\0" . 'member', '' . "\0" . 'Entities\\Gallery' . "\0" . 'memberId');
+            return array('__isInitialized__', '' . "\0" . 'Entities\\Gallery' . "\0" . 'imageId', '' . "\0" . 'Entities\\Gallery' . "\0" . 'memberId', '' . "\0" . 'Entities\\Gallery' . "\0" . 'bigUrl', '' . "\0" . 'Entities\\Gallery' . "\0" . 'thumbUrl', '' . "\0" . 'Entities\\Gallery' . "\0" . 'submitDate', '' . "\0" . 'Entities\\Gallery' . "\0" . 'imageDesc');
         }
 
-        return array('__isInitialized__', '' . "\0" . 'Entities\\Gallery' . "\0" . 'imageId', '' . "\0" . 'Entities\\Gallery' . "\0" . 'bigUrl', '' . "\0" . 'Entities\\Gallery' . "\0" . 'thumbUrl', '' . "\0" . 'Entities\\Gallery' . "\0" . 'submitDate', '' . "\0" . 'Entities\\Gallery' . "\0" . 'imageDesc', '' . "\0" . 'Entities\\Gallery' . "\0" . 'member', '' . "\0" . 'Entities\\Gallery' . "\0" . 'memberId');
+        return array('__isInitialized__', '' . "\0" . 'Entities\\Gallery' . "\0" . 'imageId', '' . "\0" . 'Entities\\Gallery' . "\0" . 'memberId', '' . "\0" . 'Entities\\Gallery' . "\0" . 'bigUrl', '' . "\0" . 'Entities\\Gallery' . "\0" . 'thumbUrl', '' . "\0" . 'Entities\\Gallery' . "\0" . 'submitDate', '' . "\0" . 'Entities\\Gallery' . "\0" . 'imageDesc');
     }
 
     /**
@@ -191,6 +191,28 @@ class Gallery extends \Entities\Gallery implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function setMemberId($memberId)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setMemberId', array($memberId));
+
+        return parent::setMemberId($memberId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getMemberId()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getMemberId', array());
+
+        return parent::getMemberId();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setBigUrl($bigUrl)
     {
 
@@ -274,50 +296,6 @@ class Gallery extends \Entities\Gallery implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getImageDesc', array());
 
         return parent::getImageDesc();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setMember(\Entities\Members $member = NULL)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setMember', array($member));
-
-        return parent::setMember($member);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getMember()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getMember', array());
-
-        return parent::getMember();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setMemberId($memberId)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setMemberId', array($memberId));
-
-        return parent::setMemberId($memberId);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getMemberId()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getMemberId', array());
-
-        return parent::getMemberId();
     }
 
 }

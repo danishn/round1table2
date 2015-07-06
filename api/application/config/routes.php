@@ -68,6 +68,7 @@ $route['table/create'] = 'TableController/create_table';
 /* member APIs */
 $route['member/get_all'] = 'MemberController/get_members';
 $route['member/create'] = 'MemberController/create_member';
+$route['member/edit_profile'] = 'MemberController/edit_member';
 $route['member/search'] = 'MemberController/search_members';
 
 /* event APIs */
@@ -83,12 +84,12 @@ $route['news/create'] = 'NewsController/create_news';
 /* Favorites APIs */
 $route['favorites/get_all'] = 'FavoritesController/get_favorites';
 $route['favorites/create'] = 'FavoritesController/create_favorites';
-$route['favorites/search'] = 'FavoritesController/search_favorites';
+//$route['favorites/search'] = 'FavoritesController/search_favorites';
 
 /* Conveners APIs */
 $route['conveners/get_all'] = 'ConvenersController/get_conveners';
 $route['conveners/create'] = 'ConvenersController/create_conveners';
-$route['conveners/search'] = 'ConvenersController/search_conveners';
+//$route['conveners/search'] = 'ConvenersController/search_conveners';
 
  
 $route['translate_uri_dashes'] = FALSE;

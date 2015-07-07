@@ -22,21 +22,18 @@ class ApiAccess
     private $id;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="member_id", type="integer", nullable=false)
+     */
+    private $memberId;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="datetime", nullable=false)
      */
     private $date;
-
-    /**
-     * @var \Entities\Members
-     *
-     * @ORM\ManyToOne(targetEntity="Entities\Members")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="member_id", referencedColumnName="member_id")
-     * })
-     */
-    private $member;
 
 
     /**
@@ -48,61 +45,6 @@ class ApiAccess
     {
         return $this->id;
     }
-
-    /**
-     * Set date
-     *
-     * @param \DateTime $date
-     *
-     * @return ApiAccess
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    /**
-     * Get date
-     *
-     * @return \DateTime
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    /**
-     * Set member
-     *
-     * @param \Entities\Members $member
-     *
-     * @return ApiAccess
-     */
-    public function setMember(\Entities\Members $member = null)
-    {
-        $this->member = $member;
-
-        return $this;
-    }
-
-    /**
-     * Get member
-     *
-     * @return \Entities\Members
-     */
-    public function getMember()
-    {
-        return $this->member;
-    }
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="member_id", type="integer", nullable=false)
-     */
-    private $memberId;
-
 
     /**
      * Set memberId
@@ -126,5 +68,29 @@ class ApiAccess
     public function getMemberId()
     {
         return $this->memberId;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     *
+     * @return ApiAccess
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+    
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 }

@@ -49,7 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = "AuthController";
+$route['default_controller'] = "TestController";
 $route['404_override'] = 'AuthController/error404';
 
 $route['test/(:any)'] = "TestController/$1";
@@ -68,6 +68,7 @@ $route['table/create'] = 'TableController/create_table';
 /* member APIs */
 $route['member/get_all'] = 'MemberController/get_members';
 $route['member/create'] = 'MemberController/create_member';
+$route['member/edit_profile'] = 'MemberController/edit_profile';
 $route['member/search'] = 'MemberController/search_members';
 
 /* event APIs */
@@ -79,6 +80,16 @@ $route['meeting/create'] = 'EventController/create_event';
 /* News APIs */
 $route['news/get_all'] = 'NewsController/get_news';
 $route['news/create'] = 'NewsController/create_news';
+
+/* Favorites APIs */
+$route['favorites/get_all'] = 'FavoritesController/get_favorites';
+$route['favorites/create'] = 'FavoritesController/create_favorites';
+//$route['favorites/search'] = 'FavoritesController/search_favorites';
+
+/* Conveners APIs */
+$route['conveners/get_all'] = 'ConvenersController/get_conveners';
+$route['conveners/create'] = 'ConvenersController/create_conveners';
+//$route['conveners/search'] = 'ConvenersController/search_conveners';
 
  
 $route['translate_uri_dashes'] = FALSE;

@@ -22,8 +22,8 @@ class MemberController extends CI_Controller {
             $response->respond();
             exit;
         }
-	}
-
+	}    
+    
     /*
      * URL GET : /api/member/get_all
     */
@@ -147,4 +147,71 @@ class MemberController extends CI_Controller {
 
 	}
     
+    
+    /*
+     * URL POST : /api/member/edit_profile
+    */
+    
+    public function edit_profile()
+	{ 
+        $response = new Response();
+        
+        $member_id = $this->input->post('member_id');
+        $table_id = $this->input->post('table_id');
+        $email = $this->input->post('email');
+        $fname = $this->input->post('fname');
+        $lname = $this->input->post('lname');
+        $gender = $this->input->post('gender');
+        $mobile = $this->input->post('mobile');
+        $blood_group = $this->input->post('blood_group');
+        $spouse_name = $this->input->post('spouse_name');
+        $dob = $this->input->post('dob');
+        $spouse_dob = $this->input->post('spouse_dob');
+        $anniversary_date = $this->input->post('anniversary_date');
+        
+        $res_phone = $this->input->post('res_phone');
+        $office_phone = $this->input->post('office_phone');
+        $designation = $this->input->post('designation');
+        $res_city = $this->input->post('res_city');
+        $office_city = $this->input->post('office_city');
+        $state = $this->input->post('state');
+        
+        if(!$member_id || !$table_id || !$email || !$fname || !$gender || !$mobile || !$blood_group || !$spouse_name || !$dob ||!$spouse_dob || !$anniversary_date)
+        {
+            $response->setSuccess('false');
+            $response->setdata(null);
+            $response->setError(array(
+                    'code'=>402,
+                    'msg' => 'Failed due to incomplete Data.'
+                ));
+            $response->respond();
+            exit;
+        }
+        
+        $this->load->model('Member_model', 'member');
+        
+        $members_id = $this->member->update_profile($member_id, $table_id, $email, $fname, $lname, $gender, $mobile, $blood_group, $spouse_name, $dob, $spouse_dob, $anniversary_date, $res_phone, $office_phone, $designation, $res_city, $office_city, $state);
+            
+            if(!is_array($members_id) && strpos($members_id, 'error') !== false)
+            {
+                $response->setSuccess('false');
+                $response->setdata(null);
+                $response->setError(array(
+                        'code'=>402,
+                        'msg' =>str_replace('error ', '', $members_id)
+                    ));
+                $response->respond();
+                exit;
+            }else
+            {
+                $response->setSuccess('true');
+                $response->setdata(array('msg' =>"Member with Id $members_id updated."));
+                $response->setError(null);
+                
+                $response->respond();
+            }
+	}
+   
+
+
 }

@@ -64,10 +64,10 @@ class ApiAccess extends \Entities\ApiAccess implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'Entities\\ApiAccess' . "\0" . 'id', '' . "\0" . 'Entities\\ApiAccess' . "\0" . 'date', '' . "\0" . 'Entities\\ApiAccess' . "\0" . 'member', '' . "\0" . 'Entities\\ApiAccess' . "\0" . 'memberId');
+            return array('__isInitialized__', '' . "\0" . 'Entities\\ApiAccess' . "\0" . 'id', '' . "\0" . 'Entities\\ApiAccess' . "\0" . 'memberId', '' . "\0" . 'Entities\\ApiAccess' . "\0" . 'date');
         }
 
-        return array('__isInitialized__', '' . "\0" . 'Entities\\ApiAccess' . "\0" . 'id', '' . "\0" . 'Entities\\ApiAccess' . "\0" . 'date', '' . "\0" . 'Entities\\ApiAccess' . "\0" . 'member', '' . "\0" . 'Entities\\ApiAccess' . "\0" . 'memberId');
+        return array('__isInitialized__', '' . "\0" . 'Entities\\ApiAccess' . "\0" . 'id', '' . "\0" . 'Entities\\ApiAccess' . "\0" . 'memberId', '' . "\0" . 'Entities\\ApiAccess' . "\0" . 'date');
     }
 
     /**
@@ -191,50 +191,6 @@ class ApiAccess extends \Entities\ApiAccess implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setDate($date)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDate', array($date));
-
-        return parent::setDate($date);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getDate()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDate', array());
-
-        return parent::getDate();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setMember(\Entities\Members $member = NULL)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setMember', array($member));
-
-        return parent::setMember($member);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getMember()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getMember', array());
-
-        return parent::getMember();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function setMemberId($memberId)
     {
 
@@ -252,6 +208,28 @@ class ApiAccess extends \Entities\ApiAccess implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getMemberId', array());
 
         return parent::getMemberId();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setDate($date)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDate', array($date));
+
+        return parent::setDate($date);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getDate()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDate', array());
+
+        return parent::getDate();
     }
 
 }

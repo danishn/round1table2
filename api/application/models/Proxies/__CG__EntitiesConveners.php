@@ -64,10 +64,10 @@ class Conveners extends \Entities\Conveners implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'Entities\\Conveners' . "\0" . 'convenerId', '' . "\0" . 'Entities\\Conveners' . "\0" . 'name', '' . "\0" . 'Entities\\Conveners' . "\0" . 'designation', '' . "\0" . 'Entities\\Conveners' . "\0" . 'email', '' . "\0" . 'Entities\\Conveners' . "\0" . 'mobile', '' . "\0" . 'Entities\\Conveners' . "\0" . 'imageUrl', '' . "\0" . 'Entities\\Conveners' . "\0" . 'details', '' . "\0" . 'Entities\\Conveners' . "\0" . 'member', '' . "\0" . 'Entities\\Conveners' . "\0" . 'memberId');
+            return array('__isInitialized__', '' . "\0" . 'Entities\\Conveners' . "\0" . 'convenerId', '' . "\0" . 'Entities\\Conveners' . "\0" . 'memberId', '' . "\0" . 'Entities\\Conveners' . "\0" . 'name', '' . "\0" . 'Entities\\Conveners' . "\0" . 'tableCode', '' . "\0" . 'Entities\\Conveners' . "\0" . 'designation', '' . "\0" . 'Entities\\Conveners' . "\0" . 'email', '' . "\0" . 'Entities\\Conveners' . "\0" . 'mobile', '' . "\0" . 'Entities\\Conveners' . "\0" . 'imageUrl', '' . "\0" . 'Entities\\Conveners' . "\0" . 'details');
         }
 
-        return array('__isInitialized__', '' . "\0" . 'Entities\\Conveners' . "\0" . 'convenerId', '' . "\0" . 'Entities\\Conveners' . "\0" . 'name', '' . "\0" . 'Entities\\Conveners' . "\0" . 'designation', '' . "\0" . 'Entities\\Conveners' . "\0" . 'email', '' . "\0" . 'Entities\\Conveners' . "\0" . 'mobile', '' . "\0" . 'Entities\\Conveners' . "\0" . 'imageUrl', '' . "\0" . 'Entities\\Conveners' . "\0" . 'details', '' . "\0" . 'Entities\\Conveners' . "\0" . 'member', '' . "\0" . 'Entities\\Conveners' . "\0" . 'memberId');
+        return array('__isInitialized__', '' . "\0" . 'Entities\\Conveners' . "\0" . 'convenerId', '' . "\0" . 'Entities\\Conveners' . "\0" . 'memberId', '' . "\0" . 'Entities\\Conveners' . "\0" . 'name', '' . "\0" . 'Entities\\Conveners' . "\0" . 'tableCode', '' . "\0" . 'Entities\\Conveners' . "\0" . 'designation', '' . "\0" . 'Entities\\Conveners' . "\0" . 'email', '' . "\0" . 'Entities\\Conveners' . "\0" . 'mobile', '' . "\0" . 'Entities\\Conveners' . "\0" . 'imageUrl', '' . "\0" . 'Entities\\Conveners' . "\0" . 'details');
     }
 
     /**
@@ -191,6 +191,28 @@ class Conveners extends \Entities\Conveners implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function setMemberId($memberId)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setMemberId', array($memberId));
+
+        return parent::setMemberId($memberId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getMemberId()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getMemberId', array());
+
+        return parent::getMemberId();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setName($name)
     {
 
@@ -208,6 +230,28 @@ class Conveners extends \Entities\Conveners implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getName', array());
 
         return parent::getName();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setTableCode($tableCode)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTableCode', array($tableCode));
+
+        return parent::setTableCode($tableCode);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getTableCode()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getTableCode', array());
+
+        return parent::getTableCode();
     }
 
     /**
@@ -318,50 +362,6 @@ class Conveners extends \Entities\Conveners implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDetails', array());
 
         return parent::getDetails();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setMember(\Entities\Members $member = NULL)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setMember', array($member));
-
-        return parent::setMember($member);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getMember()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getMember', array());
-
-        return parent::getMember();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setMemberId($memberId)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setMemberId', array($memberId));
-
-        return parent::setMemberId($memberId);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getMemberId()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getMemberId', array());
-
-        return parent::getMemberId();
     }
 
 }

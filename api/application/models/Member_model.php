@@ -1,15 +1,19 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+use \Library\ImageResize;       // Use Namespace for Image resize
 
 class Member_model extends CI_Model {
 
         public $em;
-
+    
         public function __construct()
         {
                 // Call the CI_Model constructor
                 parent::__construct();
                 $this->load->library('upload');
                 $this->em = $this->doctrine->em;
+                $this->load->file('application/classes/ImageResize.php');     // Load file for Image resize
         }
     
         /*
@@ -334,6 +338,94 @@ class Member_model extends CI_Model {
 
             return $temp;  
         }
+    
+      /*
+         * Update member profile
+        */
+        public function update_profile($member_id, $table_id, $email, $fname, $lname = '', $gender, $mobile, $blood_group, $spouse_name, $dob, $spouse_dob, $anniversary_date, $res_phone = '-', $office_phone = '-', $designation = '-', $res_city = '-', $office_city = '-', $state = '-')
+        {   
+            $member = $this->em->find('Entities\Members', $member_id);
+            
+            $memberInfo = $this->em->find('Entities\MembersInfo', $member_id);
+            if(!$member || !$memberInfo)
+            {
+                return 'error Invalid Member Id';
+                exit;
+            }
+            
+            
+            $member->setEmail($email);
+            $member->setDesignation($designation);
+            
+            $memberInfo->setEmail($email);
+            $memberInfo->setFname($fname);
+            $memberInfo->setLname($lname);
+            $memberInfo->setGender($gender);
+            $memberInfo->setMobile($mobile);
+            $memberInfo->setBloodGroup($blood_group);
+            $memberInfo->setSpouseName($spouse_name);
+            $memberInfo->setDob(new \DateTime($dob));
+            $memberInfo->setSpouseDob(new \DateTime($spouse_dob));
+            $memberInfo->setAnniversaryDate(new \DateTime($anniversary_date));
+            $memberInfo->setResPhone($res_phone);
+            $memberInfo->setOfficePhone($office_phone);
+            $memberInfo->setDesignation($designation);
+            $memberInfo->setResCity($res_city);
+            $memberInfo->setOfficeCity($office_city);
+            $memberInfo->setState($state);
+            
+            
+            //var_dump($memberInfo);exit;
+            
+            if(isset($_FILES['profile_image']))
+            {   
+                $pic = explode('.', $_FILES['profile_image']['name']);
+               // $_FILES['profile_image']['name'] = 'member_'.$member_id.'_profile.'.$pic[count($pic)-1];
+                
+                // upload event photo to server & set image URLs
+                $config['upload_path'] = 'public/images/big/members';
+				$config['allowed_types'] = 'gif|jpeg|jpg|png';
+				$config['max_size']	= '10000';
+				$config['overwrite'] = true;
+				$config['file_name'] = 'member_'.$member_id.'_profile.'.$pic[count($pic)-1];
+
+				//$config['file_name']	= 'member_'.$member_id.'.'.$pic[count($pic)-1];
+                //echo 'member_'.$member_id.'_pic.'.$pic[count($pic)-1];exit;
+                
+				$this->load->library('upload', $config);
+                $this->upload->initialize($config);
+
+				if ( ! $this->upload->do_upload('profile_image')) {
+					return 'error '.$this->upload->display_errors();
+                    exit;
+				} else {
+					$data = $this->upload->data();
+					$thumb_url  = $big_url = '/api/public/images/big/members/' . $data['file_name'];
+                    
+                    
+                    $image = new ImageResize('public/images/big/members/'.$data['file_name']);
+                    $image->scale(20);
+                    $image->save('public/images/thumb/members/'.$data['file_name']);
+                    $thumb_url = '/api/public/images/thumb/members/' . $data['file_name'];
+                    
+                    $memberInfo->setBigUrl($big_url);
+                    $memberInfo->setThumbUrl($thumb_url);
+				}
+                
+            }
+            
+            try
+            {
+                $this->em->flush();
+                $member_id = $member->getMemberId();
+                return $member_id;
+                
+            }catch(Exception $e)
+            {
+                return 'error '. $e->getMessage();
+            }
+        }
+    
 
 }
 

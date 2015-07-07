@@ -22,6 +22,13 @@ class NotificationIds
     private $id;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="member_id", type="integer", nullable=false)
+     */
+    private $memberId;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="os", type="string", length=20, nullable=false)
@@ -35,16 +42,6 @@ class NotificationIds
      */
     private $token;
 
-    /**
-     * @var \Entities\Members
-     *
-     * @ORM\ManyToOne(targetEntity="Entities\Members")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="member_id", referencedColumnName="member_id")
-     * })
-     */
-    private $member;
-
 
     /**
      * Get id
@@ -55,85 +52,6 @@ class NotificationIds
     {
         return $this->id;
     }
-
-    /**
-     * Set os
-     *
-     * @param string $os
-     *
-     * @return NotificationIds
-     */
-    public function setOs($os)
-    {
-        $this->os = $os;
-
-        return $this;
-    }
-
-    /**
-     * Get os
-     *
-     * @return string
-     */
-    public function getOs()
-    {
-        return $this->os;
-    }
-
-    /**
-     * Set token
-     *
-     * @param string $token
-     *
-     * @return NotificationIds
-     */
-    public function setToken($token)
-    {
-        $this->token = $token;
-
-        return $this;
-    }
-
-    /**
-     * Get token
-     *
-     * @return string
-     */
-    public function getToken()
-    {
-        return $this->token;
-    }
-
-    /**
-     * Set member
-     *
-     * @param \Entities\Members $member
-     *
-     * @return NotificationIds
-     */
-    public function setMember(\Entities\Members $member = null)
-    {
-        $this->member = $member;
-
-        return $this;
-    }
-
-    /**
-     * Get member
-     *
-     * @return \Entities\Members
-     */
-    public function getMember()
-    {
-        return $this->member;
-    }
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="member_id", type="integer", nullable=false)
-     */
-    private $memberId;
-
 
     /**
      * Set memberId
@@ -157,5 +75,53 @@ class NotificationIds
     public function getMemberId()
     {
         return $this->memberId;
+    }
+
+    /**
+     * Set os
+     *
+     * @param string $os
+     *
+     * @return NotificationIds
+     */
+    public function setOs($os)
+    {
+        $this->os = $os;
+    
+        return $this;
+    }
+
+    /**
+     * Get os
+     *
+     * @return string
+     */
+    public function getOs()
+    {
+        return $this->os;
+    }
+
+    /**
+     * Set token
+     *
+     * @param string $token
+     *
+     * @return NotificationIds
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+    
+        return $this;
+    }
+
+    /**
+     * Get token
+     *
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
     }
 }

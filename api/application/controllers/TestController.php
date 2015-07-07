@@ -17,7 +17,7 @@ class TestController extends CI_Controller {
     
     public function index()
     {
-        echo "Successfully created Idex Function..";
+        echo "<h1>Welcome to Round Table Nepal Application APIs</h1>";
     }
     
     public function api($param = 'danish')

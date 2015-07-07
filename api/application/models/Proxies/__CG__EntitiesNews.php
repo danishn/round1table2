@@ -64,10 +64,10 @@ class News extends \Entities\News implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'Entities\\News' . "\0" . 'newsId', '' . "\0" . 'Entities\\News' . "\0" . 'headline', '' . "\0" . 'Entities\\News' . "\0" . 'bigUrl', '' . "\0" . 'Entities\\News' . "\0" . 'thumbUrl', '' . "\0" . 'Entities\\News' . "\0" . 'description', '' . "\0" . 'Entities\\News' . "\0" . 'tagline', '' . "\0" . 'Entities\\News' . "\0" . 'status', '' . "\0" . 'Entities\\News' . "\0" . 'creationDate', '' . "\0" . 'Entities\\News' . "\0" . 'publishDate', '' . "\0" . 'Entities\\News' . "\0" . 'broadcast', '' . "\0" . 'Entities\\News' . "\0" . 'imageDate', '' . "\0" . 'Entities\\News' . "\0" . 'member', '' . "\0" . 'Entities\\News' . "\0" . 'memberId');
+            return array('__isInitialized__', '' . "\0" . 'Entities\\News' . "\0" . 'newsId', '' . "\0" . 'Entities\\News' . "\0" . 'memberId', '' . "\0" . 'Entities\\News' . "\0" . 'headline', '' . "\0" . 'Entities\\News' . "\0" . 'bigUrl', '' . "\0" . 'Entities\\News' . "\0" . 'thumbUrl', '' . "\0" . 'Entities\\News' . "\0" . 'description', '' . "\0" . 'Entities\\News' . "\0" . 'tagline', '' . "\0" . 'Entities\\News' . "\0" . 'tableCount', '' . "\0" . 'Entities\\News' . "\0" . 'status', '' . "\0" . 'Entities\\News' . "\0" . 'creationDate', '' . "\0" . 'Entities\\News' . "\0" . 'newsDate', '' . "\0" . 'Entities\\News' . "\0" . 'publishDate', '' . "\0" . 'Entities\\News' . "\0" . 'broadcast', '' . "\0" . 'Entities\\News' . "\0" . 'imageDate');
         }
 
-        return array('__isInitialized__', '' . "\0" . 'Entities\\News' . "\0" . 'newsId', '' . "\0" . 'Entities\\News' . "\0" . 'headline', '' . "\0" . 'Entities\\News' . "\0" . 'bigUrl', '' . "\0" . 'Entities\\News' . "\0" . 'thumbUrl', '' . "\0" . 'Entities\\News' . "\0" . 'description', '' . "\0" . 'Entities\\News' . "\0" . 'tagline', '' . "\0" . 'Entities\\News' . "\0" . 'status', '' . "\0" . 'Entities\\News' . "\0" . 'creationDate', '' . "\0" . 'Entities\\News' . "\0" . 'publishDate', '' . "\0" . 'Entities\\News' . "\0" . 'broadcast', '' . "\0" . 'Entities\\News' . "\0" . 'imageDate', '' . "\0" . 'Entities\\News' . "\0" . 'member', '' . "\0" . 'Entities\\News' . "\0" . 'memberId');
+        return array('__isInitialized__', '' . "\0" . 'Entities\\News' . "\0" . 'newsId', '' . "\0" . 'Entities\\News' . "\0" . 'memberId', '' . "\0" . 'Entities\\News' . "\0" . 'headline', '' . "\0" . 'Entities\\News' . "\0" . 'bigUrl', '' . "\0" . 'Entities\\News' . "\0" . 'thumbUrl', '' . "\0" . 'Entities\\News' . "\0" . 'description', '' . "\0" . 'Entities\\News' . "\0" . 'tagline', '' . "\0" . 'Entities\\News' . "\0" . 'tableCount', '' . "\0" . 'Entities\\News' . "\0" . 'status', '' . "\0" . 'Entities\\News' . "\0" . 'creationDate', '' . "\0" . 'Entities\\News' . "\0" . 'newsDate', '' . "\0" . 'Entities\\News' . "\0" . 'publishDate', '' . "\0" . 'Entities\\News' . "\0" . 'broadcast', '' . "\0" . 'Entities\\News' . "\0" . 'imageDate');
     }
 
     /**
@@ -191,6 +191,28 @@ class News extends \Entities\News implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function setMemberId($memberId)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setMemberId', array($memberId));
+
+        return parent::setMemberId($memberId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getMemberId()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getMemberId', array());
+
+        return parent::getMemberId();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setHeadline($headline)
     {
 
@@ -301,6 +323,28 @@ class News extends \Entities\News implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function setTableCount($tableCount)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTableCount', array($tableCount));
+
+        return parent::setTableCount($tableCount);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getTableCount()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getTableCount', array());
+
+        return parent::getTableCount();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setStatus($status)
     {
 
@@ -340,6 +384,28 @@ class News extends \Entities\News implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCreationDate', array());
 
         return parent::getCreationDate();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setNewsDate($newsDate)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNewsDate', array($newsDate));
+
+        return parent::setNewsDate($newsDate);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getNewsDate()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNewsDate', array());
+
+        return parent::getNewsDate();
     }
 
     /**
@@ -406,50 +472,6 @@ class News extends \Entities\News implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getImageDate', array());
 
         return parent::getImageDate();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setMember(\Entities\Members $member = NULL)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setMember', array($member));
-
-        return parent::setMember($member);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getMember()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getMember', array());
-
-        return parent::getMember();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setMemberId($memberId)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setMemberId', array($memberId));
-
-        return parent::setMemberId($memberId);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getMemberId()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getMemberId', array());
-
-        return parent::getMemberId();
     }
 
 }

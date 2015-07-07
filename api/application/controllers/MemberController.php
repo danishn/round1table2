@@ -152,31 +152,10 @@ class MemberController extends CI_Controller {
      * URL POST : /api/member/edit_profile
     */
     
-    public function edit_member()
+    public function edit_profile()
 	{ 
         $response = new Response();
-/*        
-member_id: 14
-table_id: 2
-fname: "Hemant"
-lname: "Gadia"
-gender: "Male"
-mobile: "+977-9851022451"
-email: "jtcl@wlink.com.np"
-blood_group: "A+"
-spouse_name: "Rekha"
-dob: "Aug 25,1967"
-spouse_dob: null
-anniversary_date: "Dec 02,2014"
-image_thumb_url: "/api/public/images/thumb/members/default.jpg"
-image_big_url: "/api/public/images/big/members/default.jpg"
-res_phone: "52552255"
-office_phone: "566565555"
-designation: "-"
-res_city: "-"
-office_city: "-"
-state: ""
-*/        
+        
         $member_id = $this->input->post('member_id');
         $table_id = $this->input->post('table_id');
         $email = $this->input->post('email');
@@ -189,8 +168,7 @@ state: ""
         $dob = $this->input->post('dob');
         $spouse_dob = $this->input->post('spouse_dob');
         $anniversary_date = $this->input->post('anniversary_date');
-        $image_thumb_url = $this->input->post('image_thumb_url');
-        $image_big_url = $this->input->post('image_big_url');
+        
         $res_phone = $this->input->post('res_phone');
         $office_phone = $this->input->post('office_phone');
         $designation = $this->input->post('designation');
@@ -198,24 +176,36 @@ state: ""
         $office_city = $this->input->post('office_city');
         $state = $this->input->post('state');
         
+        if(!$member_id || !$table_id || !$email || !$fname || !$gender || !$mobile || !$blood_group || !$spouse_name || !$dob ||!$spouse_dob || !$anniversary_date)
+        {
+            $response->setSuccess('false');
+            $response->setdata(null);
+            $response->setError(array(
+                    'code'=>402,
+                    'msg' => 'Failed due to incomplete Data.'
+                ));
+            $response->respond();
+            exit;
+        }
+        
         $this->load->model('Member_model', 'member');
         
-        $members_list = $this->member->get_all();
+        $members_id = $this->member->update_profile($member_id, $table_id, $email, $fname, $lname, $gender, $mobile, $blood_group, $spouse_name, $dob, $spouse_dob, $anniversary_date, $res_phone, $office_phone, $designation, $res_city, $office_city, $state);
             
-            if(!is_array($members_list) && strpos($members_list, 'error') !== false)
+            if(!is_array($members_id) && strpos($members_id, 'error') !== false)
             {
                 $response->setSuccess('false');
                 $response->setdata(null);
                 $response->setError(array(
                         'code'=>402,
-                        'msg' =>str_replace('error ', '', $members_list)
+                        'msg' =>str_replace('error ', '', $members_id)
                     ));
                 $response->respond();
                 exit;
             }else
             {
                 $response->setSuccess('true');
-                $response->setdata(array('members_list'=>$members_list));
+                $response->setdata(array('msg' =>"Member with Id $members_id updated."));
                 $response->setError(null);
                 
                 $response->respond();

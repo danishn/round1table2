@@ -68,7 +68,7 @@ $route['table/create'] = 'TableController/create_table';
 /* member APIs */
 $route['member/get_all'] = 'MemberController/get_members';
 $route['member/create'] = 'MemberController/create_member';
-$route['member/edit_profile'] = 'MemberController/edit_member';
+$route['member/edit_profile'] = 'MemberController/edit_profile';
 $route['member/search'] = 'MemberController/search_members';
 
 /* event APIs */

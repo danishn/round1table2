@@ -34,9 +34,24 @@ class EventController extends CI_Controller {
 	{ 
         $response = new Response();
         
+        $headers = apache_request_headers();
+        //var_dump($headers);exit;
+         if(!isset($headers['Member-Id']))
+         {
+            $response->setSuccess('false');
+            $response->setdata(null);
+            $response->setError(array(
+                    'code'=>402,
+                    'msg' => 'Member Id not specified'
+                ));
+            $response->respond();
+            exit;
+         }
+        $member_id = $headers['Member-Id'];
+        
         $this->load->model('Event_model', 'event');
         
-        $event_list = $this->event->get_all('event');
+        $event_list = $this->event->get_all('event', $member_id);
             
             if(!is_array($event_list) && strpos($event_list, 'error') !== false)
             {
@@ -68,9 +83,26 @@ class EventController extends CI_Controller {
 	{ 
         $response = new Response();
         
+        $headers = apache_request_headers();
+        //var_dump($headers);exit;
+         if(!isset($headers['Member-Id']))
+         {
+            $response->setSuccess('false');
+            $response->setdata(null);
+            $response->setError(array(
+                    'code'=>402,
+                    'msg' => 'Member Id not specified'
+                ));
+            $response->respond();
+            exit;
+         }
+        $member_id = $headers['Member-Id'];
+        
         $this->load->model('Event_model', 'event');
         
-        $meeting_list = $this->event->get_all('meeting');
+        $meeting_list = $this->event->get_all('meeting', $member_id);
+        
+        
             
             if(!is_array($meeting_list) && strpos($meeting_list, 'error') !== false)
             {
@@ -181,4 +213,53 @@ class EventController extends CI_Controller {
 
 	}
     
+     /*
+     * URL GET : /api/event/rsvp
+    */
+    
+    public function rsvp_update()
+	{ 
+        $response = new Response();
+        
+        $member_id = $this->input->post('member_id');
+        $event_id = $this->input->post('event_id');
+        $rsvp_response = $this->input->post('response');
+        
+        if(!$member_id || !$event_id || !$rsvp_response || !in_array($rsvp_response = strtolower($rsvp_response), array("yes", "no", "may be")))
+        {
+                $response->setSuccess('false');
+                $response->setdata(null);
+                $response->setError(array(
+                        'code'=>402,
+                        'msg' => 'Failed due to Invalid data.'
+                    ));
+                $response->respond();
+                exit;
+        }
+        
+        $this->load->model('Event_model', 'event');
+        
+        $response_id = $this->event->update_rsvp($member_id, $event_id, $rsvp_response);
+        
+            if(!is_array($response_id) && strpos($response_id, 'error') !== false)
+            {
+                $response->setSuccess('false');
+                $response->setdata(null);
+                $response->setError(array(
+                        'code'=>402,
+                        'msg' =>str_replace('error ', '', $response_id)
+                    ));
+                $response->respond();
+                exit;
+            }else
+            {
+                $response->setSuccess('true');
+                $response->setdata(array('msg'=>"RSVP updated successfully"));
+                $response->setError(null);
+                
+                $response->respond();
+            }
+
+	}
+   
 }

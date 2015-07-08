@@ -68,7 +68,7 @@ class Member_model extends CI_Model {
                         $this->em->flush();
                     }catch(Exception $e)
                     {
-                        return 'error token already exists';//.$e->getMessage();
+                        return 'error can not set GCM Id';//.$e->getMessage();
                     }
                     //var_dump($notification);exit;    
                     $memberInfo = $this->em->find('Entities\MembersInfo', $member_id);

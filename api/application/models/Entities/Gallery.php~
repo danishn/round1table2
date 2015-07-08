@@ -31,23 +31,9 @@ class Gallery
     /**
      * @var string
      *
-     * @ORM\Column(name="big_url", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="image_name", type="text", length=65535, nullable=false)
      */
-    private $bigUrl;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="thumb_url", type="text", length=65535, nullable=false)
-     */
-    private $thumbUrl;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="submit_date", type="date", nullable=false)
-     */
-    private $submitDate;
+    private $imageName;
 
     /**
      * @var string
@@ -55,6 +41,13 @@ class Gallery
      * @ORM\Column(name="image_desc", type="text", length=65535, nullable=false)
      */
     private $imageDesc;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="submit_date", type="date", nullable=false)
+     */
+    private $submitDate;
 
 
     /**
@@ -77,7 +70,7 @@ class Gallery
     public function setMemberId($memberId)
     {
         $this->memberId = $memberId;
-    
+
         return $this;
     }
 
@@ -92,75 +85,27 @@ class Gallery
     }
 
     /**
-     * Set bigUrl
+     * Set imageName
      *
-     * @param string $bigUrl
+     * @param string $imageName
      *
      * @return Gallery
      */
-    public function setBigUrl($bigUrl)
+    public function setImageName($imageName)
     {
-        $this->bigUrl = $bigUrl;
-    
+        $this->imageName = $imageName;
+
         return $this;
     }
 
     /**
-     * Get bigUrl
+     * Get imageName
      *
      * @return string
      */
-    public function getBigUrl()
+    public function getImageName()
     {
-        return $this->bigUrl;
-    }
-
-    /**
-     * Set thumbUrl
-     *
-     * @param string $thumbUrl
-     *
-     * @return Gallery
-     */
-    public function setThumbUrl($thumbUrl)
-    {
-        $this->thumbUrl = $thumbUrl;
-    
-        return $this;
-    }
-
-    /**
-     * Get thumbUrl
-     *
-     * @return string
-     */
-    public function getThumbUrl()
-    {
-        return $this->thumbUrl;
-    }
-
-    /**
-     * Set submitDate
-     *
-     * @param \DateTime $submitDate
-     *
-     * @return Gallery
-     */
-    public function setSubmitDate($submitDate)
-    {
-        $this->submitDate = $submitDate;
-    
-        return $this;
-    }
-
-    /**
-     * Get submitDate
-     *
-     * @return \DateTime
-     */
-    public function getSubmitDate()
-    {
-        return $this->submitDate;
+        return $this->imageName;
     }
 
     /**
@@ -173,7 +118,7 @@ class Gallery
     public function setImageDesc($imageDesc)
     {
         $this->imageDesc = $imageDesc;
-    
+
         return $this;
     }
 
@@ -185,5 +130,29 @@ class Gallery
     public function getImageDesc()
     {
         return $this->imageDesc;
+    }
+
+    /**
+     * Set submitDate
+     *
+     * @param \DateTime $submitDate
+     *
+     * @return Gallery
+     */
+    public function setSubmitDate($submitDate)
+    {
+        $this->submitDate = $submitDate;
+
+        return $this;
+    }
+
+    /**
+     * Get submitDate
+     *
+     * @return \DateTime
+     */
+    public function getSubmitDate()
+    {
+        return $this->submitDate;
     }
 }

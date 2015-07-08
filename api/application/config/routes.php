@@ -76,6 +76,7 @@ $route['event/get_all'] = 'EventController/get_events';
 $route['meeting/get_all'] = 'EventController/get_meetings';
 $route['event/create'] = 'EventController/create_event';
 $route['meeting/create'] = 'EventController/create_event';
+$route['event/rsvp'] = 'EventController/rsvp_update';
 
 /* News APIs */
 $route['news/get_all'] = 'NewsController/get_news';
@@ -90,6 +91,10 @@ $route['favorites/create'] = 'FavoritesController/create_favorites';
 $route['conveners/get_all'] = 'ConvenersController/get_conveners';
 $route['conveners/create'] = 'ConvenersController/create_conveners';
 //$route['conveners/search'] = 'ConvenersController/search_conveners';
+
+/* Conveners APIs */
+$route['gallery/post_update'] = 'GalleryController/set_update';
+$route['gallery/get_updates'] = 'GalleryController/get_updates';
 
  
 $route['translate_uri_dashes'] = FALSE;

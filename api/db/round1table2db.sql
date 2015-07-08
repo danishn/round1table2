@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 07, 2015 at 10:22 PM
+-- Generation Time: Jul 08, 2015 at 11:51 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -308,13 +308,20 @@ INSERT INTO `favorites` (`brand_id`, `brand_name`, `image_url`, `offer_desc`, `w
 CREATE TABLE IF NOT EXISTS `gallery` (
   `image_id` int(10) NOT NULL AUTO_INCREMENT,
   `member_id` int(10) NOT NULL,
-  `big_url` text NOT NULL,
-  `thumb_url` text NOT NULL,
-  `submit_date` date NOT NULL,
+  `image_name` text NOT NULL,
   `image_desc` text NOT NULL,
+  `submit_date` date NOT NULL,
   PRIMARY KEY (`image_id`),
   KEY `member_id` (`member_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Image Gallery' AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='Image Gallery' AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `gallery`
+--
+
+INSERT INTO `gallery` (`image_id`, `member_id`, `image_name`, `image_desc`, `submit_date`) VALUES
+(1, 12, 'adgh45sd6.jkd', 'test upload', '2015-07-08'),
+(2, 1, 'adgh421ddsf5sd6.jkd', 'test upload 2', '2015-07-08');
 
 -- --------------------------------------------------------
 
@@ -346,7 +353,7 @@ INSERT INTO `members` (`member_id`, `table_id`, `password`, `registration_date`,
 (1, 1, 'pwd', '2015-12-02', '2015-12-02 00:00:00', 0, 1, 'ajaybansal@wlink.com.np123', 'cid001', 'otp12', 'Demo Designation'),
 (2, 1, 'pwd', '2015-12-02', '2015-12-02 00:00:00', 0, 1, '2yaramtex@yahoo.co.in', 'cid002', 'otp12', '-'),
 (3, 5, 'pwd', '2015-12-02', '2015-12-02 00:00:00', 0, 1, '3drrksingh_np@yahoo.co.in', 'cid003', 'otp12', 'Designation'),
-(4, 4, 'pwd', '2015-12-02', '2015-12-02 00:00:00', 0, 1, '4rishi@mail.com.np', 'cid004', 'otp12', '-'),
+(4, 4, 'pwd', '2015-12-02', '2015-12-02 00:00:00', 0, 1, 'rishi@mail.com.np', 'cid004', 'otp12', '-'),
 (5, 4, 'pwd', '2015-12-02', '2015-12-02 00:00:00', 0, 1, '5hemant@golchha.com', 'cid005', 'otp12', '-'),
 (6, 1, 'pwd', '2015-12-02', '2015-12-02 00:00:00', 0, 1, '6sarawagi@wlink.com.np', 'cid006', 'otp12', '-'),
 (7, 1, 'pwd', '2015-12-02', '2015-12-02 00:00:00', 0, 1, '7rara@mos.com.np', 'cid007', 'otp12', '-'),
@@ -732,26 +739,52 @@ CREATE TABLE IF NOT EXISTS `notification_ids` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `member_id` int(10) NOT NULL,
   `os` varchar(20) NOT NULL COMMENT 'gcm/apn',
-  `token` varchar(250) NOT NULL,
+  `token` text NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `notification_id` (`token`),
   KEY `member_id` (`member_id`),
   KEY `member_id_2` (`member_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `notification_ids`
 --
 
 INSERT INTO `notification_ids` (`id`, `member_id`, `os`, `token`) VALUES
-(1, 1, 'gcm', 'bndf7000'),
-(2, 1, 'gcm', 'bndf700'),
-(3, 1, 'gcm', 'bndf70045'),
-(4, 1, 'gcm', '123456'),
-(5, 1, 'gcm', 'bndf79212q12'),
-(6, 1, 'apn', '6123542'),
-(7, 1, 'gcm', '612354200'),
-(8, 1, 'gcm', '123456axz');
+(1, 1, 'gcm', ''),
+(2, 1, 'gcm', ''),
+(3, 1, 'gcm', ''),
+(4, 1, 'gcm', ''),
+(5, 1, 'gcm', ''),
+(6, 1, 'apn', ''),
+(7, 1, 'gcm', ''),
+(8, 1, 'gcm', ''),
+(9, 4, 'gcm', 'asd123asd15as4d6as'),
+(10, 4, 'gcm', 'asd123asd15as4d6as');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rsvp`
+--
+
+CREATE TABLE IF NOT EXISTS `rsvp` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `member_id` int(10) NOT NULL,
+  `event_id` int(10) NOT NULL,
+  `rsvp` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'null, yes, no, may_be',
+  `response_date` date NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_2` (`id`),
+  KEY `id` (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `rsvp`
+--
+
+INSERT INTO `rsvp` (`id`, `member_id`, `event_id`, `rsvp`, `response_date`) VALUES
+(1, 1, 1, 'may be', '2015-07-08'),
+(2, 11, 12, 'no', '2015-07-08');
 
 -- --------------------------------------------------------
 

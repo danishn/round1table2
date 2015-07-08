@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * NotificationIds
  *
- * @ORM\Table(name="notification_ids", uniqueConstraints={@ORM\UniqueConstraint(name="notification_id", columns={"token"})}, indexes={@ORM\Index(name="member_id", columns={"member_id"}), @ORM\Index(name="member_id_2", columns={"member_id"})})
+ * @ORM\Table(name="notification_ids", indexes={@ORM\Index(name="member_id", columns={"member_id"}), @ORM\Index(name="member_id_2", columns={"member_id"})})
  * @ORM\Entity
  */
 class NotificationIds
@@ -38,7 +38,7 @@ class NotificationIds
     /**
      * @var string
      *
-     * @ORM\Column(name="token", type="string", length=250, nullable=false)
+     * @ORM\Column(name="token", type="text", length=65535, nullable=false)
      */
     private $token;
 
@@ -63,7 +63,7 @@ class NotificationIds
     public function setMemberId($memberId)
     {
         $this->memberId = $memberId;
-    
+
         return $this;
     }
 
@@ -87,7 +87,7 @@ class NotificationIds
     public function setOs($os)
     {
         $this->os = $os;
-    
+
         return $this;
     }
 
@@ -111,7 +111,7 @@ class NotificationIds
     public function setToken($token)
     {
         $this->token = $token;
-    
+
         return $this;
     }
 

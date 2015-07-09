@@ -54,6 +54,7 @@ $route['404_override'] = 'AuthController/error404';
 
 $route['test/(:any)'] = "TestController/$1";
 $route['test/(:any)/(:any)'] = "TestController/$1/$2";
+$route['test/search/(:any)/(:any)'] = "TestController/search/$1/$2";
 
 /* Auth APIs */
 $route['login'] = 'AuthController/login';

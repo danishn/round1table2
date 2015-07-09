@@ -19,7 +19,23 @@ class Test_model extends CI_Model {
                 $query = $this->db->get('test_tb');
                 return $query->result();
         }
+        
+        public function search($param1, $param2)
+        {
+         //$memberInfo = $this->doctrine->em->getRepository('Entities\Members')->findAll();//By(array('tableId'=>$table_id));
+           //var_dump($memberInfo);exit;
+            $memberInfo = $this->em->getRepository('Entities\MembersInfo')
+                                    ->createQueryBuilder('m')
+                                    ->select('m.officePhone', 'm.bloodGroup')
+                                    ->distinct()
+                                    ->getQuery()
+                                    ->getResult();// execute()
+            
+            var_dump($memberInfo);exit;
+            
+        }
 
+    
         public function add()
         {
                 $user = new Entities\Users;

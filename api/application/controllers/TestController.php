@@ -25,11 +25,11 @@ class TestController extends CI_Controller {
         echo "Called to Test API with data $param";
     }
     
-    public function createMore($param1 = 'danish', $param2 = '25')
+    public function search($param1 = 'danish', $param2 = '25')
     {
-        echo "Creating data for $param1 with Qty :: $param2";
-        $this->load->view('test');
-        $this->load->view('test/test', array('name'=>$param1,'qty'=>$param2));
+        //var_dump($param1);exit;
+        $this->load->model('Test_model', 'test');
+        $result = $this->test->search($param1, $param2);
     }
     
     

@@ -52,6 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = "TestController";
 $route['404_override'] = 'AuthController/error404';
 
+$route['test/gcm'] = "TestController/gcm";
 $route['test/(:any)'] = "TestController/$1";
 $route['test/(:any)/(:any)'] = "TestController/$1/$2";
 

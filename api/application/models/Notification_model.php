@@ -124,34 +124,5 @@ class Notification_model extends CI_Model {
             return $reg_ids;
             
         }
-    
-
-        /*
-         * Add new gallery update
-        */
-
-        public function set_update($member_id, $image_name, $image_desc = '-')
-        {  
-
-			$gallery = new Entities\Gallery;
-            
-            //var_dump($news);exit;
-            
-            $gallery->setMemberId($member_id);
-            $gallery->setImageName($image_name);
-            $gallery->setImageDesc($image_desc);
-            $gallery->setSubmitDate(new \DateTime("now"));
-            
-            try
-            {
-                $this->em->persist($gallery);
-                $this->em->flush();
-                return $gallery->getImageId();
-            }catch(Exception $e)
-            {
-                return 'error '. $e->getMessage();
-            }
-            
-        }
 
 }

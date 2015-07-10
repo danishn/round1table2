@@ -13,6 +13,19 @@ class TestController extends CI_Controller {
 		parent::__construct();
 		$this->load->file('application/classes/Response.php');
 		$this->load->file('application/classes/ImageResize.php');     // Load file for Image resize
+        
+         $response = new Response();
+        if(!$this->auth_service->valid_request)
+        { 
+            $response->setSuccess('false');
+            $response->setdata(null);
+            $response->setError(array(
+                    'Status_code'=>401,
+                    'Error_Message' =>'Access Denied'
+                ));
+            $response->respond();
+            exit;
+        }
 	}
     
     
@@ -37,33 +50,73 @@ class TestController extends CI_Controller {
     */
     
     public function gcm()
-    { 
+    {   
+        /*
+        // Select brodcast receivers depending upon type of broadcast notification
+            $data = array(
+                'type' => 'event',
+                'event_id' => 72
+            );
+            $this->load->model('Notification_model', 'notification');
+            $reg_ids = $this->notification->get_tokens($data);
+            var_dump($reg_ids);exit;
+        */
+        // -----------------------------------------------------------------------------------------
+        
+        
+        //  Fetch from db
         $this->em = $this->doctrine->em;        // Doctrine initialization
         $gcm_users = $this->em->getRepository('Entities\NotificationIds')->findAll();
         
         //var_dump($gcm_users);exit;
         
-         foreach($gcm_users as $gcm_user){
-             $registration_ids[] = $gcm_user->getToken();    
-         }
+        $registration_ids = [];
         
-        if(empty($registration_ids)){
-            return 'error No Registration Ids found';
+        if($gcm_users)
+        {
+             foreach($gcm_users as $gcm_user){
+                 $registration_ids[] = $gcm_user->getToken();    
+             }
+        }
+        
+        //$registration_ids[] = $this->input->post('registration_id');
+        
+        if($registration_ids[0] == null){
+            echo 'error No Registration Ids found';
             exit;
         }
         
-         $message = array(
-            "type" =>"event",
-            "message" => "New Event Created",
-            "description" => "You are invited for an event on Sept 10th, 2015 at kathmandu. Please respond to RSVP" 
+
+        $message = array(
+            "title" => "New notification data for test",
+            "body" => 'Recieved New Notification..'
          );
         
-        // Actual GCM Call
+        $data = array(
+            "type" => 'event',
+            "msg" => 'New Notification',
+            "description" => "Type can be anything from event/meeting/news/favorites/tables indicating whats this notification is for. Depending on type, app should reload/refresh respective view.",
+         );
+        
+        
+        // GCM Call
         $this->load->file('application/classes/GCM.php');
         $gcm = new GCM();
+        $gcm_res = $gcm->send_notification($registration_ids, $message, $data);
         
-        $res = $gcm->send_notification($registration_ids, $message);
-        echo($res);
+        // APN Call
+        $this->load->file('application/classes/APN.php');
+        $apn = new APN();
+        $apn_res = $apn->send_notification($registration_ids, $message, $data);
+        
+        $response =new Response();
+        $response->setSuccess('true');
+        $response->setdata(array('gcm_response'=>$gcm_res, 'apn_response'=>$apn_res));
+        $response->setError(null);
+                
+        $response->respond();
+        exit;
+        
     }
     
     
@@ -105,6 +158,7 @@ class TestController extends CI_Controller {
        // $this->auth_service->validate_request();
         $data = $this->Test_model->getAll();
         //var_dump($data);exit;
+        
         $response->setSuccess('true');
         $response->setData($data);
         $response->setError(null);

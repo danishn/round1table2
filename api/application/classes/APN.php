@@ -1,9 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
  
-//Reference : http://www.androidhive.info/2012/10/android-push-notifications-using-google-cloud-messaging-gcm-php-and-mysql/
+//Author: Danish Nadaf
 
-class GCM {
+class APN {
     
     function __construct() {
 
@@ -16,24 +16,20 @@ class GCM {
         
          $url = 'https://android.googleapis.com/gcm/send'; 
         
-        // Afif Acc API key for android
-        // 'Authorization: key=AIzaSyAdcp_ExRygjsNZCJatSuRa5lq-zVKbaLQ',
-        
         $headers = array(
-            'Authorization: key=AIzaSyDA76icBLYgTTwMgmkMQgadlhbyGproojg',
+            'Authorization: key=AIzaSyCzF05kIClIihQRt5FpWNOIKcSNp4bNnqU',
             'Content-Type: application/json'
         );
-        
-        $message["icon"] = "@drawable/app_logo";
         
         $fields = array(
             'registration_ids' => $registatoin_ids,
             'notification' => $message,
             'data' => $data,
+            'content_available' => true,
             'collapse_key' => $data['type']
         );
         
-        //echo json_encode($fields);exit;
+       //echo json_encode($fields);exit;
         
         // Open connection
         $ch = curl_init();

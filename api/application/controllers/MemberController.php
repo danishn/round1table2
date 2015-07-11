@@ -190,22 +190,22 @@ class MemberController extends CI_Controller {
         
         $this->load->model('Member_model', 'member');
         
-        $members_id = $this->member->update_profile($member_id, $table_id, $email, $fname, $lname, $gender, $mobile, $blood_group, $spouse_name, $dob, $spouse_dob, $anniversary_date, $res_phone, $office_phone, $designation, $res_city, $office_city, $state);
+        $members_data = $this->member->update_profile($member_id, $table_id, $email, $fname, $lname, $gender, $mobile, $blood_group, $spouse_name, $dob, $spouse_dob, $anniversary_date, $res_phone, $office_phone, $designation, $res_city, $office_city, $state);
             
-            if(!is_array($members_id) && strpos($members_id, 'error') !== false)
+            if(!is_array($members_data) && strpos($members_data, 'error') !== false)
             {
                 $response->setSuccess('false');
                 $response->setdata(null);
                 $response->setError(array(
                         'code'=>402,
-                        'msg' =>str_replace('error ', '', $members_id)
+                        'msg' =>str_replace('error ', '', $members_data)
                     ));
                 $response->respond();
                 exit;
             }else
             {
                 $response->setSuccess('true');
-                $response->setdata(array('msg' =>"Member with Id $members_id updated."));
+                $response->setdata(array('updated_info' => $members_data));
                 $response->setError(null);
                 
                 $response->respond();

@@ -69,7 +69,7 @@ class LoginController extends CI_Controller {
     }
 
     /*
-     * URL : /__admin/error
+     * URL : /error
     */
     public function error()
 	{

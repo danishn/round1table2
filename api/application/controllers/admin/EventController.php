@@ -4,262 +4,112 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class EventController extends CI_Controller {
     
     //public $response = array();
+    public $em;
 
     function __construct()
     {
-		parent::__construct();
-        
-        $this->load->file('application/classes/Response.php'); 
-        
-        $response = new Response();
-        
-        if(!$this->auth_service->valid_request)
-        { 
-            $response->setSuccess('false');
-            $response->setdata(null);
-            $response->setError(array(
-                    'code'=>401,
-                    'msg' =>'Access Denied'
-                ));
-            $response->respond();
-            exit;
-        }
+		parent::__construct(); 
+        $this->em = $this->doctrine->em;
+        try {
+			session_start ();
+			if (!isset ( $_SESSION ['adminUser'] )){
+			     redirect ( '__admin?msg=session_expired' );
+            }
+		} catch ( Exception $e ) {
+			redirect ( '__admin/error?msg=' . $e->getMessage() );
+		}
 	}
     
     /*
-     * URL GET : /api/event/get_all
+     * URL GET : /__admin/event     //display all events
     */
     
-    public function get_events()
+    public function event()
 	{ 
-        $response = new Response();
+        $events = $this->em->getRepository('Entities\Events')->findBy(array('status' => 'pending', 'type'=>'event'));
+        if(!$events)
+        {
+            $temp['events'] =  'No data available';
+        }
         
-        $headers = apache_request_headers();
-        //var_dump($headers);exit;
-         if(!isset($headers['Member-Id']))
-         {
-            $response->setSuccess('false');
-            $response->setdata(null);
-            $response->setError(array(
-                    'code'=>402,
-                    'msg' => 'Member Id not specified'
-                ));
-            $response->respond();
-            exit;
-         }
-        $member_id = $headers['Member-Id'];
-        
-        $this->load->model('Event_model', 'event');
-        
-        $event_list = $this->event->get_all('event', $member_id);
-            
-            if(!is_array($event_list) && strpos($event_list, 'error') !== false)
-            {
-                $response->setSuccess('false');
-                $response->setdata(null);
-                $response->setError(array(
-                        'code'=>402,
-                        'msg' =>str_replace('error ', '', $event_list)
-                    ));
-                $response->respond();
-                exit;
-            }else
-            {
-                $response->setSuccess('true');
-                $response->setdata(array('event_list'=>$event_list));
-                $response->setError(null);
-                
-                $response->respond();
-            }
+        var_dump($events);exit;
 
 	}
    
     
      /*
-     * URL GET : /api/meeting/get_all
+     * URL GET : /__admin/meeting     //display all meetings
     */
     
-    public function get_meetings()
-	{ 
-        $response = new Response();
+    public function meeting()
+	{
+
+        $meetings = $this->em->getRepository('Entities\Events')->findBy(array('status' => 'pending', 'type'=>'meeting'));
+        if(!$meetings)
+        {
+            $temp['meetings'] =  'No data available';
+        }
         
-        $headers = apache_request_headers();
-        //var_dump($headers);exit;
-         if(!isset($headers['Member-Id']))
-         {
-            $response->setSuccess('false');
-            $response->setdata(null);
-            $response->setError(array(
-                    'code'=>402,
-                    'msg' => 'Member Id not specified'
-                ));
-            $response->respond();
-            exit;
-         }
-        $member_id = $headers['Member-Id'];
-        
-        $this->load->model('Event_model', 'event');
-        
-        $meeting_list = $this->event->get_all('meeting', $member_id);
-        
-        
-            
-            if(!is_array($meeting_list) && strpos($meeting_list, 'error') !== false)
-            {
-                $response->setSuccess('false');
-                $response->setdata(null);
-                $response->setError(array(
-                        'code'=>402,
-                        'msg' =>str_replace('error ', '', $meeting_list)
-                    ));
-                $response->respond();
-                exit;
-            }else
-            {
-                $response->setSuccess('true');
-                $response->setdata(array('event_list'=>$meeting_list));
-                $response->setError(null);
-                
-                $response->respond();
-            }
+        var_dump($meetings);exit;
 
 	}
    
-    
     /*
-     * URL POST : /api/event/create
-     * URL POST : /api/meeting/create
+     * URL GET : /__admin/event/approve     //approve event/meeting
     */
     
-    public function create_event()
+    public function approve()
 	{ 
-        $response = new Response();
-        
-        $type = $this->input->post('event_type');
-        $name = str_replace('+', ' ',($this->input->post('event_name')));
-        $venue = str_replace('+', ' ',($this->input->post('event_venue')));
-        $date = $this->input->post('event_date');
-        $time = $this->input->post('event_time');
-        $invites = $this->input->post('invites');
-        $is_spause = isset($_POST['is_spouse']) ? $_POST['is_spouse'] : null;
-        $is_children = isset($_POST['is_children']) ? $_POST['is_children'] : null;
-        $member_id = $this->input->post('member_id');
-        //var_dump($_POST);exit;
-        
-        if($type == 'event')
+        if(isset($_GET['event_id']))
         {
-            // check for event photo 
-            if(empty($_FILES) || !isset($_FILES['event_image']))
-            {
-                $response->setSuccess('false');
-                $response->setdata(null);
-                $response->setError(array(
-                        'code'=>402,
-                        'msg' => 'Event Image Not specified.'
-                    ));
-                $response->respond();
-                exit;
-            }
-         //var_dump($_FILES);exit;   
-        }
-        
-        if($type != 'event' && $type != 'meeting')
-        {
-                $response->setSuccess('false');
-                $response->setdata(null);
-                $response->setError(array(
-                        'code'=>402,
-                        'msg' => 'Invalid Event Type.'
-                    ));
-                $response->respond();
-                exit;
-        }
-        
-        // check for Invetes saperately -- || !$invites
-        if(!$name || !$venue || !$date || !$time || !$member_id || !$invites || $is_spause === null || $is_children === null)
-        {
-                $response->setSuccess('false');
-                $response->setdata(null);
-                $response->setError(array(
-                        'code'=>402,
-                        'msg' => 'Failed due to incomplete Data.'
-                    ));
-                $response->respond();
-                exit;
-        }
-        
-        $this->load->model('Event_model', 'event');
-        
-        $event_id = $this->event->add_event($type, $name, $venue, $date, $time, $invites, $is_spause,$is_children, $member_id);
+            $event = $this->em->getRepository('Entities\Events')->findOneBy(array('status' => 'pending', 'eventId'=>$_GET['event_id']));
             
-            if(!is_int($event_id) && strpos($event_id, 'error') !== false)
+            if(!$event)
             {
-                $response->setSuccess('false');
-                $response->setdata(null);
-                $response->setError(array(
-                        'code'=>402,
-                        'msg' =>str_replace('error ', '', $event_id)
-                    ));
-                $response->respond();
-                exit;
-            }else
-            {
-                $response->setSuccess('true');
-                $response->setdata(array('msg'=>'Event Created Successfully'));
-                $response->setError(null);
-                
-                $response->respond();
+                redirect('__admin/event?error=event/meeting not found');
             }
 
+            $event->setStatus('approved');
+            
+            $this->em->flush();
+            
+            //TODO send Push Notification
+            
+            redirect('__admin/event?approve=success');
+                 
+        }else
+        {
+            redirect('__admin/event?error=approval failed');
+        }
+        
 	}
     
-     /*
-     * URL GET : /api/event/rsvp
+    
+    /*
+     * URL GET : /__admin/event/delete     //delete event/meeting
     */
     
-    public function rsvp_update()
+    public function delete()
 	{ 
-        $response = new Response();
-        
-        $member_id = $this->input->post('member_id');
-        $event_id = $this->input->post('event_id');
-        $rsvp_response = $this->input->post('response');
-        
-        if(!$member_id || !$event_id || !$rsvp_response || !in_array($rsvp_response = strtolower($rsvp_response), array("yes", "no", "may be")))
+        if(isset($_GET['event_id']))
         {
-                $response->setSuccess('false');
-                $response->setdata(null);
-                $response->setError(array(
-                        'code'=>402,
-                        'msg' => 'Failed due to Invalid data.'
-                    ));
-                $response->respond();
-                exit;
-        }
-        
-        $this->load->model('Event_model', 'event');
-        
-        $response_id = $this->event->update_rsvp($member_id, $event_id, $rsvp_response);
-        
-            if(!is_array($response_id) && strpos($response_id, 'error') !== false)
+            $event = $this->em->getRepository('Entities\Events')->findOneBy(array('status' => 'pending', 'eventId'=>$_GET['event_id']));
+            
+            if(!$event)
             {
-                $response->setSuccess('false');
-                $response->setdata(null);
-                $response->setError(array(
-                        'code'=>402,
-                        'msg' =>str_replace('error ', '', $response_id)
-                    ));
-                $response->respond();
-                exit;
-            }else
-            {
-                $response->setSuccess('true');
-                $response->setdata(array('msg'=>"RSVP updated successfully"));
-                $response->setError(null);
-                
-                $response->respond();
+                redirect('__admin/event?error=event/meeting not found');
             }
 
+            $this->em->remove($event);
+            $this->em->flush();
+            
+            redirect('__admin/event?delete=success');
+            
+        }else
+        {
+            redirect('__admin/event?error=delete failed');
+        }
+        
 	}
    
 }

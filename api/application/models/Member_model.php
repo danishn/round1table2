@@ -417,8 +417,8 @@ class Member_model extends CI_Model {
             try
             {
                 $this->em->flush();
-                $member_id = $member->getMemberId();
-                return $member_id;
+                $temp = $this->get_members_details($member, $memberInfo);
+                return $temp;
                 
             }catch(Exception $e)
             {

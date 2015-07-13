@@ -228,4 +228,13 @@ class Event_model extends CI_Model {
     }
     
 
+/* // GCM notification response
+    $message = array(
+            'type' => 'event/meeting/favourite/news'
+            'message' => 'New Event Created',
+            'description' => 'You are invited for an event on Aug 10th, 2015 at kathmandu. To respond to RSVP, Go to RTN Application '
+        );
+*/    
+    
+    
 }

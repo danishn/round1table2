@@ -10,14 +10,14 @@ class Auth_service {
    * @var EntityManager $em 
    */
     public $valid_request = null;
+    public $admin_status = null;
  
   /**
    * constructor
    */
   public function __construct()
   {
-    $this->valid_request = $this->validate_request();
-    
+    $this->valid_request = $this->validate_request();  
   } 
 
     

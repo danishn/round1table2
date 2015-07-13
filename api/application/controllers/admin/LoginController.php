@@ -18,6 +18,7 @@ class LoginController extends CI_Controller {
         session_start();
         $_SESSION['adminUser'] ='aa';
         session_unset('adminUser');
+        //redirect('error?err=test error');
         try 
         {
             if(isset($_SESSION['adminUser'])) {
@@ -59,7 +60,7 @@ class LoginController extends CI_Controller {
     */
     public function error()
 	{
-        echo "<h1>Something went wrong></h1>";
+        echo "<h1>Something went wrong!</h1>";
     }
     
 }

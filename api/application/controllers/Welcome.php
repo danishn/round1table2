@@ -19,7 +19,8 @@ class Welcome extends CI_Controller {
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index()
-	{
+	{  
+        redirect("__admin");
 		echo "<h1>Welcome to Round Table Application APIs</h1>";
 	}
 }

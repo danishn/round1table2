@@ -15,10 +15,16 @@
             <?php } ?>
 			<form role="form" method="POST" action="<?php echo base_url('__admin/authenticate'); ?>">
 				<div class="form-group">
-					<label>User Name</label> <input type="text" id="userName" name="userName" class="form-control">
+					<label>
+                        User Name
+                        <input type="text" id="userName" name="userName" class="form-control">
+                    </label>
 				</div>
 				<div class="form-group">
-					<label>Password</label> <input type="password" id="password" name="password" class="form-control">
+					<label>
+                        Password
+                        <input type="password" id="password" name="password" class="form-control">
+                    </label>
 				</div>
 				<button type="submit" class="btn btn-default">Login</button>
 			</form>

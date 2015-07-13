@@ -16,9 +16,6 @@ class LoginController extends CI_Controller {
     public function index()
 	{
         session_start();
-        $_SESSION['adminUser'] ='aa';
-        session_unset('adminUser');
-        //redirect('error?err=test error');
         try 
         {
             if(isset($_SESSION['adminUser'])) {
@@ -35,26 +32,42 @@ class LoginController extends CI_Controller {
         }
 	}
     
+    /*
+     * URL : /__admin/authenticate
+    */
+    public function authenticate()
+	{  
+        session_start();
+        
+        $userName = $this->input->post('userName');
+        $password = $this->input->post('password');
+        if(!$userName || !$password)
+        {
+            redirect('__admin?wrong=incomplete_data');    
+        }
+        
+        $this->load->model('Admin_model', 'admin');
+        $admin = $this->admin->authenticate($userName, $password);
+        
+        if(strpos($admin, "wrong") !== false)
+        {
+            redirect($admin);
+        }
+        $_SESSION['adminUser'] = $admin;
+        redirect('__admin/home');
+	}
     
     
     /*
-     * URL : /__admin/home
+     * URL : /__admin/logout
     */
-    public function home()
+    public function logout()
 	{
-        try {
-			session_start ();
-			if (!isset ( $_SESSION ['adminUser'] )){
-			     redirect ( '__admin' );
-            }
-		} catch ( Exception $e ) {
-			redirect ( '__admin/error?msg=' . $e->getMessage() );
-		}
-    
-        $this->load->view('home');
+        session_start();
+        session_unset('adminUser');
+        redirect('__admin');
     }
-    
-    
+
     /*
      * URL : /__admin/error
     */
@@ -62,5 +75,6 @@ class LoginController extends CI_Controller {
 	{
         echo "<h1>Something went wrong!</h1>";
     }
+    
     
 }

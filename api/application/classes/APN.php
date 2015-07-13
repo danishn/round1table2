@@ -15,9 +15,15 @@ class APN {
     public function send_notification($registatoin_ids, $message, $data) {
         
          $url = 'https://android.googleapis.com/gcm/send'; 
+         //$url = 'https://gcm-http.googleapis.com/gcm/send'; 
+        
+        /*$headers = array(
+            'Authorization: key=AIzaSyCzF05kIClIihQRt5FpWNOIKcSNp4bNnqU',
+            'Content-Type: application/json'
+        );*/
         
         $headers = array(
-            'Authorization: key=AIzaSyCzF05kIClIihQRt5FpWNOIKcSNp4bNnqU',
+            'Authorization: key=AIzaSyCNvW6_F6gPX4uOF5cj__qqcAvIQ5JOpAw',
             'Content-Type: application/json'
         );
         

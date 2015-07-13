@@ -54,15 +54,32 @@ $route['default_controller'] = "Welcome";
 $route['404_override'] = 'AuthController/error404';
 
 
-
+/* Admin Auth Routes */
 $route['error'] = 'admin/LoginController/error';
-
 $route['__admin'] = 'admin/LoginController';
 $route['__admin/authenticate'] = 'admin/LoginController/authenticate';
 $route['__admin/logout'] = 'admin/LoginController/logout';
 $route['__admin/error'] = 'admin/LoginController/error';
-
 $route['__admin/home'] = 'admin/HomeController';
+
+/* Admin Member Routes */
+$route['__admin/member'] =  'admin/MemberController';
+
+/* Admin Event/Meeting Routes */
+$route['__admin/event'] =   'admin/EventController/event';
+$route['__admin/meeting'] = 'admin/EventController/meeting';
+$route['__admin/event/approve'] = 'admin/EventController/approve';
+$route['__admin/event/delete'] = 'admin/EventController/delete';
+
+
+/* Admin News Routes */
+$route['__admin/news'] =            'admin/NewsController/news';
+$route['__admin/news/approve'] =    'admin/NewsController/approve';
+$route['__admin/news/delete'] =     'admin/NewsController/delete';
+
+/* Admin Gallery Routes */
+$route['__admin/gallery'] = 'admin/GalleryController';
+$route['__admin/gallery/delete'] = 'admin/GalleryController/delete';
 
 
 

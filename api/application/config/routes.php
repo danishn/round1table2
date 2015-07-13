@@ -58,8 +58,11 @@ $route['404_override'] = 'AuthController/error404';
 $route['error'] = 'admin/LoginController/error';
 
 $route['__admin'] = 'admin/LoginController';
-$route['__admin/home'] = 'admin/LoginController/home';
+$route['__admin/authenticate'] = 'admin/LoginController/authenticate';
+$route['__admin/logout'] = 'admin/LoginController/logout';
 $route['__admin/error'] = 'admin/LoginController/error';
+
+$route['__admin/home'] = 'admin/HomeController';
 
 
 

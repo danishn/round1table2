@@ -64,6 +64,9 @@ $route['__admin/home'] = 'admin/HomeController';
 
 /* Admin Member Routes */
 $route['__admin/member'] =  'admin/MemberController';
+$route['__admin/member/delete'] =  'admin/MemberController/delete';
+$route['__admin/member/add'] =  'admin/MemberController/add';
+$route['__admin/member/upload'] =  'admin/MemberController/upload';
 
 /* Admin Event/Meeting Routes */
 $route['__admin/event'] =   'admin/EventController/event';
@@ -101,9 +104,9 @@ $route['table/create'] = 'TableController/create_table';
 
 /* member APIs */
 $route['member/get_all'] = 'MemberController/get_members';
-$route['member/create'] = 'MemberController/create_member';
-$route['member/edit_profile'] = 'MemberController/edit_profile';
+//$route['member/create'] = 'MemberController/create_member';
 $route['member/search'] = 'MemberController/search_members';
+$route['member/edit_profile'] = 'MemberController/edit_profile';
 
 /* event APIs */
 $route['event/get_all'] = 'EventController/get_events';

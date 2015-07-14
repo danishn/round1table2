@@ -2,216 +2,132 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class MemberController extends CI_Controller {
-    
+   
+    //public $response = array();
+    public $em;
+
     function __construct()
     {
-		parent::__construct();
+		parent::__construct(); 
+        $this->em = $this->doctrine->em;
+        try {
+			session_start ();
+			if (!isset ( $_SESSION ['adminUser'] )){
+			     redirect ( '__admin?msg=session_expired' );
+            }
+		} catch ( Exception $e ) {
+			redirect ( '__admin/error?msg=' . $e->getMessage() );
+		}
+	}
+    
+    /*
+     * URL GET : /__admin/member     //display all member
+    */
+    
+    public function index()
+	{ 
+         $members = $this->doctrine->em->getRepository('Entities\Members')->findAll();
         
-        $this->load->file('application/classes/Response.php'); 
-        
-        $response = new Response();
-        
-        if(!$this->auth_service->valid_request)
-        { 
-            $response->setSuccess('false');
-            $response->setdata(null);
-            $response->setError(array(
-                    'Status_code'=>401,
-                    'Error_Message' =>'Access Denied'
-                ));
-            $response->respond();
-            exit;
+        //var_dump($members);exit;
+        $temp = null;
+        foreach($members as $key => $member)
+        {  
+
+            $memberInfo = $this->em->find('Entities\MembersInfo', $member->getMemberId());
+            //var_dump($memberInfo);exit;
+            
+            if(isset($memberInfo))
+            {   
+                $temp[$key]['member_id'] = $member->getMemberId();
+                $temp[$key]['table_id'] = $member->getTableId();
+                $temp[$key]['status'] = $member->getStatus();
+                $temp[$key]['registration_date'] = $member->getRegistrationDate() instanceof \DateTime ? $member->getRegistrationDate()->format('M d,Y') : $member->getRegistrationDate();
+
+                $temp[$key]['fname'] = $memberInfo->getFname();
+                $temp[$key]['lname'] = $memberInfo->getLname();
+                $temp[$key]['gender'] = $memberInfo->getGender();
+                $temp[$key]['mobile'] = $memberInfo->getMobile();
+                $temp[$key]['email'] = $memberInfo->getEmail();
+                $temp[$key]['blood_group'] = $memberInfo->getBloodGroup();
+                $temp[$key]['spouse_name'] = $memberInfo->getSpouseName();
+
+                $temp[$key]['dob'] = $memberInfo->getDob() instanceof \DateTime ? $memberInfo->getDob()->format('M d,Y') : $memberInfo->getDob();    
+
+                $temp[$key]['spouse_dob'] = $memberInfo->getSpouseDob() instanceof \DateTime ? $memberInfo->getSpouseDob()->format('M d,Y') : $memberInfo->getSpouseDob();    
+
+                $temp[$key]['anniversary_date'] = $memberInfo->getAnniversaryDate() instanceof \DateTime ? $memberInfo->getAnniversaryDate()->format('M d,Y') : $memberInfo->getAnniversaryDate();    
+
+
+                $temp[$key]['image_thumb_url'] = $memberInfo->getThumbUrl();
+                $temp[$key]['image_big_url'] = $memberInfo->getBigUrl();
+
+                $temp[$key]['res_phone'] = $memberInfo->getResPhone();
+                $temp[$key]['office_phone'] = $memberInfo->getOfficePhone();
+                $temp[$key]['designation'] = $memberInfo->getDesignation();
+                $temp[$key]['res_city'] = $memberInfo->getResCity();
+                $temp[$key]['office_city'] = $memberInfo->getOfficeCity();
+                $temp[$key]['state'] = $memberInfo->getState();
+            }
+
         }
-	}    
-    
-    /*
-     * URL GET : /api/member/get_all
-    */
-    
-    public function get_members()
-	{ 
-      $response = new Response();
-        
-        $this->load->model('Member_model', 'member');
-        
-        $members_list = $this->member->get_all();
-            
-            if(!is_array($members_list) && strpos($members_list, 'error') !== false)
-            {
-                $response->setSuccess('false');
-                $response->setdata(null);
-                $response->setError(array(
-                        'code'=>402,
-                        'msg' =>str_replace('error ', '', $members_list)
-                    ));
-                $response->respond();
-                exit;
-            }else
-            {
-                $response->setSuccess('true');
-                $response->setdata(array('members_list'=>$members_list));
-                $response->setError(null);
-                
-                $response->respond();
-            }
 
-	}
-   
-    /*
-     * URL POST : /api/member/search
-    */
-    
-    public function search_members()
-	{ 
-      $response = new Response();
-        
-        $search_by = $this->input->post('searchBy');
-        $search_key = $this->input->post('searchKey');
-        
-        //echo $search_by."=>".$search_key;exit;
-        
-        if(!$search_by || !$search_key)
-        { 
-            $response->setSuccess('false');
-            $response->setdata(null);
-            $response->setError(array(
-                    'code'=>402,
-                    'msg' =>'Invalid Get Parameters'
-                ));
-            $response->respond();
-            exit;
-        }
-        
-        $this->load->model('Member_model', 'member');
-        
-        $members_list = $this->member->find_members($search_by, $search_key);
-            
-            if(!is_array($members_list) && strpos($members_list, 'error') !== false)
-            {
-                $response->setSuccess('false');
-                $response->setdata(null);
-                $response->setError(array(
-                        'code'=>402,
-                        'msg' =>str_replace('error ', '', $members_list)
-                    ));
-                $response->respond();
-                exit;
-            }else
-            {
-                $response->setSuccess('true');
-                $response->setdata(array('members_list'=>$members_list));
-                $response->setError(null);
-                
-                $response->respond();
-            }
-
-	}
-    
-    /*
-     * URL POST : /api/member/create
-    */
-    
-    public function create_member()
-	{ 
-      $response = new Response();
-        
-        $this->load->model('Table_model', 'table');
-        
-        $name = $this->input->post('table_name');
-        $code = $this->input->post('table_code');
-        $desc = $this->input->post('table_desc');
-        $bigUrl = $this->input->post('table_big_url');
-        $thumbUrl = $this->input->post('table_thumb_url');
-        $members = $this->input->post('table_members_count');
-        
-        $table_id = $this->table->add_table($name, $code, $desc, $bigUrl, $thumbUrl, $members);
-            
-            if(!is_int($table_id) && strpos($table_list, 'error') !== false)
-            {
-                $response->setSuccess('false');
-                $response->setdata(null);
-                $response->setError(array(
-                        'code'=>402,
-                        'msg' =>str_replace('error ', '', $table_list)
-                    ));
-                $response->respond();
-                exit;
-            }else
-            {
-                $response->setSuccess('true');
-                $response->setdata(array('table_id'=>$table_id));
-                $response->setError(null);
-                
-                $response->respond();
-            }
-
-	}
-    
-    
-    /*
-     * URL POST : /api/member/edit_profile
-    */
-    
-    public function edit_profile()
-	{ 
-        $response = new Response();
-        
-        $member_id = $this->input->post('member_id');
-        $table_id = $this->input->post('table_id');
-        $email = $this->input->post('email');
-        $fname = $this->input->post('fname');
-        $lname = $this->input->post('lname');
-        $gender = $this->input->post('gender');
-        $mobile = $this->input->post('mobile');
-        $blood_group = $this->input->post('blood_group');
-        $spouse_name = $this->input->post('spouse_name');
-        $dob = $this->input->post('dob');
-        $spouse_dob = $this->input->post('spouse_dob');
-        $anniversary_date = $this->input->post('anniversary_date');
-        
-        $res_phone = $this->input->post('res_phone');
-        $office_phone = $this->input->post('office_phone');
-        $designation = $this->input->post('designation');
-        $res_city = $this->input->post('res_city');
-        $office_city = $this->input->post('office_city');
-        $state = $this->input->post('state');
-        
-        if(!$member_id || !$table_id || !$email || !$fname || !$gender || !$mobile || !$blood_group || !$spouse_name || !$dob ||!$spouse_dob || !$anniversary_date)
+        if(!is_array($temp))
         {
-            $response->setSuccess('false');
-            $response->setdata(null);
-            $response->setError(array(
-                    'code'=>402,
-                    'msg' => 'Failed due to incomplete Data.'
-                ));
-            $response->respond();
-            exit;
+            return 'error No Members found';
         }
         
-        $this->load->model('Member_model', 'member');
-        
-        $members_data = $this->member->update_profile($member_id, $table_id, $email, $fname, $lname, $gender, $mobile, $blood_group, $spouse_name, $dob, $spouse_dob, $anniversary_date, $res_phone, $office_phone, $designation, $res_city, $office_city, $state);
-            
-            if(!is_array($members_data) && strpos($members_data, 'error') !== false)
-            {
-                $response->setSuccess('false');
-                $response->setdata(null);
-                $response->setError(array(
-                        'code'=>402,
-                        'msg' =>str_replace('error ', '', $members_data)
-                    ));
-                $response->respond();
-                exit;
-            }else
-            {
-                $response->setSuccess('true');
-                $response->setdata(array('updated_info' => $members_data));
-                $response->setError(null);
-                
-                $response->respond();
-            }
+        var_dump($temp);exit;
 	}
-   
+  
+    /*
+     * URL GET : /__admin/member/delete     //delete member
+    */
+    
+    public function delete()
+	{ 
+        if(isset($_GET['member_id']))
+        {
+            $member = $this->em->getRepository('Entities\Members')->findOneBy(array('memberId' => $_GET['member_id']));
+            
+            $memberInfo = $this->em->getRepository('Entities\MembersInfo')->findOneBy(array('memberId' => $_GET['member_id']));
+            
+            
+            if(!$member || !$memberInfo)
+            {
+                redirect('__admin/member?error=member not found');
+            }
 
+            $this->em->remove($member);
+            $this->em->remove($memberInfo);
+            $this->em->flush();
+            
+            redirect('__admin/member?delete=success');
+            
+        }else
+        {
+            redirect('__admin/member?error=delete failed');
+        }
+        
+	}
+    
+    /*
+     * URL GET : /__admin/member/add     //add member
+    */
+    
+    public function add()
+	{ 
+          
+	}
+    
+    /*
+     * URL GET : /__admin/member/upload     //upload bulk members
+    */
+    /*
+    public function upload()
+	{ 
+         
+	}
+    */
+    
 
 }

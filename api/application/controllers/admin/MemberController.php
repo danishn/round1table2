@@ -133,14 +133,18 @@ class MemberController extends CI_Controller {
                 exit;
             }
             
-            $password = '';
-            $client_id = '';
+            $password = '-';
+            $client_id = '-';
             $spouse_dob = isset($_POST['spouse_dob']) ? new \DateTime($_POST['spouse_dob']) : null;
             $spouse_mobile = isset($_POST['spouse_mobile']) ? $_POST['spouse_mobile'] : '-';
             $res_addr = isset($_POST['res_addr']) ? $_POST['res_addr'] : '-';
             $office_addr = isset($_POST['office_addr']) ? $_POST['office_addr'] : '-';
             $fax = isset($_POST['fax']) ? $_POST['fax'] : '-';
             $website_url = isset($_POST['website_url']) ? $_POST['website_url'] : '-';
+            $other_details = isset($_POST['other_details']) ? $_POST['other_details'] : '-';
+            $country = isset($_POST['country']) ? $_POST['country'] : '-';
+            $zip = isset($_POST['zip']) ? $_POST['zip'] : '-';
+            $business_areas = isset($_POST['business_areas']) ? $_POST['business_areas'] : '-';
             
             
             $member->setTableId($_POST['table_id']);
@@ -179,7 +183,7 @@ class MemberController extends CI_Controller {
             $memberInfo->setOtherDetails($other_details);
             $memberInfo->setState($_POST['state']);
             $memberInfo->setState($country);
-            $memberInfo->setState($zip);
+            $memberInfo->setZip($zip);
             $memberInfo->setBloodGroup($_POST['blood_group']);
             $memberInfo->setBusinessAreas($business_areas);
             
@@ -210,10 +214,10 @@ class MemberController extends CI_Controller {
                 $config['allowed_types'] = 'gif|jpeg|jpg|png';
                 $config['max_size']	= '10000';
                 $config['overwrite'] = true;
-                $config['file_name'] = 'member_'.$member_id.'_profile.'.$pic[count($pic)-1];
+                $config['file_name'] = 'member_'.$member->getMemberId().'_profile.'.$pic[count($pic)-1];
 
-                //$config['file_name']	= 'member_'.$member_id.'.'.$pic[count($pic)-1];
-                //echo 'member_'.$member_id.'_pic.'.$pic[count($pic)-1];exit;
+                //$config['file_name']	= 'member_'.$member->getMemberId().'.'.$pic[count($pic)-1];
+                //echo 'member_'.$member->getMemberId().'_pic.'.$pic[count($pic)-1];exit;
 
                 $this->load->library('upload', $config);
                 $this->upload->initialize($config);
@@ -221,7 +225,8 @@ class MemberController extends CI_Controller {
                 if ( ! $this->upload->do_upload('profile_image')) {
                     return 'error '.$this->upload->display_errors();
                     exit;
-                } else {
+                } else
+                {
                     $data = $this->upload->data();
                     $thumb_url  = $big_url = '/api/public/images/big/members/' . $data['file_name'];
 
@@ -236,6 +241,7 @@ class MemberController extends CI_Controller {
                 }
 
             }
+            $this->em->flush();
 
            
         }else

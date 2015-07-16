@@ -133,9 +133,9 @@ class MemberController extends CI_Controller {
                 exit;
             }
             
+            /* Below params Are optional/not required*/
             $password = '-';
             $client_id = '-';
-            $spouse_dob = isset($_POST['spouse_dob']) ? new \DateTime($_POST['spouse_dob']) : null;
             $spouse_mobile = isset($_POST['spouse_mobile']) ? $_POST['spouse_mobile'] : '-';
             $res_addr = isset($_POST['res_addr']) ? $_POST['res_addr'] : '-';
             $office_addr = isset($_POST['office_addr']) ? $_POST['office_addr'] : '-';

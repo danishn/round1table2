@@ -158,7 +158,8 @@ class Member_model extends CI_Model {
                 
                 if(isset($memberInfo))
                 {
-                    $temp[$key] = $this->get_members_details($member, $memberInfo);
+                   // $temp[$key] = $this->get_members_details($member, $memberInfo);
+                    $temp[] = $this->get_members_details($member, $memberInfo);
                 }
 
             }
@@ -191,6 +192,7 @@ class Member_model extends CI_Model {
                 
                 if(isset($memberInfo))
                 {
+                    //$temp[] = $this->get_members_details($member, $memberInfo);
                     $temp[$key] = $this->get_members_details($member, $memberInfo);
                 }
             }
@@ -285,14 +287,19 @@ class Member_model extends CI_Model {
                 //var_dump($member);exit; 
                 if(isset($member))
                 {
-                    $temp[$key] = $this->get_members_details($member, $memberInfo);
+                    // php associative array is object in json.. sodont put explicite keys
+                    //$temp[$key] = $this->get_members_details($member, $memberInfo); 
+                    
+                    $temp[] = $this->get_members_details($member, $memberInfo);
                 }
             }
+            //echo json_encode($temp);exit;
             //var_dump($temp);exit;
             if(!is_array($temp))
             {
                 return 'error No Members found';
             }
+            
             return $temp;  
 
         }
@@ -305,11 +312,17 @@ class Member_model extends CI_Model {
         public function get_members_details($member, $memberInfo)
         {  
             //var_dump($member);exit;
-        
+            $table = $this->em->find('Entities\Tables', $member->getTableId());
+            
             $temp = null;
 
                     $temp['member_id'] = $member->getMemberId();
                     $temp['table_id'] = $member->getTableId();
+                    if($table)
+                    {
+                        $temp['table_name'] = $table->getTableName();
+                        $temp['table_code'] = $table->getTableCode();
+                    }
 
                     $temp['fname'] = $memberInfo->getFname();
                     $temp['lname'] = $memberInfo->getLname();

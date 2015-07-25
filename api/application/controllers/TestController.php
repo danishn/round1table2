@@ -44,7 +44,8 @@ class TestController extends CI_Controller {
     {
         echo "Called to Test API with data $param";
     }
-
+    
+    
     /*
      * URL : /api/test/gcm
     */
@@ -116,16 +117,16 @@ class TestController extends CI_Controller {
                 
         $response->respond();
         exit;
-        
+         
     }
     
-    
-     // API /api/test/imageProcessing
+        
+     // API /api/test/sendMail
     
     public function sendMail()
     {   
-        $email = 'danishnadaf@gmail.com';
-        $password = 'otp12'
+      /*  $email = 'danishnadaf@gmail.com';
+        $password = 'otp12';
        try {
 			$mailer = new PHPMailer();
 			$mailer->isSMTP();
@@ -138,7 +139,7 @@ class TestController extends CI_Controller {
 
 			$template = file_get_contents('templates/welcome.tpl');
 			$template = str_replace("{{password}}", $password, $template);
-			$template = 'welcome to RTN';
+			//$template = 'welcome to RTN';
 			$mailer->From = 'welcome@roundtablenepal.org';
 			$mailer->FromName = 'Round Table Nepal';
 			$mailer->addAddress($email, "Member");
@@ -159,7 +160,34 @@ class TestController extends CI_Controller {
 		}catch (Exception $e) {
 			echo $e->getMessage();
 		}
+        */
+        
+        $to = 'danishnadaf@gmail.com';
+        //$to = 'nadafafif@gmail.com';
+        $subject = 'Your Authentication code for Round Table Nepal app.';
+        $from = 'welcome@roundtablenepal.org';
+        $password = 'otp12';
+ 
+        // To send HTML mail, the Content-type header must be set
+        $headers  = 'MIME-Version: 1.0' . "\r\n";
+        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
+        // Create email headers
+        $headers .= 'From: '.$from."\r\n".
+            'Reply-To: '.$from."\r\n" .
+            'X-Mailer: PHP/' . phpversion();
+
+        // Compose a simple HTML email message
+        $message = file_get_contents('templates/welcome.tpl');
+        $message = str_replace("{{password}}", $password, $message);
+        
+        // Sending email
+        if(mail($to, $subject, $message, $headers)){
+            echo 'Your mail has been sent successfully.';
+        } else{
+            echo 'Unable to send email. Please try again.';
+        }
+        
     }
     
     
@@ -183,6 +211,14 @@ class TestController extends CI_Controller {
         var_dump($data);
     }
     
+    
+    
+    public function createMore($param1 = 'danish', $param2 = '25')
+    {
+        echo "Creating data for $param1 with Qty :: $param2";
+        $this->load->view('test');
+        $this->load->view('test/test', array('name'=>$param1,'qty'=>$param2));
+    }
    
     public function getAll()
     {

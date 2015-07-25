@@ -13,7 +13,8 @@ class TestController extends CI_Controller {
 		parent::__construct();
 		$this->load->file('application/classes/Response.php');
 		$this->load->file('application/classes/ImageResize.php');     // Load file for Image resize
-        $this->load->file('application/classes/mailer/PHPMailerAutoload.php');  // PHP Mailer
+        
+        $this->em = $this->doctrine->em;
         
          $response = new Response();
         if(!$this->auth_service->valid_request)
@@ -125,6 +126,8 @@ class TestController extends CI_Controller {
     
     public function sendMail()
     {   
+        $this->load->file('application/classes/mailer/PHPMailerAutoload.php');  // PHP Mailer
+        
       /*  $email = 'danishnadaf@gmail.com';
         $password = 'otp12';
        try {
@@ -189,6 +192,175 @@ class TestController extends CI_Controller {
         }
         
     }
+    
+    // API /api/test/bulk_upload
+    
+    public function bulk_upload()
+    {  
+        $this->load->file('application/classes/PHPExcel.php');                  // PHP Excel File Upload
+        
+        if("POST" == $_SERVER['REQUEST_METHOD']) {
+			try {
+				//Upload file
+				$config['upload_path'] = 'public/files/members';
+				$config['allowed_types'] = 'xls|xlsx';
+				$config['max_size']	= '10000';
+                $config['overwrite'] = true;
+
+				$this->load->library('upload', $config);
+				$data = "";
+				if ( ! $this->upload->do_upload('file')) {
+					throw new Exception($this->upload->display_errors());
+				} else {
+					$data = $this->upload->data();
+				}
+
+				$filePath = "public/files/members/" . $data['file_name'];
+
+				$inputFileType = "Excel5";
+
+				if(".xls" == $data['file_ext']) {
+					$inputFileType = "Excel5";
+				} elseif(".xlsx" == $data['file_ext']) {
+					$inputFileType = "Excel2007";
+				} else {
+					throw new Exception("Invalid File");
+				}
+
+				$objReader = PHPExcel_IOFactory::createReader($inputFileType);
+				$objReader->setReadDataOnly(true);
+				$objPHPExcel = $objReader->load($filePath);
+
+				$sheetData = $objPHPExcel->getActiveSheet()->toArray(null, true, true, true);
+                
+                //var_dump($sheetData);exit;
+				
+                array_shift($sheetData);
+                
+				$count = 0;
+				foreach($sheetData as $member_entry)
+                {
+					
+                    if($member_entry['A'] && $member_entry['B'] && $member_entry['G'] && $member_entry['H'])
+                    {   $count++;
+                     
+                        //var_dump($member_entry);    
+                        
+                        $member = new Entities\Members;    
+                        $memberInfo = new Entities\MembersInfo;
+
+                        if(!$member || !$memberInfo)
+                        {
+                            redirect('__admin/member?error=add member failed');
+                            exit;
+                        }
+
+                        /* Below params Are optional/not required*/
+                        $client_id = '-';
+                        $spouse_mobile = '-';
+                        $res_addr = '-';
+                        $office_addr = '-';
+                        $fax = '-';
+                        $website_url = '-';
+                        $other_details = '-';
+                        $country = '-';
+                        $zip = '-';
+                        $business_areas = '-';
+
+                        $table = $this->em->getRepository('Entities\Tables')->findOneBy(array('tableCode'=>$member_entry['H']));
+                        if(!$table)
+                        {
+                            continue;
+                        }   
+                        
+                        $otp = $password = mb_strimwidth(md5(time()), 0, 5);
+
+                     //   $UNIX_DATE = ($member_entry['D'] - 25569) * 86400; // convert Excel date to php date
+                     
+                        $dob = $member_entry['D'] == null ? new \DateTime("now") : new \DateTime(gmdate('Y-m-d',($member_entry['D'] - 25569) * 86400 ));
+                        $anniversary = $member_entry['I'] == null ? new \DateTime("now") : new \DateTime(gmdate('Y-m-d',($member_entry['I'] - 25569) * 86400 ));
+                        $spouse_dob = $member_entry['K'] == null ? new \DateTime("now") : new \DateTime(gmdate('Y-m-d',($member_entry['K'] - 25569) * 86400 ));
+                        
+                        
+                        //var_dump($dob);exit;
+                     
+                        $member->setTableId($table->getTableId());
+                        $member->setPassword($password);
+                        $member->setRegistrationDate(new \DateTime("now"));
+                        $member->setLastVisitDate(new \DateTime("now"));
+                        $member->setMemberType(0);
+                        $member->setStatus(0);
+                        $member->setEmail($member_entry['G']);
+                        $member->setClientId($client_id);       // Need to create this
+                        $member->setOtp($otp);
+                        $member->setDesignation('-');
+                        
+                        //var_dump($member);exit;
+                     
+                        $memberInfo->setFname($member_entry['A']);
+                        $memberInfo->setLname($member_entry['B']);
+                        $memberInfo->setBigUrl('public/images/big/members/rtn.jpg');
+                        $memberInfo->setThumbUrl('public/images/thumb/members/rtn.jpg');
+                        $memberInfo->setGender($member_entry['C']);
+                        $memberInfo->setDob($dob);
+                        $memberInfo->setMobile($member_entry['F']);
+                        $memberInfo->setEmail($member_entry['G']);
+                        $memberInfo->setRegDate(new \DateTime("now"));
+                        $memberInfo->setAnniversaryDate($anniversary);
+                        $memberInfo->setSpouseName($member_entry['J']);
+                        $memberInfo->setSpouseDob($spouse_dob);
+                        $memberInfo->setSpouseMobile($spouse_mobile);
+                        $memberInfo->setResAddr($res_addr);
+                        $memberInfo->setResPhone($member_entry['N']);
+                        $memberInfo->setResCity($member_entry['L']);
+                        $memberInfo->setOfficeAddr($office_addr);
+                        $memberInfo->setOfficePhone($member_entry['P']);
+                        $memberInfo->setOfficeCity($member_entry['O']);
+                        $memberInfo->setDesignation('-');
+                        $memberInfo->setFax($fax);
+                        $memberInfo->setWebsiteUrl($website_url);
+                        $memberInfo->setOtherDetails($other_details);
+                        $memberInfo->setState($member_entry['Q'] == null ? '-' : $member_entry['Q']);
+                        $memberInfo->setCountry($country);
+                        $memberInfo->setZip($zip);
+                        $memberInfo->setBloodGroup($member_entry['E']);
+                        $memberInfo->setBusinessAreas($business_areas);
+                        
+                        //var_dump($member);
+                        //var_dump($memberInfo);exit;
+                        
+                        
+                         try
+                        {
+                            $this->em->persist($member);
+                            $this->em->flush();
+                            $memberInfo->setMemberId($member->getMemberId());
+                            $this->em->persist($memberInfo);
+                            $this->em->flush();
+                            //$temp = $this->get_members_details($member, $memberInfo);
+                            //return $temp;
+                            //echo $member->getMemberId(); 
+
+                        }catch(Exception $e)
+                        {
+                            echo 'error '. $e->getMessage();
+                            //return 'error '. $e->getMessage();
+                        }
+                     
+                    }
+
+                }
+                echo $count." Members uploaded successfully";      
+                //redirect('home');
+                    } catch (Exception $e) {
+                        $e->getMessage();
+                    }
+                } else {
+
+                }
+
+    }
+    
     
     
     // API /api/test/imageProcessing

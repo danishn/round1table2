@@ -125,7 +125,7 @@ class MemberController extends CI_Controller {
             }
             
             $member = new Entities\Members;    
-            $memberInfo = Entities\MembersInfo;
+            $memberInfo = new Entities\MembersInfo;
             
             if(!$member || !$memberInfo)
             {
@@ -182,7 +182,7 @@ class MemberController extends CI_Controller {
             $memberInfo->setWebsiteUrl($website_url);
             $memberInfo->setOtherDetails($other_details);
             $memberInfo->setState($_POST['state']);
-            $memberInfo->setState($country);
+            $memberInfo->setCountry($country);
             $memberInfo->setZip($zip);
             $memberInfo->setBloodGroup($_POST['blood_group']);
             $memberInfo->setBusinessAreas($business_areas);

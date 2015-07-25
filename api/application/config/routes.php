@@ -90,6 +90,7 @@ $route['__admin/gallery/delete'] = 'admin/GalleryController/delete';
 
 /* Test API APIs */
 $route['test/sendMail'] = "TestController/sendMail";
+$route['test/bulk_upload'] = "TestController/bulk_upload";
 $route['test/gcm'] = "TestController/gcm";
 $route['test/(:any)'] = "TestController/$1";
 $route['test/(:any)/(:any)'] = "TestController/$1/$2";

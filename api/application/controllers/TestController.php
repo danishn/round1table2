@@ -13,6 +13,7 @@ class TestController extends CI_Controller {
 		parent::__construct();
 		$this->load->file('application/classes/Response.php');
 		$this->load->file('application/classes/ImageResize.php');     // Load file for Image resize
+        $this->load->file('application/classes/mailer/PHPMailerAutoload.php');  // PHP Mailer
         
          $response = new Response();
         if(!$this->auth_service->valid_request)
@@ -118,6 +119,48 @@ class TestController extends CI_Controller {
         
     }
     
+    
+     // API /api/test/imageProcessing
+    
+    public function sendMail()
+    {   
+        $email = 'danishnadaf@gmail.com';
+        $password = 'otp12'
+       try {
+			$mailer = new PHPMailer();
+			$mailer->isSMTP();
+			$mailer->Host = 'smtp.mandrillapp.com';
+			$mailer->Port= 587;
+			$mailer->SMTPAuth = true;
+			$mailer->Username = 'technokratzs@gmail.com';
+			$mailer->Password = 'OIKXN4iWpCBYXHV9gIelaA';
+			//$mailer->SMTPSecure = 'ssl';
+
+			$template = file_get_contents('templates/welcome.tpl');
+			$template = str_replace("{{password}}", $password, $template);
+			$template = 'welcome to RTN';
+			$mailer->From = 'welcome@roundtablenepal.org';
+			$mailer->FromName = 'Round Table Nepal';
+			$mailer->addAddress($email, "Member");
+			$mailer->addReplyTo('no-reply@roundtablenepal.org', 'Round Table Nepal');
+			$mailer->isHTML(true);
+
+			$mailer->Subject = "Your Authentication code for Round Table Nepal app.";
+			$mailer->Body    = $template;
+			$mailer->AltBody    = $template;
+
+			if($mailer->send()) {
+				echo "Email Sent";
+			} else {
+				throw new Exception("Email not Sent");
+			}	
+		} catch (phpmailerException $e) {
+			echo $e->errorMessage();
+		}catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+    }
     
     
     // API /api/test/imageProcessing

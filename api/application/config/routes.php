@@ -64,8 +64,10 @@ $route['__admin/home'] = 'admin/HomeController';
 
 /* Admin Member Routes */
 $route['__admin/member'] =  'admin/MemberController';
+$route['__admin/member/details'] =  'admin/MemberController/get_details';
 $route['__admin/member/delete'] =  'admin/MemberController/delete';
 $route['__admin/member/add'] =  'admin/MemberController/add';
+$route['__admin/member/add_form'] =  'admin/MemberController/add_form';  //load member_add form 
 $route['__admin/member/upload'] =  'admin/MemberController/upload';
 
 /* Admin Event/Meeting Routes */
@@ -87,6 +89,7 @@ $route['__admin/gallery/delete'] = 'admin/GalleryController/delete';
 
 
 /* Test API APIs */
+$route['test/sendMail'] = "TestController/sendMail";
 $route['test/gcm'] = "TestController/gcm";
 $route['test/(:any)'] = "TestController/$1";
 $route['test/(:any)/(:any)'] = "TestController/$1/$2";
@@ -132,6 +135,13 @@ $route['conveners/create'] = 'ConvenersController/create_conveners';
 /* Conveners APIs */
 $route['gallery/post_update'] = 'GalleryController/set_update';
 $route['gallery/get_updates'] = 'GalleryController/get_updates';
+
+/* Author: Rohit */
+/* Members Panel APIs */
+$route['members_panel/login']='AuthController/members_panel_login';
+$route['members_panel/check_session']='AuthController/members_panel_check_session';
+$route['members_panel/logout']='AuthController/members_panel_logout';
+$route['members_panel/get_my_profile']='MemberController/members_panel_get_my_profile';
 
  
 $route['translate_uri_dashes'] = FALSE;

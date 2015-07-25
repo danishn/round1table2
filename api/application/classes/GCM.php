@@ -28,12 +28,12 @@ class GCM {
         
         $fields = array(
             'registration_ids' => $registatoin_ids,
-            'notification' => $message,
-            'data' => $data,
-            'collapse_key' => $data['type']
+            //'notification' => $message,
+            'data' => $data
+            //'collapse_key' => $data['type']
         );
         
-        //echo json_encode($fields);exit;
+        echo json_encode($fields);exit;
         
         // Open connection
         $ch = curl_init();

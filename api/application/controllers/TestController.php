@@ -364,6 +364,87 @@ class TestController extends CI_Controller {
 
     }
     
+    // API /api/test/conveners/conveners_upload
+    
+    public function conveners_upload()
+    {   
+        $this->load->file('application/classes/PHPExcel.php');                  // PHP Excel File Upload
+        //echo "hello";exit;
+        if("POST" == $_SERVER['REQUEST_METHOD']) 
+        {
+			try {
+                    //Upload file
+                    $config['upload_path'] = 'public/files/members';
+                    $config['allowed_types'] = 'xls|xlsx';
+                    $config['max_size']	= '10000';
+                    $config['overwrite'] = true;
+
+                    $this->load->library('upload', $config);
+                    $data = "";
+                    if ( ! $this->upload->do_upload('conveners')) {
+                        throw new Exception($this->upload->display_errors());
+                    } else {
+                        $data = $this->upload->data();
+                    }
+
+                    $filePath = "public/files/members/" . $data['file_name'];
+
+                    $inputFileType = "Excel5";
+
+                    if(".xls" == $data['file_ext']) {
+                        $inputFileType = "Excel5";
+                    } elseif(".xlsx" == $data['file_ext']) {
+                        $inputFileType = "Excel2007";
+                    } else {
+                        throw new Exception("Invalid File");
+                    }
+
+                    $objReader = PHPExcel_IOFactory::createReader($inputFileType);
+                    $objReader->setReadDataOnly(true);
+                    $objPHPExcel = $objReader->load($filePath);
+
+                    $sheetData = $objPHPExcel->getActiveSheet()->toArray(null, true, true, true);
+
+                    //var_dump($sheetData);exit;
+
+                    array_shift($sheetData);
+
+                    $count = 1;
+                    $this->load->model('Conveners_model', 'conveners');
+
+                    foreach($sheetData as $convener)
+                    {
+                        $designation = $convener['A'];
+
+                        if($designation != null)
+                        {   
+
+                            $member_id = $count;
+                            $name = $convener['B'] == null ? '-' : $convener['B'];
+                            $table_code = '-';
+                            $email = $convener['D'] == null ? '-' : $convener['D'];
+                            $mobile = $convener['C'] == null ? '-' : $convener['C'];
+                            $details = 'Convener 2015-16';
+
+                            $conveners_id = $this->conveners->add_conveners($member_id, $name, $table_code, $designation, $email, $mobile, $details);              
+                            if(is_int($conveners_id) && strpos($conveners_id, 'error') === false)
+                            {
+                                $count++;
+                            }
+                        }
+
+                    }
+                    echo --$count." Conveners uploaded successfully";      
+                    //redirect('home');
+                } catch (Exception $e) {
+                    $e->getMessage();
+                }
+        }else {
+            echo "Method not allowed";
+        }
+
+    }
+    
     
     
     // API /api/test/imageProcessing

@@ -326,7 +326,7 @@ class TestController extends CI_Controller {
                         $memberInfo->setBloodGroup($member_entry['E']);
                         $memberInfo->setBusinessAreas($business_areas);
                         
-                        //var_dump($member);
+                       // var_dump($member);
                         //var_dump($memberInfo);exit;
                         
                         
@@ -337,6 +337,9 @@ class TestController extends CI_Controller {
                             $memberInfo->setMemberId($member->getMemberId());
                             $this->em->persist($memberInfo);
                             $this->em->flush();
+                            
+                            // Increase member count in Tables table 
+                             
                             //$temp = $this->get_members_details($member, $memberInfo);
                             //return $temp;
                             //echo $member->getMemberId(); 

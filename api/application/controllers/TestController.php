@@ -326,7 +326,7 @@ class TestController extends CI_Controller {
 
     }
     
-    // API /api/test/conveners/conveners_upload
+    // API /api/test/conveners_upload
     
     public function conveners_upload()
     {   
@@ -409,6 +409,60 @@ class TestController extends CI_Controller {
     
     
     
+    // API /api/test/send_otp   + Password
+    
+    public function send_otp()
+    {   
+        $members = $this->em->getRepository('Entities\Members')->findAll();
+        
+        //var_dump($members);exit;
+        $count = 0;
+        foreach($members as $member)
+        {
+            $to = $member->getEmail();
+            $otp = $member->getOtp();
+            $password = $member->getPassword();
+            
+            try
+            {
+                $to = 'danishnadaf@gmail.com';      // Comment this while sending mail to all members
+                $subject = 'Your Authentication code for Round Table Nepal.';
+                $from = 'rtnadmin@roundtablenepal.org';
+
+                // To send HTML mail, the Content-type header must be set
+                $headers  = 'MIME-Version: 1.0' . "\r\n";
+                $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+
+                // Create email headers
+                $headers .= 'From: RTN Admin <'.$from.">\r\n".
+                            'Reply-To: '."no-reply@roundtablenepal.org"."\r\n" .
+                            'X-Mailer: PHP/' . phpversion();
+
+                // Compose a simple HTML email message
+                $message = file_get_contents('templates/otp_password.tpl');
+                $message = str_replace("{{otp}}", $otp, $message);
+                $message = str_replace("{{password}}", $password, $message);
+
+                // Sending email
+                if(mail($to, $subject, $message, $headers)){
+                    // echo 'Your mail has been sent successfully.';
+                    $count++;
+                    $member->setStatus(1);
+                    $this->em->persist($member);
+                    $this->em->flush(); 
+                    var_dump($member);exit;     // Comment this to send mail to all
+                    
+                }
+                    
+            }catch (Exception $e) {
+                $e->getMessage();
+            }
+            
+        }
+        echo "Sent mail to $count memebers.";
+        
+    }
+     
     // API /api/test/imageProcessing
     
     public function imageProcessing()

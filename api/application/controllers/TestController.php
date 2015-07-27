@@ -125,45 +125,7 @@ class TestController extends CI_Controller {
      // API /api/test/sendMail
     
     public function sendMail()
-    {   
-        $this->load->file('application/classes/mailer/PHPMailerAutoload.php');  // PHP Mailer
-        
-      /*  $email = 'danishnadaf@gmail.com';
-        $password = 'otp12';
-       try {
-			$mailer = new PHPMailer();
-			$mailer->isSMTP();
-			$mailer->Host = 'smtp.mandrillapp.com';
-			$mailer->Port= 587;
-			$mailer->SMTPAuth = true;
-			$mailer->Username = 'technokratzs@gmail.com';
-			$mailer->Password = 'OIKXN4iWpCBYXHV9gIelaA';
-			//$mailer->SMTPSecure = 'ssl';
-
-			$template = file_get_contents('templates/welcome.tpl');
-			$template = str_replace("{{password}}", $password, $template);
-			//$template = 'welcome to RTN';
-			$mailer->From = 'welcome@roundtablenepal.org';
-			$mailer->FromName = 'Round Table Nepal';
-			$mailer->addAddress($email, "Member");
-			$mailer->addReplyTo('no-reply@roundtablenepal.org', 'Round Table Nepal');
-			$mailer->isHTML(true);
-
-			$mailer->Subject = "Your Authentication code for Round Table Nepal app.";
-			$mailer->Body    = $template;
-			$mailer->AltBody    = $template;
-
-			if($mailer->send()) {
-				echo "Email Sent";
-			} else {
-				throw new Exception("Email not Sent");
-			}	
-		} catch (phpmailerException $e) {
-			echo $e->errorMessage();
-		}catch (Exception $e) {
-			echo $e->getMessage();
-		}
-        */
+    { 
         
         $to = 'danishnadaf@gmail.com';
         //$to = 'nadafafif@gmail.com';

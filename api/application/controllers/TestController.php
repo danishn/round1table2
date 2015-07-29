@@ -498,39 +498,75 @@ class TestController extends CI_Controller {
             $file_name_jpg = $file_name.'.jpg';
             $file_name_jpeg = $file_name.'.jpeg';
             //echo $file_name."<br>";
-
+            
+            $new_name = 'member_'.$member->getMemberId().'_profile';
+            
             for($i=0; $i<count($list); $i++)
             {
-                if(strcasecmp($list[$i], $file_name_jpeg) == 0 || strcasecmp($list[$i], $file_name_jpg) == 0)
+                if(strcasecmp($list[$i], $file_name_jpeg) == 0)
                 {
                     $count++;
-                    //unset($list["$i"]);
+                    $new_name .= '.jpeg';
                     $matched[] = $list[$i];
-                    //echo $str."\n";
+                    if(rename("public/member_photos/".$list[$i], "public/images/big/members/".$new_name))
+                    {
+                        $member_info->setBigUrl("/api/public/images/big/members/".$new_name);   
+                        $member_info->setThumbUrl("/api/public/images/thumb/members/".$new_name);   
+                    }
+                    $this->em->flush();
+                    //var_dump($member_info);exit;
                     
-                    
+                }elseif( strcasecmp($list[$i], $file_name_jpg) == 0)
+                {
+                    $count++;
+                    $new_name .= '.jpg';
+                    $matched[] = $list[$i];
+                    if(rename("public/member_photos/".$list[$i], "public/images/big/members/".$new_name))
+                    {
+                        $member_info->setBigUrl("/api/public/images/big/members/".$new_name);   
+                        $member_info->setThumbUrl("/api/public/images/thumb/members/".$new_name);   
+                    }
+                    $this->em->flush();
+                    //var_dump($member_info);exit;
                 }else{
                     //$matched[$i] = $list[$i];
                 }
                 
+                
             }
 
         }
-        echo $count." Files found.";
-        $temp = array_diff($list, $matched);
-        var_dump($temp);
+        echo $count." Files mapped.";
     }
     
     // API /api/test/imageProcessing
     
     public function imageProcessing()
-    {   
+    {   /*
         $image = new ImageResize('public/images/big/kmrt4.png');
         $image->scale(20);
         $image->save('public/images/thumb/kmrt001.png');
 
         var_dump($image);
-
+        */
+        
+        // Copy-resize-move images from bib to thumb
+        
+        $list = scandir("public/images/big/members");
+        
+        array_shift($list);
+        array_shift($list);
+        array_pop($list);
+        $count = 0;
+        foreach($list as $img)
+        {
+            $image = new ImageResize('public/images/big/members/'.$img);
+            $image->scale(20);
+            $image->save('public/images/thumb/members/'.$img);
+            $count++;
+        }
+        echo "$count images moved";
+        //var_dump($list);exit;
     }
     
     public function addUser()

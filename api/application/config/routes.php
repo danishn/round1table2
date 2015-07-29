@@ -89,6 +89,7 @@ $route['__admin/gallery/delete'] = 'admin/GalleryController/delete';
 
 
 /* Test API APIs */
+$route['test/map_images'] = "TestController/map_images";
 $route['test/sendMail'] = "TestController/sendMail";
 $route['test/send_otp'] = "TestController/send_otp";
 $route['test/bulk_upload'] = "TestController/bulk_upload";

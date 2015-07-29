@@ -462,7 +462,65 @@ class TestController extends CI_Controller {
         echo "Sent mail to $count memebers.";
         
     }
-     
+    
+    // API /api/test/map_images
+    
+    public function map_images()
+    {   
+        $list = scandir("public/member_photos");
+        
+        array_shift($list);
+        array_shift($list);
+        array_pop($list);
+        //var_dump($list);exit;
+        
+        
+        
+        $members = $this->em->getRepository('Entities\Members')->findAll();
+        $count = 0;
+        $matched= array();
+        foreach($members as $member)
+        { 
+            $tid = $member->getTableId();
+            
+            if($tid >= 9)
+            {
+                $tid++;
+            }
+            
+            $member_info = $this->em->getRepository('Entities\MembersInfo')->findOneBy(array('memberId' => $member->getMemberId()));
+            
+            //var_dump($member_info);exit;
+            $fname = $member_info->getFname();
+            $lname = $member_info->getLname();
+            
+            $file_name = $tid.'-'.str_replace(' ', '', $fname).str_replace(' ', '', $lname);
+            $file_name_jpg = $file_name.'.jpg';
+            $file_name_jpeg = $file_name.'.jpeg';
+            //echo $file_name."<br>";
+
+            for($i=0; $i<count($list); $i++)
+            {
+                if(strcasecmp($list[$i], $file_name_jpeg) == 0 || strcasecmp($list[$i], $file_name_jpg) == 0)
+                {
+                    $count++;
+                    //unset($list["$i"]);
+                    $matched[] = $list[$i];
+                    //echo $str."\n";
+                    
+                    
+                }else{
+                    //$matched[$i] = $list[$i];
+                }
+                
+            }
+
+        }
+        echo $count." Files found.";
+        $temp = array_diff($list, $matched);
+        var_dump($temp);
+    }
+    
     // API /api/test/imageProcessing
     
     public function imageProcessing()

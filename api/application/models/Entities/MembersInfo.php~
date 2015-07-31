@@ -981,7 +981,11 @@ class MembersInfo
     public function setCompany($company)
     {
         $this->company = $company;
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> origin/RT-1
         return $this;
     }
 

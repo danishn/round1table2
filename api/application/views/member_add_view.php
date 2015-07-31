@@ -66,13 +66,13 @@
 							 <th>Blood Group</th><td>
 							 <select id="my_blood_group" class="selectpicker form-control" name="blood_group" style="width:160px">
 										<option id="A+ve" value="A+ve">A+ve</option>
-										<option id="B-ve" value="B-ve">B-ve</option>
+										<option id="AB+ve" value="A-ve">A-ve</option>
+										<option id="B-ve" value="B+ve">B+ve</option>
+										<option id="AB-ve" value="B-ve">B-ve</option>
 										<option id="AB+ve" value="AB+ve">AB+ve</option>
 										<option id="AB-ve" value="AB-ve">AB-ve</option>
 										<option id="O+ve" value="O+ve">O+ve</option>
 										<option id="O-ve" value="O-ve">O-ve</option>
-										<option id="AB+ve" value="AB+ve">AB+ve</option>
-										<option id="AB-ve" value="AB-ve">AB-ve</option>
 									</select></td>
 							 </tr>
 							 <tr>
@@ -125,7 +125,7 @@
 							</tr>
 						  </table>
 				<div class="pull-right">
-					 <input type="submit" id="submit_btn"class="btn btn-primary" value="ADD"><a href="#" class="btn btn-default">Cancel</a></form>
+					 <input type="submit" id="submit_btn"class="btn btn-primary" value="ADD"> &nbsp;<a href="#" class="btn btn-default">Cancel</a></form>
 				</div>
               </div><!-- /.box -->
 

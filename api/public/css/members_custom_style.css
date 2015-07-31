@@ -1,0 +1,270 @@
+.gv_info-box-text {
+
+  display: block;
+
+  font-size: 14px;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+}
+
+.member-box-text {
+
+  text-transform: uppercase;
+
+}
+
+.member-box-more {
+
+  display: block;
+
+}
+
+@media (min-width: 768px) {
+
+    .sidebar-mini.sidebar-collapse .sidebar-menu > li > .image > img {
+
+    margin: 0px;
+
+	height:20px;
+
+  }
+
+ }
+
+/*
+
+ * Component: Info Box
+
+ * -------------------
+
+ */
+
+.gv_info-box {
+
+  display: block;
+
+  max-height: 90px;
+
+  min-height: 90px;
+
+
+
+  min-width: 160px;
+
+  background: #fff;
+
+  
+
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+
+  border-radius: 2px;
+
+  margin-bottom: 15px;
+
+}
+
+.gv_info-box small {
+
+  font-size: 14px;
+
+}
+
+.gv_info-box img {
+
+  height:70px;
+
+  margin:0px;
+
+}
+
+
+
+
+
+.gv_info-box-icon {
+
+  border-top-left-radius: 2px;
+
+  border-top-right-radius: 0;
+
+  border-bottom-right-radius: 0;
+
+  border-bottom-left-radius: 2px;
+
+  display: block;
+
+  float: left;
+
+  height: 90px;
+
+  width: 90px;
+
+  text-align: center;
+
+  font-size: 45px;
+
+  line-height: 90px;
+
+  background: rgba(0, 0, 0, 0.2);
+
+}
+
+.gv_info-box-magnify{
+
+position:absolute;
+
+top:0px;
+
+right:15px;
+
+border-bottom-left-radius:70%;
+
+ color: #fff;
+
+   background-color: #d2d6de !important;
+
+   border:1px solid #d2d6de;
+
+   color:#d2d6de;
+
+}
+
+.gv_info-box-content {
+
+  padding: 10px 10px;
+
+  margin-left: 100px;
+
+}
+
+.gv_info-box-number {
+
+  display: block;
+
+  font-weight: bold;
+
+  font-size: 16px;
+
+}
+
+
+
+.gv_info-box-text {
+
+  display: block;
+
+  color:#777;
+
+  font-size: 12px;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+}
+
+
+
+.main_search_bar{
+
+width:30%;
+
+}
+
+.table_logo{
+
+border-radius:10%;
+
+}
+
+.gv_info-box-text-label {
+
+
+
+  color:#000;
+
+  font-size: 12px;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+}
+
+.gv_info-box-text {
+
+  text-transform: lowercase;
+
+}
+
+.gv_info-box-more {
+
+  display: block;
+
+}
+
+.bg-light-gray {
+
+color:#fff;
+  background-color: #d2d6de ;
+
+}
+
+.bg-very-light-gray {
+
+  color: #fff;
+
+  background-color: #EDF0F5 !important;
+
+}
+
+
+
+.imagepop img{
+
+height:160px;
+
+}
+@font-face {
+  font-family: 'Glyphicons Halflings';
+
+  src: url('../fonts/glyphicons-halflings-regular.eot');
+  src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
+.icon-arrow-left:before {
+  content: "\e091";
+
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-arrow-right:before {
+  content: "\e092";
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

@@ -8,6 +8,7 @@ class LoginController extends CI_Controller {
     function __construct(){
 		parent::__construct();
 		$this->load->file('application/classes/Response.php');
+		$this->load->library('session');
 	}
     
     /*
@@ -15,15 +16,12 @@ class LoginController extends CI_Controller {
     */
     public function index()
 	{
-        session_start();
         try 
         {
-            if(isset($_SESSION['adminUser'])) {
-                redirect('__admin/home');
+            if($this->session->userdata('adminUser')) {
+               // redirect('__admin/home');
             }
-            $this->load->view('header');
-            $this->load->view('login');
-            $this->load->view('footer');
+            $this->load->view('login_view');
         } catch(Exception $e){
             $response->setSuccess(false);
             $response->setError(array('msg' => $e->getMessage()));
@@ -37,13 +35,20 @@ class LoginController extends CI_Controller {
     */
     public function authenticate()
 	{  
-        session_start();
-        
+        //session_start();
+        $response = new Response();
         $userName = $this->input->post('userName');
         $password = $this->input->post('password');
         if(!$userName || !$password)
         {
-            redirect('__admin?wrong=incomplete_data');    
+            //redirect('__admin?wrong=incomplete_data');
+			 $response->setSuccess('false');
+             $response->setdata(null);
+             $response->setError(array(
+                        'code'=>402,
+                        'msg' =>"Invalid Username or Password"
+                    ));
+             $response->respond();
         }
         
         $this->load->model('Admin_model', 'admin');
@@ -51,10 +56,26 @@ class LoginController extends CI_Controller {
         
         if(strpos($admin, "wrong") !== false)
         {
-            redirect($admin);
-        }
-        $_SESSION['adminUser'] = $admin;
-        redirect('__admin/home');
+            //redirect($admin);
+			$response->setSuccess('false');
+            $response->setdata(null);
+            $response->setError(array(
+                        'code'=>402,
+                        'msg' =>"Invalid Username or Password"
+                    ));
+            $response->respond();
+        }else{
+			//$_SESSION['adminUser'] = $admin;
+			$this->session->set_userdata('adminUser',true);
+			$response->setSuccess('true');
+            $response->setError(null);
+            $response->setdata(array(
+                        'code'=>111,
+                        'url' =>base_url('__admin/home')
+                    ));
+            $response->respond();
+		}
+        //redirect('__admin/home');
 	}
     
     
@@ -63,8 +84,7 @@ class LoginController extends CI_Controller {
     */
     public function logout()
 	{
-        session_start();
-        session_unset('adminUser');
+	  $this->session->sess_destroy();
         redirect('__admin');
     }
 

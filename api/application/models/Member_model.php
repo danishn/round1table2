@@ -104,6 +104,7 @@ class Member_model extends CI_Model {
                  /*Generate random OTP*/
                 $otp = mb_strimwidth(md5(time()), 0, 5);
                 $user->setOtp($otp);
+                //$user->setPassword($otp);
                 try
                 {
                     $this->em->persist($user);
@@ -112,21 +113,34 @@ class Member_model extends CI_Model {
                     /*
                      * Send mail here...
                     */
-                /*
-                    $this->load->library('email'); // Note: no $config param needed
-                    $this->email->from('danishnadaf@gmail.com');
-                    $this->email->to('danishnadaf@gmail.com');
-                    $this->email->subject('Test email from CI and Gmail');
-                    $this->email->message('This is a test.');
-              
-                    if($this->email->send())
-                    {
-                        return true;
-                    }else
-                    {
+                
+                    $to = $email;
+                    $subject = 'Your OTP for Round Table Nepal app.';
+                    $from = 'welcome@roundtablenepal.org';
+                    $password = $otp;
+
+                    // To send HTML mail, the Content-type header must be set
+                    $headers  = 'MIME-Version: 1.0' . "\r\n";
+                    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+
+                    // Create email headers
+                    $headers .= 'From: RTN Admin <'.$from.">\r\n".
+                        'Reply-To: '."no-reply@roundtablenepal.org"."\r\n" .
+                        'X-Mailer: PHP/' . phpversion();
+
+                    // Compose a simple HTML email message
+                    $message = file_get_contents('templates/welcome.tpl');
+                    $message = str_replace("{{password}}", $password, $message);
+
+                    // Sending email
+                    if(mail($to, $subject, $message, $headers)){
+                       return true;
+                        //echo 'Your mail has been sent successfully.';
+                    } else{
                         return false;
+                        //echo 'Unable to send email. Please try again.';
                     }
-                */
+                
                     
                  return true;   
                     
@@ -158,8 +172,7 @@ class Member_model extends CI_Model {
                 
                 if(isset($memberInfo))
                 {
-                   // $temp[$key] = $this->get_members_details($member, $memberInfo);
-                    $temp[] = $this->get_members_details($member, $memberInfo);
+                    $temp[$key] = $this->get_members_details($member, $memberInfo);
                 }
 
             }
@@ -192,7 +205,6 @@ class Member_model extends CI_Model {
                 
                 if(isset($memberInfo))
                 {
-                    //$temp[] = $this->get_members_details($member, $memberInfo);
                     $temp[$key] = $this->get_members_details($member, $memberInfo);
                 }
             }
@@ -287,25 +299,21 @@ class Member_model extends CI_Model {
                 //var_dump($member);exit; 
                 if(isset($member))
                 {
-                    // php associative array is object in json.. sodont put explicite keys
-                    //$temp[$key] = $this->get_members_details($member, $memberInfo); 
-                    
+                    //$temp[$key] = $this->get_members_details($member, $memberInfo);
                     $temp[] = $this->get_members_details($member, $memberInfo);
                 }
             }
-            //echo json_encode($temp);exit;
             //var_dump($temp);exit;
             if(!is_array($temp))
             {
                 return 'error No Members found';
             }
-            
             return $temp;  
 
         }
     
     
-        
+            
         /*
          * get members details build
         */
@@ -348,14 +356,21 @@ class Member_model extends CI_Model {
                     $temp['res_city'] = $memberInfo->getResCity();
                     $temp['office_city'] = $memberInfo->getOfficeCity();
                     $temp['state'] = $memberInfo->getState();
+            
+            // added newly..
+                
+                    $temp['address'] = $memberInfo->getResAddr();
+                    $temp['company'] = $memberInfo->getCompany();
+            
 
             return $temp;  
         }
     
+    
       /*
          * Update member profile
         */
-        public function update_profile($member_id, $table_id, $email, $fname, $lname = '', $gender, $mobile, $blood_group, $spouse_name, $dob, $spouse_dob, $anniversary_date, $res_phone = '-', $office_phone = '-', $designation = '-', $res_city = '-', $office_city = '-', $state = '-')
+        public function update_profile($member_id, $table_id, $email, $fname, $lname = '', $gender, $mobile, $blood_group, $spouse_name, $dob, $spouse_dob, $anniversary_date, $res_phone = '-', $office_phone = '-', $designation = '-', $res_city = '-', $office_city = '-', $state = '-', $company, $address)
         {   
             $member = $this->em->find('Entities\Members', $member_id);
             
@@ -386,6 +401,10 @@ class Member_model extends CI_Model {
             $memberInfo->setResCity($res_city);
             $memberInfo->setOfficeCity($office_city);
             $memberInfo->setState($state);
+            
+            // two new fields
+            $memberInfo->setCompany($company);
+            $memberInfo->setResAddr($address);
             
             
             //var_dump($memberInfo);exit;
@@ -438,7 +457,55 @@ class Member_model extends CI_Model {
                 return 'error '. $e->getMessage();
             }
         }
+  /* Author: Rohit */
+	
+	 /*
+      * Authenticate User by Email & password data for members panel
+     */
+        public function authenticate_by_email($email = '', $password = '')
+        {
     
-
+            $user = $this->em->getRepository('Entities\Members')->findOneBy(array('email' => $email,'status'=>true));  
+            
+            if($user)
+            {
+                if($password == $user->getPassword())
+                {	
+                    return $user->getMemberId();   
+                }else
+                {
+                    return 'error Invalid Password';
+                }
+            }else
+            {
+                return 'error Email not registered';
+            }
+        }
+	/* 
+	member profile get objects from id's & return profile details 
+	*/
+	
+	
+		 public function get_members_profile($member_id, $memberInfo_id){
+			 $member=$this->em->getRepository("Entities\Members")->findOneBy(array('status'=>true,'memberId'=>$member_id));
+			 $memberInfo=$this->em->getRepository("Entities\MembersInfo")->findOneBy(array('memberId'=>$memberInfo_id));
+			 if(!$member or !$memberInfo){
+				 
+				 return 'error Invalid Member';
+			 }
+			 else
+			 {
+				 $result=$this->get_members_details($member, $memberInfo);
+				 if($result)
+				 {
+					return $result; 
+				 }
+				 else
+				 {
+					  return 'error Invalid Member';
+				 }
+			 }
+			 
+		 }
 }
 

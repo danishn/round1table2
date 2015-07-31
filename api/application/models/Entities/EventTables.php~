@@ -56,7 +56,7 @@ class EventTables
     public function setEventId($eventId)
     {
         $this->eventId = $eventId;
-    
+
         return $this;
     }
 
@@ -80,7 +80,7 @@ class EventTables
     public function setTableId($tableId)
     {
         $this->tableId = $tableId;
-    
+
         return $this;
     }
 

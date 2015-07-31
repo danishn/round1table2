@@ -147,7 +147,7 @@ class Events
     public function setEventName($eventName)
     {
         $this->eventName = $eventName;
-    
+
         return $this;
     }
 
@@ -171,7 +171,7 @@ class Events
     public function setType($type)
     {
         $this->type = $type;
-    
+
         return $this;
     }
 
@@ -195,7 +195,7 @@ class Events
     public function setShortDesc($shortDesc)
     {
         $this->shortDesc = $shortDesc;
-    
+
         return $this;
     }
 
@@ -219,7 +219,7 @@ class Events
     public function setLongDesc($longDesc)
     {
         $this->longDesc = $longDesc;
-    
+
         return $this;
     }
 
@@ -243,7 +243,7 @@ class Events
     public function setEventDate($eventDate)
     {
         $this->eventDate = $eventDate;
-    
+
         return $this;
     }
 
@@ -267,7 +267,7 @@ class Events
     public function setEventTime($eventTime)
     {
         $this->eventTime = $eventTime;
-    
+
         return $this;
     }
 
@@ -291,7 +291,7 @@ class Events
     public function setEventVenue($eventVenue)
     {
         $this->eventVenue = $eventVenue;
-    
+
         return $this;
     }
 
@@ -315,7 +315,7 @@ class Events
     public function setCreatedOn($createdOn)
     {
         $this->createdOn = $createdOn;
-    
+
         return $this;
     }
 
@@ -339,7 +339,7 @@ class Events
     public function setMemberId($memberId)
     {
         $this->memberId = $memberId;
-    
+
         return $this;
     }
 
@@ -363,7 +363,7 @@ class Events
     public function setIsSpause($isSpause)
     {
         $this->isSpause = $isSpause;
-    
+
         return $this;
     }
 
@@ -387,7 +387,7 @@ class Events
     public function setIsChildren($isChildren)
     {
         $this->isChildren = $isChildren;
-    
+
         return $this;
     }
 
@@ -411,7 +411,7 @@ class Events
     public function setTableCount($tableCount)
     {
         $this->tableCount = $tableCount;
-    
+
         return $this;
     }
 
@@ -435,7 +435,7 @@ class Events
     public function setBigUrl($bigUrl)
     {
         $this->bigUrl = $bigUrl;
-    
+
         return $this;
     }
 
@@ -459,7 +459,7 @@ class Events
     public function setThumbUrl($thumbUrl)
     {
         $this->thumbUrl = $thumbUrl;
-    
+
         return $this;
     }
 
@@ -483,7 +483,7 @@ class Events
     public function setStatus($status)
     {
         $this->status = $status;
-    
+
         return $this;
     }
 

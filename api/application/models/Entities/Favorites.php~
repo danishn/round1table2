@@ -77,7 +77,7 @@ class Favorites
     public function setBrandName($brandName)
     {
         $this->brandName = $brandName;
-    
+
         return $this;
     }
 
@@ -101,7 +101,7 @@ class Favorites
     public function setImageUrl($imageUrl)
     {
         $this->imageUrl = $imageUrl;
-    
+
         return $this;
     }
 
@@ -125,7 +125,7 @@ class Favorites
     public function setOfferDesc($offerDesc)
     {
         $this->offerDesc = $offerDesc;
-    
+
         return $this;
     }
 
@@ -149,7 +149,7 @@ class Favorites
     public function setWebsiteUrl($websiteUrl)
     {
         $this->websiteUrl = $websiteUrl;
-    
+
         return $this;
     }
 
@@ -173,7 +173,7 @@ class Favorites
     public function setStatus($status)
     {
         $this->status = $status;
-    
+
         return $this;
     }
 

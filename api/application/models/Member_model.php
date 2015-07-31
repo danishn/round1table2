@@ -104,7 +104,7 @@ class Member_model extends CI_Model {
                  /*Generate random OTP*/
                 $otp = mb_strimwidth(md5(time()), 0, 5);
                 $user->setOtp($otp);
-                //$user->setPassword($otp);
+                $user->setStatus(1);
                 try
                 {
                     $this->em->persist($user);

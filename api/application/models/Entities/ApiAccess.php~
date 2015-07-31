@@ -56,7 +56,7 @@ class ApiAccess
     public function setMemberId($memberId)
     {
         $this->memberId = $memberId;
-    
+
         return $this;
     }
 
@@ -80,7 +80,7 @@ class ApiAccess
     public function setDate($date)
     {
         $this->date = $date;
-    
+
         return $this;
     }
 

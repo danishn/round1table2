@@ -133,7 +133,7 @@ class News
     public function setMemberId($memberId)
     {
         $this->memberId = $memberId;
-    
+
         return $this;
     }
 
@@ -157,7 +157,7 @@ class News
     public function setHeadline($headline)
     {
         $this->headline = $headline;
-    
+
         return $this;
     }
 
@@ -181,7 +181,7 @@ class News
     public function setBigUrl($bigUrl)
     {
         $this->bigUrl = $bigUrl;
-    
+
         return $this;
     }
 
@@ -205,7 +205,7 @@ class News
     public function setThumbUrl($thumbUrl)
     {
         $this->thumbUrl = $thumbUrl;
-    
+
         return $this;
     }
 
@@ -229,7 +229,7 @@ class News
     public function setDescription($description)
     {
         $this->description = $description;
-    
+
         return $this;
     }
 
@@ -253,7 +253,7 @@ class News
     public function setTagline($tagline)
     {
         $this->tagline = $tagline;
-    
+
         return $this;
     }
 
@@ -277,7 +277,7 @@ class News
     public function setTableCount($tableCount)
     {
         $this->tableCount = $tableCount;
-    
+
         return $this;
     }
 
@@ -301,7 +301,7 @@ class News
     public function setStatus($status)
     {
         $this->status = $status;
-    
+
         return $this;
     }
 
@@ -325,7 +325,7 @@ class News
     public function setCreationDate($creationDate)
     {
         $this->creationDate = $creationDate;
-    
+
         return $this;
     }
 
@@ -349,7 +349,7 @@ class News
     public function setNewsDate($newsDate)
     {
         $this->newsDate = $newsDate;
-    
+
         return $this;
     }
 
@@ -373,7 +373,7 @@ class News
     public function setPublishDate($publishDate)
     {
         $this->publishDate = $publishDate;
-    
+
         return $this;
     }
 
@@ -397,7 +397,7 @@ class News
     public function setBroadcast($broadcast)
     {
         $this->broadcast = $broadcast;
-    
+
         return $this;
     }
 
@@ -421,7 +421,7 @@ class News
     public function setImageDate($imageDate)
     {
         $this->imageDate = $imageDate;
-    
+
         return $this;
     }
 

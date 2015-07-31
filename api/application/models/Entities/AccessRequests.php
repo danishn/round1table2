@@ -84,7 +84,7 @@ class AccessRequests
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
@@ -108,7 +108,7 @@ class AccessRequests
     public function setEmail($email)
     {
         $this->email = $email;
-    
+
         return $this;
     }
 
@@ -132,7 +132,7 @@ class AccessRequests
     public function setTableName($tableName)
     {
         $this->tableName = $tableName;
-    
+
         return $this;
     }
 
@@ -156,7 +156,7 @@ class AccessRequests
     public function setRequestDate($requestDate)
     {
         $this->requestDate = $requestDate;
-    
+
         return $this;
     }
 
@@ -180,7 +180,7 @@ class AccessRequests
     public function setStatus($status)
     {
         $this->status = $status;
-    
+
         return $this;
     }
 
@@ -204,7 +204,7 @@ class AccessRequests
     public function setInfo($info)
     {
         $this->info = $info;
-    
+
         return $this;
     }
 

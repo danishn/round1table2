@@ -98,7 +98,7 @@ class Conveners
     public function setMemberId($memberId)
     {
         $this->memberId = $memberId;
-    
+
         return $this;
     }
 
@@ -122,7 +122,7 @@ class Conveners
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
@@ -146,7 +146,7 @@ class Conveners
     public function setTableCode($tableCode)
     {
         $this->tableCode = $tableCode;
-    
+
         return $this;
     }
 
@@ -170,7 +170,7 @@ class Conveners
     public function setDesignation($designation)
     {
         $this->designation = $designation;
-    
+
         return $this;
     }
 
@@ -194,7 +194,7 @@ class Conveners
     public function setEmail($email)
     {
         $this->email = $email;
-    
+
         return $this;
     }
 
@@ -218,7 +218,7 @@ class Conveners
     public function setMobile($mobile)
     {
         $this->mobile = $mobile;
-    
+
         return $this;
     }
 
@@ -242,7 +242,7 @@ class Conveners
     public function setImageUrl($imageUrl)
     {
         $this->imageUrl = $imageUrl;
-    
+
         return $this;
     }
 
@@ -266,7 +266,7 @@ class Conveners
     public function setDetails($details)
     {
         $this->details = $details;
-    
+
         return $this;
     }
 

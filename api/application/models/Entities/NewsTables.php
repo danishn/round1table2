@@ -56,7 +56,7 @@ class NewsTables
     public function setNewsId($newsId)
     {
         $this->newsId = $newsId;
-    
+
         return $this;
     }
 
@@ -80,7 +80,7 @@ class NewsTables
     public function setTableId($tableId)
     {
         $this->tableId = $tableId;
-    
+
         return $this;
     }
 

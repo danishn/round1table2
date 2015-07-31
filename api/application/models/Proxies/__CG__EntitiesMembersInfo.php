@@ -64,10 +64,10 @@ class MembersInfo extends \Entities\MembersInfo implements \Doctrine\ORM\Proxy\P
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'memberId', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'fname', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'mname', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'lname', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'bigUrl', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'thumbUrl', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'gender', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'dob', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'mobile', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'email', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'regDate', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'anniversaryDate', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'spouseName', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'spouseDob', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'spouseMobile', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'resAddr', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'resPhone', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'resCity', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'officeAddr', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'officePhone', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'officeCity', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'designation', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'fax', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'websiteUrl', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'otherDetails', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'state', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'country', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'zip', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'bloodGroup', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'businessAreas');
+            return array('__isInitialized__', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'id', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'memberId', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'fname', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'mname', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'lname', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'bigUrl', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'thumbUrl', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'gender', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'dob', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'mobile', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'email', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'regDate', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'anniversaryDate', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'spouseName', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'spouseDob', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'spouseMobile', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'resAddr', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'company', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'resPhone', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'resCity', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'officeAddr', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'officePhone', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'officeCity', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'designation', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'fax', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'websiteUrl', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'otherDetails', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'state', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'country', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'zip', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'bloodGroup', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'businessAreas');
         }
 
-        return array('__isInitialized__', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'memberId', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'fname', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'mname', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'lname', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'bigUrl', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'thumbUrl', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'gender', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'dob', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'mobile', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'email', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'regDate', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'anniversaryDate', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'spouseName', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'spouseDob', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'spouseMobile', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'resAddr', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'resPhone', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'resCity', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'officeAddr', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'officePhone', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'officeCity', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'designation', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'fax', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'websiteUrl', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'otherDetails', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'state', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'country', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'zip', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'bloodGroup', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'businessAreas');
+        return array('__isInitialized__', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'id', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'memberId', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'fname', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'mname', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'lname', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'bigUrl', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'thumbUrl', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'gender', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'dob', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'mobile', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'email', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'regDate', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'anniversaryDate', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'spouseName', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'spouseDob', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'spouseMobile', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'resAddr', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'company', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'resPhone', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'resCity', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'officeAddr', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'officePhone', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'officeCity', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'designation', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'fax', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'websiteUrl', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'otherDetails', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'state', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'country', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'zip', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'bloodGroup', '' . "\0" . 'Entities\\MembersInfo' . "\0" . 'businessAreas');
     }
 
     /**
@@ -176,12 +176,34 @@ class MembersInfo extends \Entities\MembersInfo implements \Doctrine\ORM\Proxy\P
     /**
      * {@inheritDoc}
      */
-    public function getMemberId()
+    public function getId()
     {
         if ($this->__isInitialized__ === false) {
-            return (int)  parent::getMemberId();
+            return  parent::getId();
         }
 
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', array());
+
+        return parent::getId();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setMemberId($memberId)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setMemberId', array($memberId));
+
+        return parent::setMemberId($memberId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getMemberId()
+    {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getMemberId', array());
 
@@ -516,6 +538,28 @@ class MembersInfo extends \Entities\MembersInfo implements \Doctrine\ORM\Proxy\P
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getResAddr', array());
 
         return parent::getResAddr();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setCompany($company)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCompany', array($company));
+
+        return parent::setCompany($company);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCompany()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCompany', array());
+
+        return parent::getCompany();
     }
 
     /**

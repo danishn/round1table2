@@ -112,7 +112,7 @@ class Members
     public function setTableId($tableId)
     {
         $this->tableId = $tableId;
-    
+
         return $this;
     }
 
@@ -136,7 +136,7 @@ class Members
     public function setPassword($password)
     {
         $this->password = $password;
-    
+
         return $this;
     }
 
@@ -160,7 +160,7 @@ class Members
     public function setRegistrationDate($registrationDate)
     {
         $this->registrationDate = $registrationDate;
-    
+
         return $this;
     }
 
@@ -184,7 +184,7 @@ class Members
     public function setLastVisitDate($lastVisitDate)
     {
         $this->lastVisitDate = $lastVisitDate;
-    
+
         return $this;
     }
 
@@ -208,7 +208,7 @@ class Members
     public function setMemberType($memberType)
     {
         $this->memberType = $memberType;
-    
+
         return $this;
     }
 
@@ -232,7 +232,7 @@ class Members
     public function setStatus($status)
     {
         $this->status = $status;
-    
+
         return $this;
     }
 
@@ -256,7 +256,7 @@ class Members
     public function setEmail($email)
     {
         $this->email = $email;
-    
+
         return $this;
     }
 
@@ -280,7 +280,7 @@ class Members
     public function setClientId($clientId)
     {
         $this->clientId = $clientId;
-    
+
         return $this;
     }
 
@@ -304,7 +304,7 @@ class Members
     public function setOtp($otp)
     {
         $this->otp = $otp;
-    
+
         return $this;
     }
 
@@ -328,7 +328,7 @@ class Members
     public function setDesignation($designation)
     {
         $this->designation = $designation;
-    
+
         return $this;
     }
 

@@ -18,7 +18,7 @@
  
  
  <div class="row">
-<?php if($this->session->userdata('message')){					
+            <?php if($this->session->userdata('message')){					
 
 					echo $this->session->userdata('message');
 
@@ -32,18 +32,37 @@
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 <form action="<?php echo base_url('__admin/member/bulk_upload');?>" method="post" enctype="multipart/form-data" id="upload_form">
-				<div class="box-body">
+                    <div class="box-body">
 
-					<input type="file" name="file" id="file" />	
-				<div class="pull-right">
-					 <input type="submit" id="submit_btn"class="btn btn-primary" value="ADD"><a href="#" class="btn btn-default">Cancel</a>
-				</div>
-                    </form>
+                        <input class="btn btn-primary" type="file" name="file" id="file" />	
+                    <div class="pull-right">
+                         <input type="submit" id="submit_btn"class="btn btn-primary" value="ADD">
+                             &nbsp;
+                         <a href="#" class="btn btn-default">Cancel</a>
+                    </div>
+                    </div>
+                    <hr>
+                </form>
+                    
+                    
+              </div><!-- /.box -->
+
+            <!-- general form elements -->
+              <div class="box box-primary">
+                <div class="box-header">
+                  <h3 class="box-title">Download Reference Excel File</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                
+                <div class="box-body">
+                    <a class="btn btn-warning" href="<?php echo base_url('public/files/members/Upload_Members_reference_file.xlsx'); ?>" download>Download Refence Excel File &nbsp;&nbsp;<i class="fa fa-download"></i></a>
+                </div>    
+                    
               </div><!-- /.box -->
 
              
          
-                    </div><!-- /.col-md-6 -->
+        </div><!-- /.col-md-6 -->
                   </div><!-- /.row -->
 
 				  	<script>

@@ -963,4 +963,35 @@ class MembersInfo
 
         return $this;
     }
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="company", type="string", length=50, nullable=false)
+     */
+    private $company;
+
+
+    /**
+     * Set company
+     *
+     * @param string $company
+     *
+     * @return MembersInfo
+     */
+    public function setCompany($company)
+    {
+        $this->company = $company;
+    
+        return $this;
+    }
+
+    /**
+     * Get company
+     *
+     * @return string
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
 }

@@ -1,0 +1,26 @@
+.success{
+color:#65D7A3;
+padding:10px;
+}
+.info{
+color:#6CEDDF;
+padding:10px;
+}
+.warning{
+color:#F8DC43;
+padding:10px;
+}
+.danger{
+color:#E95746;
+padding:10px;
+}
+.green-text{
+color:#00a65a;
+}
+.red-text{
+color:#d33724;
+}
+.input-group-btn .fa{
+font-size:1.5em;
+padding:5px 0px 5px 0px;
+}

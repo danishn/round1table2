@@ -69,18 +69,28 @@ $route['__admin/member/delete'] =  'admin/MemberController/delete';
 $route['__admin/member/add'] =  'admin/MemberController/add';
 $route['__admin/member/add_form'] =  'admin/MemberController/add_form';  //load member_add form 
 $route['__admin/member/upload'] =  'admin/MemberController/upload';
+$route['__admin/member/bulk_form'] =  'admin/MemberController/bulk_upload_form'; //load bulk upload form form 
+$route['__admin/member/bulk_upload'] =  'admin/MemberController/bulk_upload';
 
 /* Admin Event/Meeting Routes */
 $route['__admin/event'] =   'admin/EventController/event';
-$route['__admin/meeting'] = 'admin/EventController/meeting';
 $route['__admin/event/approve'] = 'admin/EventController/approve';
+$route['__admin/event/reject'] = 'admin/EventController/reject';
 $route['__admin/event/delete'] = 'admin/EventController/delete';
+$route['__admin/event/info'] = 'admin/EventController/info';
 
+$route['__admin/meeting'] = 'admin/MeetingController/meeting';
+$route['__admin/meeting/approve'] = 'admin/MeetingController/approve';
+$route['__admin/meeting/reject'] = 'admin/MeetingController/reject';
+$route['__admin/meeting/delete'] = 'admin/MeetingController/delete';
+$route['__admin/meeting/info'] = 'admin/MeetingController/info';
 
 /* Admin News Routes */
 $route['__admin/news'] =            'admin/NewsController/news';
 $route['__admin/news/approve'] =    'admin/NewsController/approve';
 $route['__admin/news/delete'] =     'admin/NewsController/delete';
+$route['__admin/news/reject'] =     'admin/NewsController/reject';
+$route['__admin/news/info'] =     'admin/NewsController/info';
 
 /* Admin Gallery Routes */
 $route['__admin/gallery'] = 'admin/GalleryController';
@@ -145,6 +155,7 @@ $route['gallery/get_updates'] = 'GalleryController/get_updates';
 $route['members_panel/login']='AuthController/members_panel_login';
 $route['members_panel/check_session']='AuthController/members_panel_check_session';
 $route['members_panel/logout']='AuthController/members_panel_logout';
+$route['members_panel/get_password']='MemberController/members_panel_get_password';
 $route['members_panel/get_my_profile']='MemberController/members_panel_get_my_profile';
 
  

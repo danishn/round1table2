@@ -9,10 +9,11 @@ class GalleryController extends CI_Controller {
     function __construct()
     {
 		parent::__construct(); 
+        $this->load->file('application/classes/Response.php');
         $this->em = $this->doctrine->em;
+		$this->load->library('session');
         try {
-			session_start ();
-			if (!isset ( $_SESSION ['adminUser'] )){
+			if (!$this->session->userdata('adminUser')){
 			     redirect ( '__admin?msg=session_expired' );
             }
 		} catch ( Exception $e ) {
@@ -28,12 +29,33 @@ class GalleryController extends CI_Controller {
     public function index()
 	{ 
         $updates = $this->em->getRepository('Entities\Gallery')->findAll();
-        if(!$updates)
+		$data=null;
+        if($updates)
         {
-            $temp['updates'] =  'No data available';
+            $data['updates'] =null;
+            $i=0;
+            foreach($updates as $row)
+            {
+                $member=$this->em->getRepository("Entities\MembersInfo")->findOneBy(array('memberId'=>$row->getMemberId()));
+                $member_name=null;
+                if($member)
+                {
+                    $member_name=$member->getFname()." ".$member->getLname();
+                }else
+                    continue;
+                $data['updates'][$i]['id'] =$row->getImageId();  
+                $data['updates'][$i]['image_name'] =$row->getImageName(); 
+                $data['updates'][$i]['image_description'] =$row->getImageDesc();
+                $data['updates'][$i]['created_by'] =$member_name;  
+                $data['updates'][$i]['submit_date'] =$row->getSubmitDate()->format('d/m/y');
+
+                $i++;
+            }
+            
         }
+    
         
-        var_dump($updates);exit;
+        $this->load->view('gallery_view',$data);
 
 	}
 
@@ -49,17 +71,20 @@ class GalleryController extends CI_Controller {
             
             if(!$updates)
             {
-                redirect('__admin/gallery?error=update not found');
+                $this->session->set_flashdata("message","<div class='alert alert-warning fade in' style='text-align:center'><a href='#' class='close' data-dismiss='alert'>&times;</a><strong>Error!</strong>Image not found.</div>");
+                redirect('__admin/gallery');
             }
 
             $this->em->remove($updates);
             $this->em->flush();
-            
-            redirect('__admin/gallery?delete=success');
+			
+            $this->session->set_flashdata("message","<div class='alert alert-success fade in' style='text-align:center'><a href='#' class='close' data-dismiss='alert'>&times;</a><strong>Success!</strong>Image Deleted Successfully.</div>");
+            redirect('__admin/gallery');
             
         }else
         {
-            redirect('__admin/gallery?error=delete failed');
+           $this->session->set_flashdata("message","<div class='alert alert-warning fade in' style='text-align:center'><a href='#' class='close' data-dismiss='alert'>&times;</a><strong>Error!</strong>Delete failed.</div>");
+            redirect('__admin/gallery');
         }
         
 	}
